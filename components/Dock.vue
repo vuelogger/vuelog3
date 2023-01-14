@@ -124,7 +124,7 @@ nav {
       margin-left: 1.8rem;
       color: #fff;
       font-size: 1.5rem;
-      background-color: rgba(20, 20, 20, 0.3);
+      background-color: rgba(100, 100, 100, 0.7);
       padding: 0.5em 0.7em;
       border-radius: 5px;
       box-shadow: 0 0 1px 1px #5d5d5d;
