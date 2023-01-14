@@ -1,36 +1,12 @@
 @font-face {
-  font-family: "NexonMaplestory";
-  font-weight: 300;
+  font-family: "GangwonEduSaeeum_OTFMediumA";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEduSaeeum_OTFMediumA.woff")
+    format("woff");
+  font-weight: normal;
   font-style: normal;
-  src: url("https://cdn.jsdelivr.net/gh/webfontworld/NexonMaplestory/NexonMaplestoryLight.eot");
-  src: url("https://cdn.jsdelivr.net/gh/webfontworld/NexonMaplestory/NexonMaplestoryLight.eot?#iefix")
-      format("embedded-opentype"),
-    url("https://cdn.jsdelivr.net/gh/webfontworld/NexonMaplestory/NexonMaplestoryLight.woff2")
-      format("woff2"),
-    url("https://cdn.jsdelivr.net/gh/webfontworld/NexonMaplestory/NexonMaplestoryLight.woff")
-      format("woff"),
-    url("https://cdn.jsdelivr.net/gh/webfontworld/NexonMaplestory/NexonMaplestoryLight.ttf")
-      format("truetype");
-  font-display: swap;
 }
-@font-face {
-  font-family: "NexonMaplestory";
-  font-weight: 700;
-  font-style: normal;
-  src: url("https://cdn.jsdelivr.net/gh/webfontworld/NexonMaplestory/NexonMaplestoryBold.eot");
-  src: url("https://cdn.jsdelivr.net/gh/webfontworld/NexonMaplestory/NexonMaplestoryBold.eot?#iefix")
-      format("embedded-opentype"),
-    url("https://cdn.jsdelivr.net/gh/webfontworld/NexonMaplestory/NexonMaplestoryBold.woff2")
-      format("woff2"),
-    url("https://cdn.jsdelivr.net/gh/webfontworld/NexonMaplestory/NexonMaplestoryBold.woff")
-      format("woff"),
-    url("https://cdn.jsdelivr.net/gh/webfontworld/NexonMaplestory/NexonMaplestoryBold.ttf")
-      format("truetype");
-  font-display: swap;
-}
-
 html,
 body {
   font-size: 10px;
-  font-family: "NexonMaplestory", Arial, Helvetica, sans-serif;
+  font-family: "GangwonEduSaeeum_OTFMediumA", Arial, Helvetica, sans-serif;
 }
