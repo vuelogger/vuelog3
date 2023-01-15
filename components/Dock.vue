@@ -1,6 +1,6 @@
 <template>
   <nav @mousemove="onMouseMove" @mouseleave="onMouseLeave">
-    <div class="app-item" v-for="(info, name, i) in apps" :key="name">
+    <button class="app-item" v-for="(info, name, i) in apps" :key="name">
       <img
         :style="{ width: widths[i] + 'px' }"
         :src="`/images/apps/${name}.png`"
@@ -8,7 +8,7 @@
         @click="openApp(name)"
       />
       <p>{{ name }}</p>
-    </div>
+    </button>
   </nav>
 </template>
 
