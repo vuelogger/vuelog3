@@ -32,15 +32,15 @@ const cursor = ref("auto");
 let mode = null;
 let startPt = null;
 const onMouseDown = (e) => {
-  const { windowNum, setTopWindow, getTopWindowMode, getCursorOf } =
+  const { loadedWindowNum, setTopWindowOf, getTopWindowMode, getCursorOf } =
     useWindowStore();
 
-  if (windowNum > 0) {
+  if (loadedWindowNum > 0) {
     startPt = getPt(e);
     mode = getTopWindowMode(startPt);
     cursor.value = getCursorOf(startPt);
 
-    setTopWindow(startPt);
+    setTopWindowOf(startPt);
   }
 };
 
@@ -69,12 +69,12 @@ const onMouseMove = (e) => {
         cursor.value = getCursorOf(endPt);
       }
       timer = null;
-    }, 30);
+    }, 33);
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/scss/base/variable.scss";
 .window-list {
   position: relative;

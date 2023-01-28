@@ -1,31 +1,17 @@
 <template>
   <header class="main-header">
-    <div class="logo" @click="openDock">
+    <div class="logo">
       <img src="/images/logo.png" alt="logo" />
     </div>
     <span class="title">Vue Blog</span>
 
+    <MusicPlayer class="music-player" />
     <HeaderDateTime class="time" format="lll" />
+    <div class="dock-btn">
+      <HamburgerBtn />
+    </div>
   </header>
 </template>
-
-<script setup>
-import { BREAKPOINT_TABLET } from "@/utils/config";
-
-const breakpointTabletCSS = BREAKPOINT_TABLET + "px";
-
-const openDock = function () {
-  if (window && window.innerWidth < BREAKPOINT_TABLET) {
-    const dock = document.querySelector(".dock");
-
-    if (dock) {
-      if (dock.classList.contains("active")) {
-      } else {
-      }
-    }
-  }
-};
-</script>
 
 <style lang="scss">
 @import "~/assets/scss/base/variable.scss";
@@ -54,15 +40,27 @@ const openDock = function () {
     margin-left: 1.5rem;
   }
 
-  .time {
+  .music-player {
     margin-left: auto;
+  }
+
+  .dock-btn {
+    display: none;
   }
 }
 
 @media (max-width: $breakpoint-tablet) {
   .main-header {
+    height: $header-height-tablet;
     .time {
       display: none;
+    }
+
+    .dock-btn {
+      display: block;
+      height: 100%;
+      padding: 0.7rem 0;
+      box-sizing: border-box;
     }
   }
 }

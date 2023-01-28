@@ -1,9 +1,11 @@
-<template>
-  <div>Post</div>
-</template>
-
 <script setup>
-// const { data: post, refresh } = await useAsyncData("post", () =>
-//   $fetch(`https://api.nuxtjs.dev/posts/1`)
-// );
+const { data } = await useFetch("/api/page", {
+  method: "post",
+  body: { text: "Nuxt is Awesome!" },
+});
+console.log(data.value);
 </script>
+
+<template>
+  <div></div>
+</template>

@@ -1,10 +1,15 @@
 <template>
-  <nav class="dock" @mousemove="onMouseMove" @mouseleave="onMouseLeave">
+  <nav
+    class="dock"
+    :class="{ active: dockInfo.active }"
+    @mousemove="onMouseMove"
+    @mouseleave="onMouseLeave"
+  >
     <button
       class="app-item"
       v-for="(name, i) in windowNames"
       :key="name"
-      @click="openWindow(name)"
+      @click="selectDockItem(name)"
     >
       <img
         :style="{ width: widths[i] + 'px' }"
@@ -18,7 +23,10 @@
 
 <script setup>
 import { useWindowStore, windowNames } from "@/stores/window";
+import { useCommonStore } from "@/stores/common";
+
 const { openWindow } = useWindowStore();
+const { dockInfo, closeDock } = useCommonStore();
 
 const MIN_WIDTH = 40;
 const MAX_WIDTH = MIN_WIDTH * 1.8;
@@ -86,6 +94,11 @@ const onMouseLeave = function () {
   if (window.innerWidth < 768) return;
   updateTo(Array.from({ length: widths.value.length }, () => MIN_WIDTH));
 };
+
+const selectDockItem = function (name) {
+  closeDock();
+  openWindow(name);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -138,7 +151,7 @@ const onMouseLeave = function () {
 @media (max-width: $breakpoint-tablet) {
   .dock {
     transform: translate(-100%, -50%);
-    transition: all 0.7s;
+    transition: all 0.5s;
     opacity: 0;
     &.active {
       opacity: 1;
@@ -147,8 +160,8 @@ const onMouseLeave = function () {
       .app-item {
         p {
           opacity: 1;
-          transition: opacity 0.4s;
-          transition-delay: 0.7s;
+          transition: opacity 0.3s;
+          transition-delay: 0.3s;
         }
       }
     }

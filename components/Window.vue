@@ -8,7 +8,9 @@
         @maximize="onDBClick"
       />
     </div>
-    <component :is="loadedComp" />
+    <main class="body">
+      <component :is="loadedComp" />
+    </main>
   </div>
 </template>
 
@@ -18,11 +20,13 @@ const { name } = defineProps({ name: String });
 const loadedComp = defineAsyncComponent(() =>
   import(`@/components/windows/${name}.vue`)
 );
-const { headerHeightCss, close, maximize, minimize } = useWindowStore();
+const { close, maximize, minimize } = useWindowStore();
 
 const win = ref(null);
 let timer = null;
 const onDBClick = function () {
+  if (window.innerWidth < 768) return;
+
   win.value.classList.add("ani");
   maximize();
 
@@ -49,7 +53,7 @@ const onDBClick = function () {
   overflow: hidden;
 
   .header {
-    height: v-bind(headerHeightCss);
+    height: $window-header-height;
     background-color: #333;
     display: flex;
     align-items: center;
@@ -59,6 +63,33 @@ const onDBClick = function () {
 
   &.ani {
     transition: all 0.3s;
+  }
+
+  .body {
+    overflow-y: auto;
+    background-color: white;
+    height: calc(100% - #{$window-header-height});
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .window {
+    position: absolute;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    box-shadow: none;
+    border-radius: 0;
+    border: 0;
+
+    .header {
+      display: none;
+    }
+
+    .body {
+      height: 100%;
+    }
   }
 }
 </style>

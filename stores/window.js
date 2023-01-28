@@ -45,18 +45,15 @@ export const useWindowStore = defineStore("window", {
     cacheRects: {},
   }),
   getters: {
-    headerHeightCss() {
-      return this.headerHeight + "px";
-    },
-    windowNum() {
+    loadedWindowNum() {
       return this.loadedWindows.length;
     },
     showingWindows() {
       return this.loadedWindows.filter((w) => !w.minimized);
     },
     topWindow() {
-      if (this.windowNum > 0) {
-        return this.loadedWindows[this.windowNum - 1];
+      if (this.loadedWindowNum > 0) {
+        return this.loadedWindows[this.loadedWindowNum - 1];
       } else {
         return null;
       }
@@ -89,12 +86,15 @@ export const useWindowStore = defineStore("window", {
             h: windowOpts[name].h,
           };
         } else {
-          // 이미 존재한다면 minimize 해제
-          for (const w of this.loadedWindows) {
-            if (w.name == name) {
-              w.minimized = false;
+          // 이미 존재한다면 minimize 해제하고 최상단으로
+          let idx = null;
+          for (let i = 0; i < this.loadedWindowNum; i++) {
+            if (this.loadedWindows[i].name == name) {
+              this.loadedWindows[i].minimized = false;
+              idx = i;
             }
           }
+          this.loadedWindows.push(this.loadedWindows.splice(idx, 1)[0]);
         }
       }
     },
@@ -108,7 +108,7 @@ export const useWindowStore = defineStore("window", {
     },
     getTopWindowIdx(pt) {
       let result = -1;
-      for (let i = 0; i < this.windowNum; i++) {
+      for (let i = 0; i < this.loadedWindowNum; i++) {
         const w = this.loadedWindows[i];
         if (this.checkIsInside(w, pt) && !w.minimized) {
           result = i;
@@ -154,7 +154,7 @@ export const useWindowStore = defineStore("window", {
       }
       return result;
     },
-    setTopWindow(pt) {
+    setTopWindowOf(pt) {
       this.loadedWindows.push(
         this.loadedWindows.splice(this.getTopWindowIdx(pt), 1)[0]
       );
@@ -171,7 +171,7 @@ export const useWindowStore = defineStore("window", {
       );
     },
     close(name) {
-      for (let i = 0; i < this.windowNum; i++) {
+      for (let i = 0; i < this.loadedWindowNum; i++) {
         if (this.loadedWindowNames[i] == name) {
           this.loadedWindows.splice(i, 1);
         }
