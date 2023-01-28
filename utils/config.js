@@ -1,0 +1,3 @@
+const BREAKPOINT_TABLET = 768;
+
+export { BREAKPOINT_TABLET };

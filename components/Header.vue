@@ -1,43 +1,35 @@
 <template>
-  <header>
-    <div class="logo">
+  <header class="main-header">
+    <div class="logo" @click="openDock">
       <img src="/images/logo.png" alt="logo" />
     </div>
     <span class="title">Vue Blog</span>
-    <div class="made-by">
-      <a v-for="(info, name) of icons" :href="info.href" target="_blank">
-        <img :src="info.src" :alt="name" />
-      </a>
-    </div>
 
     <HeaderDateTime class="time" format="lll" />
   </header>
 </template>
 
 <script setup>
-const icons = ref({
-  nuxt: {
-    src: "/images/header/nuxt.png",
-    href: "https://nuxtjs.org/",
-  },
-  vue: {
-    src: "/images/header/vue.png",
-    href: "https://vuejs.org/",
-  },
-  pinia: {
-    src: "/images/header/pinia.svg",
-    href: "https://pinia.vuejs.org/",
-  },
-  notion: {
-    src: "/images/header/notion.png",
-    href: "https://www.notion.so/",
-  },
-});
+import { BREAKPOINT_TABLET } from "@/utils/config";
+
+const breakpointTabletCSS = BREAKPOINT_TABLET + "px";
+
+const openDock = function () {
+  if (window && window.innerWidth < BREAKPOINT_TABLET) {
+    const dock = document.querySelector(".dock");
+
+    if (dock) {
+      if (dock.classList.contains("active")) {
+      } else {
+      }
+    }
+  }
+};
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "~/assets/scss/base/variable.scss";
-header {
+.main-header {
   display: flex;
   align-items: center;
   height: $header-height;
@@ -62,19 +54,15 @@ header {
     margin-left: 1.5rem;
   }
 
-  .made-by {
-    height: 100%;
-    display: flex;
-    align-items: center;
+  .time {
     margin-left: auto;
+  }
+}
 
-    a {
-      height: 50%;
-      margin-right: 2rem;
-
-      img {
-        height: 100%;
-      }
+@media (max-width: $breakpoint-tablet) {
+  .main-header {
+    .time {
+      display: none;
     }
   }
 }

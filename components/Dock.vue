@@ -1,11 +1,15 @@
 <template>
-  <nav @mousemove="onMouseMove" @mouseleave="onMouseLeave">
-    <button class="app-item" v-for="(info, name, i) in apps" :key="name">
+  <nav class="dock" @mousemove="onMouseMove" @mouseleave="onMouseLeave">
+    <button
+      class="app-item"
+      v-for="(name, i) in windowNames"
+      :key="name"
+      @click="openWindow(name)"
+    >
       <img
         :style="{ width: widths[i] + 'px' }"
         :src="`/images/apps/${name}.png`"
         ref="appRef"
-        @click="openApp(name)"
       />
       <p>{{ name }}</p>
     </button>
@@ -13,6 +17,9 @@
 </template>
 
 <script setup>
+import { useWindowStore, windowNames } from "@/stores/window";
+const { openWindow } = useWindowStore();
+
 const MIN_WIDTH = 40;
 const MAX_WIDTH = MIN_WIDTH * 1.8;
 const SPEED = 0.1;
@@ -20,20 +27,9 @@ const STEP = (MAX_WIDTH - MIN_WIDTH) * SPEED;
 
 const appRef = ref(null);
 
-const apps = ref({
-  BlogDiary: {},
-  MusicPlayer: {},
-  Post: {},
-  Twitter: {},
-});
-
-const widths = ref(
-  Array.from({ length: Object.keys(apps.value).length }, () => MIN_WIDTH)
-);
+const widths = ref(Array.from({ length: windowNames.length }, () => MIN_WIDTH));
 
 let aniId = null;
-
-const openApp = function (name) {};
 
 const updateTo = function (goalWidths) {
   window.cancelAnimationFrame(aniId);
@@ -65,6 +61,7 @@ const updateTo = function (goalWidths) {
 };
 
 const onMouseMove = function (e) {
+  if (window.innerWidth < 768) return;
   // Dock 안에서의 마우스의 위치를 구한다.
   const dockRect = e.target.getBoundingClientRect();
   const y = e.clientY - dockRect.top;
@@ -86,12 +83,14 @@ const onMouseMove = function (e) {
 };
 
 const onMouseLeave = function () {
+  if (window.innerWidth < 768) return;
   updateTo(Array.from({ length: widths.value.length }, () => MIN_WIDTH));
 };
 </script>
 
 <style lang="scss" scoped>
-nav {
+@import "@/assets/scss/base/variable.scss";
+.dock {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -132,6 +131,33 @@ nav {
 
     img:hover + p {
       display: block;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .dock {
+    transform: translate(-100%, -50%);
+    transition: all 0.7s;
+    opacity: 0;
+    &.active {
+      opacity: 1;
+      transform: translate(0, -50%);
+
+      .app-item {
+        p {
+          opacity: 1;
+          transition: opacity 0.4s;
+          transition-delay: 0.7s;
+        }
+      }
+    }
+
+    .app-item {
+      p {
+        display: block;
+        opacity: 0;
+      }
     }
   }
 }
