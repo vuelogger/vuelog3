@@ -11,10 +11,10 @@
     "nuxt": "3.0.0"
   },
   "dependencies": {
-    "@notionhq/client": "^2.2.3",
     "@pinia/nuxt": "^0.4.6",
     "dayjs": "^1.11.7",
     "pinia": "^2.0.28",
-    "sass": "^1.57.1"
+    "sass": "^1.57.1",
+    "vue3-notion": "github:bwealthy72/vue3-notion"
   }
 }

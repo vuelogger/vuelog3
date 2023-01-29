@@ -32,6 +32,7 @@ const cursor = ref("auto");
 let mode = null;
 let startPt = null;
 const onMouseDown = (e) => {
+  if (window.innerWidth < 768) return;
   const { loadedWindowNum, setTopWindowOf, getTopWindowMode, getCursorOf } =
     useWindowStore();
 
@@ -45,6 +46,7 @@ const onMouseDown = (e) => {
 };
 
 const onMouseUp = () => {
+  if (window.innerWidth < 768) return;
   mode = null;
   startPt = null;
   cursor.value = "auto";
@@ -52,6 +54,7 @@ const onMouseUp = () => {
 
 let timer = null;
 const onMouseMove = (e) => {
+  if (window.innerWidth < 768) return;
   if (!timer) {
     timer = setTimeout(() => {
       const { getCursorOf, resize, move } = useWindowStore();

@@ -4,5 +4,6 @@ export default defineNuxtConfig({
   modules: [
     // ...
     "@pinia/nuxt",
+    ["vue3-notion/nuxt", { css: true }],
   ],
 });

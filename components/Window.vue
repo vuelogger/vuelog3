@@ -1,17 +1,19 @@
 <template>
-  <div class="window" ref="win">
-    <div class="header" @dblclick.self="onDBClick">
+  <section class="window" ref="win">
+    <div class="header" @dblclick="onDBClick">
       <MacBtns
         class="btns"
         @close="close(name)"
         @minimize="minimize(name)"
         @maximize="onDBClick"
       />
+
+      <component :is="loadedHeaderComp" />
     </div>
     <main class="body">
       <component :is="loadedComp" />
     </main>
-  </div>
+  </section>
 </template>
 
 <script setup>
@@ -20,6 +22,11 @@ const { name } = defineProps({ name: String });
 const loadedComp = defineAsyncComponent(() =>
   import(`@/components/windows/${name}.vue`)
 );
+
+const loadedHeaderComp = defineAsyncComponent(() =>
+  import(`@/components/windows/headers/${name}Header.vue`)
+);
+
 const { close, maximize, minimize } = useWindowStore();
 
 const win = ref(null);
@@ -54,11 +61,15 @@ const onDBClick = function () {
 
   .header {
     height: $window-header-height;
-    background-color: #333;
+    background-color: #222;
     display: flex;
     align-items: center;
     padding: 0 1.5rem;
     user-select: none;
+
+    .btns {
+      padding-right: 1.5rem;
+    }
   }
 
   &.ani {
@@ -66,9 +77,11 @@ const onDBClick = function () {
   }
 
   .body {
+    position: relative;
     overflow-y: auto;
     background-color: white;
     height: calc(100% - #{$window-header-height});
+    display: flex;
   }
 }
 
@@ -84,7 +97,12 @@ const onDBClick = function () {
     border: 0;
 
     .header {
-      display: none;
+      height: auto;
+      padding: 0;
+
+      .btns {
+        display: none;
+      }
     }
 
     .body {
