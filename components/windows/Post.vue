@@ -1,7 +1,7 @@
 <script setup>
 import Content from "./post/NotionContent.vue";
 import List from "./post/NotionList.vue";
-import SideBar from "./post/SideBar.vue";
+import SideMenu from "./post/SideMenu.vue";
 
 const { params } = useRoute();
 let isPost = ref(params.id != undefined);
@@ -46,6 +46,6 @@ if (isPost.value) {
   <div class="post">
     <Content v-if="isPost" :post="post" />
     <List v-else :list="list" @change-post="changePost" />
-    <SideBar :category="category" @change-category="changeCategory" />
+    <SideMenu :category="category" @change-category="changeCategory" />
   </div>
 </template>
