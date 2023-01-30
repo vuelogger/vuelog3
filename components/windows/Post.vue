@@ -6,11 +6,9 @@ import SideMenu from "./post/SideMenu.vue";
 const { params } = useRoute();
 let isPost = ref(params.id != undefined);
 
-let list = ref([]);
-let post = ref(null);
-
-const { data } = await useFetch("/api/category", { method: "post" });
-const category = data.value;
+const list = ref([]);
+const post = ref(null);
+const category = ref([]);
 
 const changePost = function (number) {
   isPost.value = true;
@@ -27,19 +25,24 @@ const changeCategory = function (category) {
     method: "post",
     body: { category },
   }).then(({ data }) => {
+    console.log(data);
     list.value = data.value.list;
   });
 };
 
-if (isPost.value) {
-  changePost(params.id);
-} else {
-  for (const c of category) {
-    if (c.link == params.category) {
-      changeCategory(c.name);
+onMounted(async () => {
+  const { data } = await useFetch("/api/category", { method: "post" });
+  const category = data.value;
+  if (isPost.value) {
+    changePost(params.id);
+  } else {
+    for (const c of category) {
+      if (c.link == params.category) {
+        changeCategory(c.name);
+      }
     }
   }
-}
+});
 </script>
 
 <template>
