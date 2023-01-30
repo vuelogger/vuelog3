@@ -32,13 +32,16 @@ const changeCategory = function (category) {
 
 onMounted(async () => {
   const { data } = await useFetch("/api/category", { method: "post" });
-  const category = data.value;
+  category.value = data.value;
   if (isPost.value) {
     changePost(params.id);
+    console.log(post.value);
   } else {
-    for (const c of category) {
+    for (const c of category.value) {
       if (c.link == params.category) {
         changeCategory(c.name);
+
+        console.log(list.value);
       }
     }
   }
