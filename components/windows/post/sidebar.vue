@@ -3,14 +3,21 @@
     <!-- 검색 -->
     <!-- 메뉴 -->
     <ul>
-      <li v-for="l of list" :key="l.id">{{ l.category }}</li>
+      <li v-for="c of category" :key="c.link">
+        <NuxtLink
+          :to="`/post/${c.link}`"
+          @click="$emit('changeCategory', c.name)"
+        >
+          {{ c.name }}
+        </NuxtLink>
+      </li>
     </ul>
     <!-- 목차 -->
   </aside>
 </template>
 
 <script setup>
-const { list } = defineProps(["list"]);
+const { category } = defineProps(["category"]);
 </script>
 
 <style lang="scss" scoped>

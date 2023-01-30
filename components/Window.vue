@@ -53,13 +53,12 @@ const onDBClick = function () {
   position: fixed;
   border: 1px solid #666;
   box-sizing: border-box;
-  font-size: 50px;
-  color: white;
   box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.8);
   border-radius: 8px;
   overflow: hidden;
 
   .header {
+    color: white;
     height: $window-header-height;
     background-color: #222;
     display: flex;

@@ -1,22 +1,51 @@
 <script setup>
-import SideBar from "./post/sidebar.vue";
-import { NotionRenderer, getPageBlocks, getPageTable } from "vue3-notion";
+import SideBar from "./post/Sidebar.vue";
+import Content from "./post/NotionContent.vue";
+import List from "./post/NotionList.vue";
 
-let content = ref(null);
-let list = ref(null);
-const start = new Date();
-const page = await useFetch("/api/page");
-const table = await useFetch("/api/table");
+const { params } = useRoute();
+let isPost = ref(params.id != undefined);
 
-content = page.data;
-list = table.data;
+let list = ref([]);
+let post = ref(null);
 
-// console.log("block", block.value);
-// console.log("list", list.value);
-// const list = ref(data.value.list);
+const { data } = await useFetch("/api/category", { method: "post" });
+const category = data.value;
+
+const changePost = function (number) {
+  isPost.value = true;
+  useFetch("/api/page", { method: "post", body: { number } }).then(
+    ({ data }) => {
+      post.value = data.value;
+    }
+  );
+};
+
+const changeCategory = function (category) {
+  isPost.value = false;
+  useFetch("/api/table", {
+    method: "post",
+    body: { category },
+  }).then(({ data }) => {
+    list.value = data.value.list;
+  });
+};
+
+if (isPost.value) {
+  changePost(params.id);
+} else {
+  for (const c of category) {
+    if (c.link == params.category) {
+      changeCategory(c.name);
+    }
+  }
+}
 </script>
 
 <template>
-  <NotionRenderer v-if="content" :blockMap="content" fullPage />
-  <SideBar :list="list" />
+  <div class="post">
+    <Content v-if="isPost" :post="post" />
+    <List v-else :list="list" @change-post="changePost" />
+    <SideBar :category="category" @change-category="changeCategory" />
+  </div>
 </template>
