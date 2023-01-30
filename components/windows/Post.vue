@@ -1,6 +1,6 @@
 <script setup>
-import SideBar from "@/components/window/post/Sidebar.vue";
-import Content from "@/components/window/post/NotionContent.vue";
+import SideBar from "@/components/windows/post/Sidebar.vue";
+import Content from "@/components/windows/post/NotionContent.vue";
 import List from "./post/NotionList.vue";
 
 const { params } = useRoute();

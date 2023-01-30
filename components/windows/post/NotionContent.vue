@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import Block from "./Block.vue";
+import Block from "@/components/windows/post/Block.vue";
 const { post } = defineProps(["post"]);
 </script>
 

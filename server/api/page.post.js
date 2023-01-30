@@ -62,10 +62,6 @@ export default defineEventHandler(async (e) => {
 
     addChildren(blocks);
 
-    for (const b of blocks) {
-      console.log(b.children);
-    }
-
     return blocks;
   } catch (error) {
     console.error("Page 불러오기 실패", error);
