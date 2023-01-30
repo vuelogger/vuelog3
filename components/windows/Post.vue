@@ -1,7 +1,7 @@
 <script setup>
-import SideBar from "@/components/windows/post/Sidebar.vue";
-import Content from "@/components/windows/post/NotionContent.vue";
+import Content from "./post/NotionContent.vue";
 import List from "./post/NotionList.vue";
+import SideBar from "./post/Sidebar.vue";
 
 const { params } = useRoute();
 let isPost = ref(params.id != undefined);
