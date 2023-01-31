@@ -103,6 +103,10 @@ const onMouseLeave = function () {
 const selectDockItem = function (name) {
   closeDock();
   openWindow(name);
+  if (name == "Post") {
+    const router = useRouter();
+    router.push({ path: "/post" });
+  }
 };
 </script>
 

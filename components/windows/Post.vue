@@ -4,8 +4,8 @@ import List from "./post/NotionList.vue";
 import SideMenu from "./post/SideMenu.vue";
 
 const { params } = useRoute();
-let isPost = ref(params.id != undefined);
 
+const isPost = ref(params.id != undefined);
 const list = ref([]);
 const post = ref(null);
 const category = ref([]);
@@ -15,6 +15,7 @@ const changePost = function (number) {
   useFetch("/api/page", { method: "post", body: { number } }).then(
     ({ data }) => {
       post.value = data.value;
+      console.log(post.value);
     }
   );
 };
@@ -25,7 +26,6 @@ const changeCategory = function (category) {
     method: "post",
     body: { category },
   }).then(({ data }) => {
-    console.log(data);
     list.value = data.value.list;
   });
 };
@@ -35,13 +35,10 @@ onMounted(async () => {
   category.value = data.value;
   if (isPost.value) {
     changePost(params.id);
-    console.log(post.value);
   } else {
     for (const c of category.value) {
       if (c.link == params.category) {
         changeCategory(c.name);
-
-        console.log(list.value);
       }
     }
   }

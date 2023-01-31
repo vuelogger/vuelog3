@@ -62,7 +62,7 @@ export default defineEventHandler(async (e) => {
 
     addChildren(blocks);
 
-    return blocks;
+    return {blocks, blockId};
   } catch (error) {
     console.error("Page 불러오기 실패", error);
     return [];
