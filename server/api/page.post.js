@@ -1,68 +1,34 @@
 import notion from "./utils/notion";
+import { collectPaginatedAPI } from "@notionhq/client";
 
-const findPost = async function (number) {
-  const { results } = await notion.databases.query({
-    database_id: process.env.NOTION_DB_ID,
-    filter: {
-      and: [
-        {
-          property: "number",
-          number: {
-            equals: parseInt(number),
-          },
-        },
-        {
-          property: "published",
-          checkbox: {
-            equals: true,
-          },
-        },
-      ],
-    },
-    page_size: 1,
-  });
-  return results?.[0]?.id;
+const setStartList = function (blocks) {
+  // numbering
+  let start = 0;
+  for (const b of blocks) {
+    if (b.type === "numbered_list_item") {
+      start += 1;
+      b.start = start;
+    } else {
+      start = 0;
+    }
+  }
 };
 
 const getPostContent = async function (blockId) {
-  let result = [];
-  let res = await notion.blocks.children.list({ block_id: blockId });
-  result.push(...res.results);
-  while (res.has_more) {
-    res = await notion.blocks.children.list({
-      block_id: blockId,
-      start_cursor: res.next_cursor,
-    });
-    result.push(...res.results);
-  }
-  result = addChildren(result);
-  return result;
-};
-
-const addChildren = async function (blocks) {
-  for (const b of blocks) {
-    if (b.has_children) {
-      const { results } = await notion.blocks.children.list({
-        block_id: b.id,
-      });
-
-      b.children = results;
-      await addChildren(b.children);
-    }
-  }
+  const blocks = collectPaginatedAPI(notion.blocks.children.list, {
+    block_id: blockId,
+  });
   return blocks;
 };
 
 export default defineEventHandler(async (e) => {
   try {
-    const { number } = await readBody(e);
-    const blockId = await findPost(number);
+    const { blockId } = await readBody(e);
 
     const blocks = await getPostContent(blockId);
+    setStartList(blocks);
 
-    addChildren(blocks);
-
-    return {blocks, blockId};
+    return blocks;
   } catch (error) {
     console.error("Page 불러오기 실패", error);
     return [];

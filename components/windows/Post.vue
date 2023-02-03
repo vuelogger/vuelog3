@@ -1,26 +1,32 @@
 <script setup>
 import Content from "./post/NotionContent.vue";
 import List from "./post/NotionList.vue";
-import SideMenu from "./post/SideMenu.vue";
+import SideBar from "./post/SideBar.vue";
 
 const { params } = useRoute();
 
 const isPost = ref(params.id != undefined);
 const list = ref([]);
-const post = ref(null);
+const blocks = ref(null);
 const category = ref([]);
 
 const changePost = function (number) {
+  blocks.value = null;
   isPost.value = true;
-  useFetch("/api/page", { method: "post", body: { number } }).then(
-    ({ data }) => {
-      post.value = data.value;
-      console.log(post.value);
+  useFetch("/api/page/find", { method: "post", body: { number } }).then(
+    (res) => {
+      useFetch("/api/page", {
+        method: "post",
+        body: { blockId: res.data.value },
+      }).then(({ data }) => {
+        blocks.value = data.value;
+      });
     }
   );
 };
 
-const changeCategory = function (category) {
+const changeList = function (category) {
+  list.value = null;
   isPost.value = false;
   useFetch("/api/table", {
     method: "post",
@@ -30,25 +36,31 @@ const changeCategory = function (category) {
   });
 };
 
-onMounted(async () => {
+if (isPost.value) {
+  useFetch("/api/category", { method: "post" }).then(({ data }) => {
+    category.value = data.value;
+  });
+  changePost(params.id);
+} else {
   const { data } = await useFetch("/api/category", { method: "post" });
   category.value = data.value;
-  if (isPost.value) {
-    changePost(params.id);
-  } else {
-    for (const c of category.value) {
-      if (c.link == params.category) {
-        changeCategory(c.name);
-      }
+
+  for (const c of category.value) {
+    if (c.link == params.category) {
+      changeList(c.name);
+    } else if (c.link == "") {
+      changeList("All");
     }
   }
-});
+}
 </script>
 
 <template>
   <div class="post">
-    <Content v-if="isPost" :post="post" />
+    <SideBar :category="category" @change-list="changeList" />
+    <Content v-if="isPost" :blocks="blocks" />
     <List v-else :list="list" @change-post="changePost" />
-    <SideMenu :category="category" @change-category="changeCategory" />
   </div>
 </template>
+
+<style lang="scss"></style>

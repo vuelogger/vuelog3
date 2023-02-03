@@ -18,34 +18,47 @@ const getProp = function (prop) {
   }
 };
 
+const filtering = function (category) {
+  if (category != "All") {
+    return {
+      and: [
+        {
+          property: "category",
+          select: {
+            equals: category,
+          },
+        },
+        {
+          property: "published",
+          checkbox: {
+            equals: true,
+          },
+        },
+      ],
+    };
+  } else {
+    return {
+      property: "published",
+      checkbox: {
+        equals: true,
+      },
+    };
+  }
+};
+
 export default defineEventHandler(async (e) => {
   try {
     const { category, startCursor } = await readBody(e);
     const res = await notion.databases.query({
       database_id: process.env.NOTION_DB_ID,
-      filter: {
-        and: [
-          {
-            property: "category",
-            select: {
-              equals: category,
-            },
-          },
-          {
-            property: "published",
-            checkbox: {
-              equals: true,
-            },
-          },
-        ],
-      },
+      filter: filtering(category),
+      page_size: 10,
       sorts: [
         {
           timestamp: "created_time",
           direction: "descending",
         },
       ],
-      page_size: 10,
     });
     return {
       list: res.results.map((v) => ({

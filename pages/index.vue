@@ -3,9 +3,9 @@
 <script setup>
 import { useWindowStore } from "@/stores/window";
 
-const { openWindow } = useWindowStore();
+const { closeAllWindows } = useWindowStore();
 
 onMounted(() => {
-  openWindow("Post");
+  closeAllWindows();
 });
 </script>

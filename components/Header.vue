@@ -4,7 +4,7 @@
       <div class="logo">
         <img src="/images/logo.png" alt="logo" />
       </div>
-      <span class="title">Vue Blog</span>
+      <span class="title">VueLog</span>
     </div>
 
     <div class="right">
@@ -22,8 +22,9 @@
 .main-header {
   display: flex;
   height: $header-height;
-  background-color: rgba(0, 0, 0, 0.3);
-  padding: 0 2.5rem;
+  background-color: rgba(98, 98, 98, 0.3);
+  padding-left: 2.5rem;
+  padding-right: 1.5rem;
   color: white;
   font-size: 1.4rem;
   font-weight: bold;
@@ -55,20 +56,15 @@
     display: flex;
     align-items: center;
     margin-left: auto;
-    .music-player {
-      margin-left: auto;
-    }
-
-    .dock-btn {
-      display: none;
-    }
+    height: 100%;
   }
 }
 
 @media (max-width: $breakpoint-tablet) {
   .main-header {
     height: $header-height-tablet;
-    background-color: #222;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 
     .right {
       .time {
@@ -76,11 +72,8 @@
       }
 
       .dock-btn {
-        display: block;
-        height: 100%;
-        padding: 1.5rem 0;
-        box-sizing: border-box;
-        margin-left: 1.5rem;
+        height: 40%;
+        margin-left: 1rem;
       }
     }
   }

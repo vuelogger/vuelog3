@@ -98,6 +98,9 @@ export const useWindowStore = defineStore("window", {
         }
       }
     },
+    closeAllWindows() {
+      this.loadedWindows = [];
+    },
     checkIsInside(window, pt) {
       return (
         window.x - this.resizeScope < pt.x &&

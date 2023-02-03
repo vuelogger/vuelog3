@@ -9,7 +9,9 @@
 
 <script setup>
 import Text from "@/components/windows/post/blocks/Text.vue";
-const { data, level } = defineProps(["data", "level"]);
+const { block } = defineProps(["block"]);
+const data = computed(() => block[block.type]);
+const level = computed(() => block.type.slice(-1));
 </script>
 
 <style lang="scss" scoped></style>

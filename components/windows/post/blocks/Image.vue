@@ -10,7 +10,9 @@
 </template>
 
 <script setup>
-const { data } = defineProps(["data"]);
+const { block } = defineProps(["block"]);
+const data = computed(() => block[block.type]);
+
 const alt = computed(() => data?.caption?.[0].plain_text);
 </script>
 

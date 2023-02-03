@@ -6,7 +6,9 @@
 
 <script setup>
 import Text from "@/components/windows/post/blocks/Text.vue";
-const { data } = defineProps(["data"]);
+const { block } = defineProps(["block"]);
+
+const data = computed(() => block[block.type]);
 </script>
 
 <style lang="scss" scoped></style>

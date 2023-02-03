@@ -121,7 +121,7 @@ const selectDockItem = function (name) {
   transform: translateY(-50%);
   width: 40px;
   z-index: 100000;
-  background-color: rgba(23, 38, 61, 0.5333333333);
+  background-color: #363636;
   box-shadow: 1px 1px 4px #888;
   border-radius: 1.4rem;
   padding: 1.2rem 0.6rem;
@@ -179,6 +179,7 @@ const selectDockItem = function (name) {
       p {
         display: block;
         opacity: 0;
+        pointer-events: none;
       }
     }
   }

@@ -56,6 +56,7 @@ const onDBClick = function () {
   box-shadow: 1px 3px 5px 0px rgba(0, 0, 0, 0.8);
   border-radius: 8px;
   overflow: hidden;
+  user-select: none;
 
   .header {
     color: white;
@@ -76,7 +77,6 @@ const onDBClick = function () {
   }
 
   .body {
-    position: relative;
     overflow-y: auto;
     background-color: white;
     height: calc(100% - #{$window-header-height});
@@ -96,7 +96,7 @@ const onDBClick = function () {
     border: 0;
 
     .header {
-      height: auto;
+      height: $window-header-height-tablet;
       padding: 0;
 
       .btns {

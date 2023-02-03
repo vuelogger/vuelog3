@@ -1,5 +1,5 @@
 <template>
-  <a class="bookmark" :href="bookmark.url" v-if="bookmark">
+  <a class="bookmark" :href="bookmark.url" v-if="bookmark?.url">
     <div class="left">
       <h4>{{ bookmark.title }}</h4>
       <p>{{ bookmark.description }}</p>
@@ -15,13 +15,13 @@
 </template>
 
 <script setup>
-const { data } = defineProps(["data"]);
+const { block } = defineProps(["block"]);
 const bookmark = ref(null);
 
 useFetch("/api/bookmark", {
   method: "post",
   body: {
-    url: data.url,
+    url: block[block.type]?.url,
   },
 }).then(({ data }) => {
   bookmark.value = data.value;

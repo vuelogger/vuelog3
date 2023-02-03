@@ -18,9 +18,9 @@
 </template>
 
 <script setup>
-const { data } = defineProps(["data"]);
+const { block } = defineProps(["block"]);
 const embedURL = computed(() => {
-  const l = data.url.split("/");
+  const l = block[block.type].url.split("/");
   l.splice(l.length - 2, 1);
   l.splice(l.length - 1, 0, "embed");
   return l.join("/");

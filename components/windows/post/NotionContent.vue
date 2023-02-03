@@ -1,17 +1,10 @@
 <template>
-  <div class="content" v-if="post">
-    <Block
-      v-for="(b, i) of post.blocks"
-      :key="b.id"
-      :block="b"
-      :prev-block="post.blocks?.[i - 1]"
-    />
+  <div class="content" v-if="blocks">
+    <Block v-for="b of blocks" :key="b.id" :block="b" />
   </div>
 </template>
 
 <script setup>
 import Block from "@/components/windows/post/Block.vue";
-const { post } = defineProps(["post"]);
+const { blocks } = defineProps(["blocks"]);
 </script>
-
-<style lang="scss" scoped></style>

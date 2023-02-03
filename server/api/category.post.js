@@ -6,10 +6,12 @@ export default defineEventHandler(async (e) => {
       database_id: process.env.NOTION_DB_ID,
     });
 
-    return res.properties.category.select.options.map((v) => ({
+    const result = res.properties.category.select.options.map((v) => ({
       link: v.name.toLowerCase(),
       name: v.name,
     }));
+    result.unshift({ link: "", name: "All" });
+    return result;
   } catch (error) {
     console.error("Category 불러오기 실패", error);
     return [];

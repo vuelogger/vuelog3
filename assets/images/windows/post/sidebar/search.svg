@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>search</title>
+    <g id="search" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="Oval" stroke="gray" stroke-width="2" cx="8" cy="8" r="7"></circle>
+        <line x1="13.2126382" y1="13.1507584" x2="19" y2="19" id="Path-57" stroke="gray"
+            stroke-width="2"></line>
+    </g>
+</svg>
