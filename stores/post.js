@@ -1,19 +1,17 @@
 import { defineStore } from "pinia";
 export const usePostStore = defineStore("post", {
   state: () => ({
-    sidebar: {
-      active: false,
-    },
+    sidebarActive: false,
   }),
   actions: {
     openSidebar() {
-      this.sidebar.active = true;
+      this.sidebarActive = true;
     },
     closeSidebar() {
-      this.sidebar.active = false;
+      this.sidebarActive = false;
     },
     toggleSidebar() {
-      this.sidebar.active = !this.sidebar.active;
+      this.sidebarActive = !this.sidebarActive;
     },
   },
 });

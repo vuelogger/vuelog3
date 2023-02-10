@@ -1,12 +1,8 @@
 <template>
   <div class="codeblock">
     <div class="codeblock__head">
-      <div class="lang">{{ lang }}</div>
-      <caption>
-        {{
-          caption
-        }}
-      </caption>
+      <div class="lang" :class="lang">{{ lang }}</div>
+      <div class="code-caption">{{ caption }}</div>
     </div>
     <pre>
       <code class="hljs" :class="`language-${lang}`" v-html="html"></code>

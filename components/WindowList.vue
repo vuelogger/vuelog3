@@ -7,7 +7,7 @@
     @mousemove="onMouseMove($event)"
   >
     <Window
-      v-for="w of loadedWindows"
+      v-for="(w, i) of store.loadedWindows"
       :key="w.name"
       :name="w.name"
       v-show="!w.minimized"
@@ -16,6 +16,7 @@
         top: w.y + 'px',
         width: w.w + 'px',
         height: w.h + 'px',
+        zIndex: i,
       }"
     />
   </div>
@@ -25,7 +26,7 @@
 import { getPt } from "@/composable/common";
 import { useWindowStore } from "@/stores/window";
 
-const { loadedWindows } = useWindowStore();
+const store = useWindowStore();
 
 const cursor = ref("auto");
 
@@ -55,24 +56,19 @@ const onMouseUp = () => {
 let timer = null;
 const onMouseMove = (e) => {
   if (window.innerWidth < 768) return;
-  if (!timer) {
-    timer = setTimeout(() => {
-      const { getCursorOf, resize, move } = useWindowStore();
-      const endPt = getPt(e);
+  const { getCursorOf, resize, move } = useWindowStore();
+  const endPt = getPt(e);
 
-      // Left Click
-      if (startPt) {
-        if (mode.startsWith("resize")) {
-          resize(endPt, mode);
-        } else if (mode === "move") {
-          move(startPt, endPt);
-          startPt = endPt;
-        }
-      } else {
-        cursor.value = getCursorOf(endPt);
-      }
-      timer = null;
-    }, 33);
+  // Left Click
+  if (startPt) {
+    if (mode.startsWith("resize")) {
+      resize(endPt, mode);
+    } else if (mode === "move") {
+      move(startPt, endPt);
+      startPt = endPt;
+    }
+  } else {
+    cursor.value = getCursorOf(endPt);
   }
 };
 </script>
@@ -82,5 +78,11 @@ const onMouseMove = (e) => {
 .window-list {
   position: relative;
   height: calc(100% - $header-height);
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .window-list {
+    height: calc(100% - $header-height-tablet);
+  }
 }
 </style>

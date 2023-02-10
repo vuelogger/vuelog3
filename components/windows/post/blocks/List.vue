@@ -31,10 +31,3 @@ if (block.has_children) {
   });
 }
 </script>
-
-<style lang="scss" scoped>
-ul,
-ol {
-  padding-left: 2rem;
-}
-</style>

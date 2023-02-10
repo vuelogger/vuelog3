@@ -1,22 +1,4 @@
-import notion from "./utils/notion";
-
-const getProp = function (prop) {
-  const t = prop.type;
-  switch (t) {
-    case "select":
-      return prop[t].name;
-    case "rich_text":
-    case "title":
-      return prop[t][0].plain_text;
-    case "created_time":
-    case "last_edited_time":
-    case "number":
-    case "checkbox":
-      return prop[t];
-    case "multi_select":
-      return prop[t].map((v) => v.name);
-  }
-};
+import { notion, getProp } from "./utils/notion";
 
 const filtering = function (category) {
   if (category != "All") {
@@ -52,7 +34,7 @@ export default defineEventHandler(async (e) => {
     const res = await notion.databases.query({
       database_id: process.env.NOTION_DB_ID,
       filter: filtering(category),
-      page_size: 10,
+      page_size: 9,
       sorts: [
         {
           timestamp: "created_time",
@@ -62,12 +44,12 @@ export default defineEventHandler(async (e) => {
     });
     return {
       list: res.results.map((v) => ({
+        id: v.id,
         created: v.created_time,
         updated: v.last_edited_time,
         cover: v.cover?.file?.url,
         category: getProp(v.properties.category),
         description: getProp(v.properties.description),
-        number: getProp(v.properties.number),
         tags: getProp(v.properties.tags),
         title: getProp(v.properties.title),
       })),

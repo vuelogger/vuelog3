@@ -1,12 +1,6 @@
 <template>
-  <div>
-    <img :src="data?.file?.url" :alt="alt" />
-    <caption>
-      {{
-        alt
-      }}
-    </caption>
-  </div>
+  <img class="image" :src="data?.file?.url" :alt="alt" />
+  <div class="img-caption">{{ alt }}</div>
 </template>
 
 <script setup>

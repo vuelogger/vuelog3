@@ -30,7 +30,7 @@
 import { useWindowStore, windowNames } from "@/stores/window";
 import { useCommonStore } from "@/stores/common";
 
-const { openWindow } = useWindowStore();
+const { openWindow, loadedWindows } = useWindowStore();
 const { dockInfo, closeDock } = useCommonStore();
 
 const MIN_WIDTH = 40;
@@ -101,12 +101,20 @@ const onMouseLeave = function () {
 };
 
 const selectDockItem = function (name) {
-  closeDock();
-  openWindow(name);
+  // Post를 열면서도 열려 있지 않은 경우만 열기
+  // 열려있는 경우는 route 변경 안하기 위함
   if (name == "Post") {
-    const router = useRouter();
-    router.push({ path: "/post" });
+    const isPostOpened =
+      loadedWindows.filter((w) => w.name === "Post").length > 0;
+    if (!isPostOpened) {
+      const router = useRouter();
+      router.push({ path: "/post" });
+    }
   }
+  if (window.innerWidth < 768) {
+    closeDock();
+  }
+  openWindow(name);
 };
 </script>
 

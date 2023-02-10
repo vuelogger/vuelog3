@@ -8,9 +8,9 @@
         @maximize="onDBClick"
       />
 
-      <component :is="loadedHeaderComp" />
+      <component :is="loadedHeaderComp" @return-to-top="returnToTop" />
     </div>
-    <main class="body">
+    <main class="body" ref="body">
       <component :is="loadedComp" />
     </main>
   </section>
@@ -44,10 +44,17 @@ const onDBClick = function () {
     }, 300);
   }
 };
+
+const body = ref(null);
+
+const returnToTop = function () {
+  body.value.scrollTo(0, 0);
+};
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/scss/base/variable.scss";
+@import "@/assets/scss/base/mixins.scss";
 
 .window {
   position: fixed;
@@ -81,6 +88,8 @@ const onDBClick = function () {
     background-color: white;
     height: calc(100% - #{$window-header-height});
     display: flex;
+
+    @include scrollTheme;
   }
 }
 
@@ -96,7 +105,7 @@ const onDBClick = function () {
     border: 0;
 
     .header {
-      height: $window-header-height-tablet;
+      height: auto;
       padding: 0;
 
       .btns {
@@ -105,7 +114,8 @@ const onDBClick = function () {
     }
 
     .body {
-      height: 100%;
+      height: calc(100% - #{$window-header-height-tablet});
+      overflow-x: hidden;
     }
   }
 }

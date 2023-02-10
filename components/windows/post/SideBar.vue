@@ -1,10 +1,10 @@
 <template>
   <Transition name="slide-left">
-    <aside class="sidebar" v-show="sidebar.active">
+    <aside class="sidebar" v-show="sidebarActive">
       <!-- 검색 -->
       <Search />
       <!-- 메뉴 -->
-      <Menu :category="category" @change-list="changeList" />
+      <Menu :category="category" />
       <!-- 태그 목록 -->
       <!-- 목차 -->
     </aside>
@@ -12,15 +12,12 @@
 </template>
 
 <script setup>
+import { storeToRefs } from "pinia";
 import { usePostStore } from "@/stores/post";
 import Search from "./sidebar/Search.vue";
 import Menu from "./sidebar/Menu.vue";
-const { sidebar } = usePostStore();
+const { sidebarActive } = storeToRefs(usePostStore());
 const { category } = defineProps(["category"]);
-const emit = defineEmits(["change-list"]);
-const changeList = (name) => {
-  emit("change-list", name);
-};
 </script>
 
 <style lang="scss" scoped>

@@ -4,7 +4,7 @@ const windowOpts = {
   Post: {
     w: 1000,
     h: 600,
-    minW: 500,
+    minW: 300,
     minH: 400,
   },
   Twitter: {

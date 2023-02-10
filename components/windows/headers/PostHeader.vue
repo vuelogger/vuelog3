@@ -9,7 +9,7 @@
       <MenuBtn class="btn" :class="{ active: menuHover }" />
       <span>Menu</span>
     </button>
-    <button class="return-top">
+    <button class="return-top" @click="$emit('returnToTop')">
       <span>Return to top</span>
       <img src="@/assets/images/windows/post/sidebar/return-to-top.svg" />
     </button>
@@ -35,7 +35,8 @@ const menuClick = function () {
   font-size: 1.4rem;
   padding: 0 1rem;
   pointer-events: none;
-  height: 1.5rem;
+  height: $window-header-height-tablet;
+
   button {
     cursor: pointer;
     pointer-events: initial;
@@ -45,7 +46,7 @@ const menuClick = function () {
     position: relative;
     display: flex;
     align-items: center;
-    height: 100%;
+    height: 40%;
 
     .btn,
     span {
@@ -70,7 +71,7 @@ const menuClick = function () {
 
   .return-top {
     display: flex;
-    height: 100%;
+    height: 40%;
     margin-left: auto;
     img {
       height: 100%;
@@ -87,7 +88,7 @@ const menuClick = function () {
         transform: translateX(-3px) scale(1.1);
       }
       img {
-        transform: scale(1.5) translateY(-3px);
+        transform: scale(1.5) translateY(-6px);
       }
     }
     &:active {

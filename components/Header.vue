@@ -1,9 +1,9 @@
 <template>
   <header class="main-header">
     <div class="left">
-      <div class="logo">
+      <NuxtLink to="/" class="logo" @click="closeAllWindows">
         <img src="/images/logo.png" alt="logo" />
-      </div>
+      </NuxtLink>
       <span class="title">VueLog</span>
     </div>
 
@@ -16,6 +16,11 @@
     </div>
   </header>
 </template>
+
+<script setup>
+import { usePostStore } from "@/stores/post";
+const { closeAllWindows } = usePostStore();
+</script>
 
 <style lang="scss">
 @import "~/assets/scss/base/variable.scss";

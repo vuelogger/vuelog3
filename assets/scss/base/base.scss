@@ -1,12 +1,12 @@
 html {
   scroll-behavior: smooth;
-  overflow: hidden;
   background-color: #222;
   color: #222;
 }
 html,
 body {
   height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -42,4 +42,18 @@ img {
 
 :focus-visible {
   outline: none;
+}
+
+.category {
+  background-color: gray;
+  color: white;
+  &.html {
+    background-color: #ff8787;
+  }
+  &.css {
+    background-color: #989eff;
+  }
+  &.javascript {
+    background-color: #c6c635;
+  }
 }

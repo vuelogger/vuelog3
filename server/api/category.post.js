@@ -1,4 +1,4 @@
-import notion from "./utils/notion";
+import { notion } from "./utils/notion";
 
 export default defineEventHandler(async (e) => {
   try {
