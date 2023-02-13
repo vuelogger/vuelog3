@@ -1,6 +1,6 @@
 <template>
   <div class="music-player">
-    <div class="controls" v-show="controlShow">
+    <div class="controls">
       <img @click="prev" src="@/assets/images/prev.svg" alt="prev" />
       <img
         class="pause"
@@ -30,12 +30,11 @@
 </template>
 
 <script setup>
-const controlShow = ref(false);
 const playing = ref(false);
 
 function onPlayerReady(event) {
-  controlShow.value = true;
-  player.setVolume(0);
+  player.playVideo();
+  // player.setVolume(0);
 }
 
 function onPlayerStateChange(event) {
@@ -54,16 +53,11 @@ function onPlayerStateChange(event) {
       ? "시작되지 않음"
       : "예외";
 
-  if (event.data == YT.PlayerState.PLAYING) {
-    playing.value = true;
-  } else {
-    playing.value = false;
-  }
-  console.log("Youtube 실행:", playerState);
+  playing.value = event.data == YT.PlayerState.PLAYING;
+  console.log("Youtube 실행", playerState);
 }
 
 function play() {
-  console.log("Play", player);
   player.playVideo();
 }
 
@@ -90,9 +84,10 @@ useHead({
 
 let player = null;
 
-const loadAPI = function () {
-  // Youtube API에서 자동 실행하는 함수라서 window 내에 정의해주어야한다.
-  window.onYouTubeIframeAPIReady = function () {
+// 안되면 이거 실행되게해야함
+const loadYoutubeAPI = function () {
+  if (YT && YT.Player) {
+    // Youtube API에서 자동 실행하는 함수라서 window 내에 정의해주어야한다.
     player = new YT.Player("player", {
       playerVars: {
         autoplay: 0,
@@ -102,23 +97,28 @@ const loadAPI = function () {
         modestbranding: 1,
         frameborder: "no",
         listType: "playlist",
-        list: "PLCoQT6suevJie39ExqGt05TWnSX7a-TSI",
-        // list: "PLLkjM0853NquYZjY8IChj7v-6UpvxLcbw",
-        // list: "PLWTycz4el4t7ZCxkGYyekoP1iBxmOM4zZ",
+        list: "PLWTycz4el4t7ZCxkGYyekoP1iBxmOM4zZ",
       },
       events: {
         onReady: onPlayerReady, // 플레이어 로드가 완료되고 API 호출을 받을 준비가 될 때마다 실행
         onStateChange: onPlayerStateChange, // 플레이어의 상태가 변경될 때마다 실행
       },
     });
-  };
+  }
+
+  // API load 될 때까지 반복
+  let timer = setInterval(() => {
+    if (player) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }, 300);
 };
 
 onMounted(() => {
-  loadAPI();
-});
-onUpdated(() => {
-  loadAPI();
+  if (!player) {
+    loadYoutubeAPI();
+  }
 });
 </script>
 
@@ -204,26 +204,22 @@ onUpdated(() => {
   }
 }
 .fade-enter-from {
-  color: black;
-  &::before,
-  &::after {
-    opacity: 1;
-  }
-}
-
-.fade-enter-to {
-  color: white;
+  background-color: black;
   &::before,
   &::after {
     opacity: 0;
   }
 }
 
-.fade-enter-active {
-  transition: all 25s;
+.fade-enter-to {
+  background-color: white;
   &::before,
   &::after {
-    transition: all 25s linear;
+    opacity: 1;
   }
+}
+
+.fade-enter-active {
+  transition: all 3s;
 }
 </style>
