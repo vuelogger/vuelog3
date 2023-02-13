@@ -19,15 +19,13 @@
       <img @click="next" src="@/assets/images/next.svg" alt="next" />
     </div>
 
-    <Teleport to="body">
-      <Transition name="fade">
-        <div class="player-wrapper" v-show="playing">
-          <div class="container">
-            <div class="player" id="player"></div>
-          </div>
+    <Transition name="fade">
+      <div class="player-wrapper" v-show="playing">
+        <div class="container">
+          <div class="player" id="player"></div>
         </div>
-      </Transition>
-    </Teleport>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -167,6 +165,7 @@ onUpdated(() => {
     width: 100%;
     height: 60px;
     background-color: black;
+    opacity: 0;
   }
 
   &::before {
@@ -194,6 +193,11 @@ onUpdated(() => {
 }
 
 @media (max-width: $breakpoint-tablet) {
+  .music-player {
+    .controls {
+      height: 35%;
+    }
+  }
   .player-wrapper {
     top: $header-height-tablet;
     height: calc(100% - #{$header-height-tablet});
