@@ -3,7 +3,7 @@ import { notion } from "./utils/notion";
 export default defineEventHandler(async (e) => {
   try {
     const res = await notion.databases.retrieve({
-      database_id: process.env.NOTION_DB_ID,
+      database_id: process.env.NOTION_POST_TABLE_ID,
     });
 
     const result = res.properties.category.select.options.map((v) => ({

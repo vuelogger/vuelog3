@@ -18,6 +18,8 @@ const getProp = function (prop) {
     case "checkbox":
     case "multi_select":
       return prop[t].map((v) => v.name);
+    case "files":
+      return prop[t]?.[0]?.file?.url;
   }
 };
 

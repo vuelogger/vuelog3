@@ -32,7 +32,7 @@ export default defineEventHandler(async (e) => {
   try {
     const { category, startCursor } = await readBody(e);
     const res = await notion.databases.query({
-      database_id: process.env.NOTION_DB_ID,
+      database_id: process.env.NOTION_POST_TABLE_ID,
       filter: filtering(category),
       page_size: 9,
       sorts: [

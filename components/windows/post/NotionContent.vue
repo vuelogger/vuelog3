@@ -38,7 +38,6 @@ useFetch("/api/page", {
   body: { blockId: route.params.id },
 }).then(({ data }) => {
   page.value = data.value;
-  console.log(page.value);
 });
 
 useFetch("/api/blocks", {

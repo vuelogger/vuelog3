@@ -8,7 +8,7 @@
     </div>
 
     <div class="right">
-      <MusicPlayer class="music-player" />
+      <MusicPlayer />
       <HeaderDateTime class="time" format="lll" />
       <div class="dock-btn">
         <HamburgerBtn />
@@ -45,10 +45,10 @@ const { closeAllWindows } = usePostStore();
       img {
         height: 50%;
         object-fit: contain;
-        // filter: invert(1) brightness(5);
-        filter: drop-shadow(1px 1px 1px black) drop-shadow(-1px -1px 1px black)
-          drop-shadow(1px -1px 1px black) drop-shadow(-1px 1px 1px black)
-          brightness(1.5);
+        filter: invert(1) brightness(5) drop-shadow(2px 2px 2px black);
+        // filter: drop-shadow(1px 1px 1px black) drop-shadow(-1px -1px 1px black)
+        //   drop-shadow(1px -1px 1px black) drop-shadow(-1px 1px 1px black)
+        //   brightness(1.5);
       }
     }
 
