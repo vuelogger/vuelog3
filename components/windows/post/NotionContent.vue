@@ -98,7 +98,7 @@ article {
         font-size: 4rem;
         line-height: 1.4;
         margin-top: 2rem;
-        font-family: "SBAggroB", "Pretendard", Arial, Helvetica, sans-serif;
+        font-family: "SBAggroB", "GmarketSans", Arial, Helvetica, sans-serif;
         text-shadow: 4px 4px 4px black;
       }
 

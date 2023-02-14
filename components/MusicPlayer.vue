@@ -34,7 +34,6 @@ const playing = ref(false);
 
 function onPlayerReady(event) {
   player.playVideo();
-  // player.setVolume(0);
 }
 
 function onPlayerStateChange(event) {
@@ -58,19 +57,35 @@ function onPlayerStateChange(event) {
 }
 
 function play() {
-  player.playVideo();
+  if (!player) {
+    loadYoutubeAPI(true);
+  } else {
+    player.playVideo();
+  }
 }
 
 function prev() {
-  player.previousVideo();
+  if (!player) {
+    loadYoutubeAPI(true);
+  } else {
+    player.previousVideo();
+  }
 }
 
 function pause() {
-  player.pauseVideo();
+  if (!player) {
+    loadYoutubeAPI(true);
+  } else {
+    player.pauseVideo();
+  }
 }
 
 function next() {
-  player.nextVideo();
+  if (!player) {
+    loadYoutubeAPI(true);
+  } else {
+    player.nextVideo();
+  }
 }
 
 useHead({
@@ -85,7 +100,7 @@ useHead({
 let player = null;
 
 // 안되면 이거 실행되게해야함
-const loadYoutubeAPI = function () {
+const loadYoutubeAPI = function (autoplay = false) {
   if (YT && YT.Player) {
     // Youtube API에서 자동 실행하는 함수라서 window 내에 정의해주어야한다.
     player = new YT.Player("player", {
@@ -100,7 +115,7 @@ const loadYoutubeAPI = function () {
         list: "PLWTycz4el4t7ZCxkGYyekoP1iBxmOM4zZ",
       },
       events: {
-        onReady: onPlayerReady, // 플레이어 로드가 완료되고 API 호출을 받을 준비가 될 때마다 실행
+        onReady: autoplay ? (e) => e.target.playVideo() : null, // 플레이어 로드가 완료되고 API 호출을 받을 준비가 될 때마다 실행
         onStateChange: onPlayerStateChange, // 플레이어의 상태가 변경될 때마다 실행
       },
     });
@@ -117,7 +132,7 @@ const loadYoutubeAPI = function () {
 
 onMounted(() => {
   if (!player) {
-    loadYoutubeAPI();
+    loadYoutubeAPI(window.innerWidth < 768);
   }
 });
 </script>
