@@ -6,17 +6,6 @@
   <NuxtPage />
 </template>
 
-<script setup>
-import { onMounted } from "vue";
-
-onMounted(() => {
-  // TODO: Desktop 환경에서만 적용하도록 하기
-  window.addEventListener("beforeunload", () => {
-    sessionStorage.setItem("VUELOG_POS", new Date());
-  });
-});
-</script>
-
 <style lang="scss">
 #__nuxt {
   width: 100%;

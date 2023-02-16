@@ -39,18 +39,16 @@ const { category } = defineProps(["category"]);
 .slide-left-enter-from,
 .slide-left-leave-to {
   transform: translateX(-100%);
-  opacity: 0;
 }
 
 .slide-left-enter-to,
 .slide-left-leave-from {
   transform: translateX(0);
-  opacity: 1;
 }
 
 .slide-left-enter-active,
 .slide-left-leave-active {
-  transition: all 0.3s;
+  transition: all 0.7s;
 }
 
 @media (max-width: $breakpoint-tablet) {

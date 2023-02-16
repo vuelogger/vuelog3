@@ -1,40 +1,69 @@
 <template>
   <div class="music-player">
-    <div class="controls">
-      <img @click="prev" src="@/assets/images/prev.svg" alt="prev" />
+    <div class="controls" v-show="ready">
       <img
-        class="pause"
+        class="controls__btn"
+        @click="prev"
+        src="@/assets/images/prev.svg"
+        alt="prev"
+      />
+      <img
+        class="controls__btn pause"
         v-show="playing"
         src="@/assets/images/pause.svg"
         alt="pause"
         @click="pause"
       />
       <img
-        class="play"
+        class="controls__btn play"
         v-show="!playing"
         src="@/assets/images/play.svg"
         alt="play"
         @click="play"
       />
-      <img @click="next" src="@/assets/images/next.svg" alt="next" />
+      <img
+        class="controls__btn"
+        @click="next"
+        src="@/assets/images/next.svg"
+        alt="next"
+      />
+      <div class="volume">
+        <div class="btn">
+          <img src="@/assets/images/volume-mute.svg" v-show="volume == 0" />
+          <img
+            src="@/assets/images/volume-min.svg"
+            v-show="0 < volume && volume < 33"
+          />
+          <img
+            src="@/assets/images/volume-mid.svg"
+            v-show="33 <= volume && volume < 66"
+          />
+          <img
+            src="@/assets/images/volume-max.svg"
+            v-show="66 <= volume && volume <= 100"
+          />
+        </div>
+        <input v-model="volume" class="slider" type="range" />
+      </div>
     </div>
 
-    <Transition name="fade">
-      <div class="player-wrapper" v-show="playing">
-        <div class="container">
-          <div class="player" id="player"></div>
+    <Teleport to="body">
+      <Transition name="fade">
+        <div class="player-wrapper" v-show="playing">
+          <div class="container">
+            <div class="player" id="player"></div>
+          </div>
         </div>
-      </div>
-    </Transition>
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup>
+let player = null;
+const volume = ref(20);
 const playing = ref(false);
-
-function onPlayerReady(event) {
-  player.playVideo();
-}
+const ready = ref(false);
 
 function onPlayerStateChange(event) {
   const playerState =
@@ -57,52 +86,38 @@ function onPlayerStateChange(event) {
 }
 
 function play() {
-  if (!player) {
-    loadYoutubeAPI(true);
-  } else {
-    player.playVideo();
-  }
+  player.playVideo();
 }
 
 function prev() {
-  if (!player) {
-    loadYoutubeAPI(true);
-  } else {
-    player.previousVideo();
-  }
+  player.previousVideo();
 }
 
 function pause() {
-  if (!player) {
-    loadYoutubeAPI(true);
-  } else {
-    player.pauseVideo();
-  }
+  player.pauseVideo();
 }
 
 function next() {
-  if (!player) {
-    loadYoutubeAPI(true);
-  } else {
-    player.nextVideo();
-  }
+  player.nextVideo();
 }
 
-useHead({
-  script: [
-    {
-      src: "https://www.youtube.com/iframe_api",
-      defer: true,
-    },
-  ],
+watch(volume, () => {
+  player.setVolume(volume.value);
 });
 
-let player = null;
+const onPlayerReady = function () {
+  ready.value = true;
+};
 
-// 안되면 이거 실행되게해야함
-const loadYoutubeAPI = function (autoplay = false) {
-  if (YT && YT.Player) {
-    // Youtube API에서 자동 실행하는 함수라서 window 내에 정의해주어야한다.
+onMounted(() => {
+  if (window.innerWidth < 768) return;
+  const tag = document.createElement("script");
+
+  tag.src = "https://www.youtube.com/iframe_api";
+  const firstScriptTag = document.getElementsByTagName("script")[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  window.onYouTubeIframeAPIReady = function () {
     player = new YT.Player("player", {
       playerVars: {
         autoplay: 0,
@@ -112,28 +127,15 @@ const loadYoutubeAPI = function (autoplay = false) {
         modestbranding: 1,
         frameborder: "no",
         listType: "playlist",
-        list: "PLWTycz4el4t7ZCxkGYyekoP1iBxmOM4zZ",
+        // list: "PLWTycz4el4t7ZCxkGYyekoP1iBxmOM4zZ",
+        list: "PLJWTWXJ7iqXctxVu1Fd3ZkF-WWD8kOzMb",
       },
       events: {
-        onReady: autoplay ? (e) => e.target.playVideo() : null, // 플레이어 로드가 완료되고 API 호출을 받을 준비가 될 때마다 실행
-        onStateChange: onPlayerStateChange, // 플레이어의 상태가 변경될 때마다 실행
+        onReady: onPlayerReady,
+        onStateChange: onPlayerStateChange,
       },
     });
-  }
-
-  // API load 될 때까지 반복
-  let timer = setInterval(() => {
-    if (player) {
-      clearInterval(timer);
-      timer = null;
-    }
-  }, 300);
-};
-
-onMounted(() => {
-  if (!player) {
-    loadYoutubeAPI(window.innerWidth < 768);
-  }
+  };
 });
 </script>
 
@@ -144,13 +146,14 @@ onMounted(() => {
   display: flex;
   align-items: center;
   height: 100%;
-  margin-right: 1.5rem;
+  margin-right: 2.5rem;
   .controls {
     display: flex;
+    align-items: center;
     column-gap: 2rem;
-    height: 45%;
-    img {
-      height: 100%;
+    height: 100%;
+    &__btn {
+      height: 40%;
       &.play,
       &.pause {
         transform: scale(1.2);
@@ -158,6 +161,23 @@ onMounted(() => {
 
       &:active {
         opacity: 0.7;
+      }
+    }
+
+    .volume {
+      position: relative;
+      display: flex;
+      height: 60%;
+      .btn {
+        height: 100%;
+        img {
+          height: 100%;
+        }
+      }
+      .slider {
+        position: absolute;
+        top: 100%;
+        z-index: 100;
       }
     }
   }
@@ -209,8 +229,11 @@ onMounted(() => {
 
 @media (max-width: $breakpoint-tablet) {
   .music-player {
+    margin-right: 1rem;
     .controls {
-      height: 35%;
+      &__btn {
+        height: 40%;
+      }
     }
   }
   .player-wrapper {
