@@ -129,7 +129,7 @@ const selectDockItem = function (name) {
   transform: translateY(-50%);
   width: 40px;
   z-index: 100000;
-  background-color: #363636;
+  background-color: #3636369c;
   box-shadow: 1px 1px 4px #888;
   border-radius: 1.4rem;
   padding: 1.2rem 0.6rem;
@@ -153,7 +153,7 @@ const selectDockItem = function (name) {
       margin-left: 1.8rem;
       color: #fff;
       font-size: 1.5rem;
-      background-color: rgba(100, 100, 100, 0.7);
+      background-color: #3636369c;
       padding: 0.5em 0.7em;
       border-radius: 5px;
       box-shadow: 0 0 1px 1px #5d5d5d;
@@ -195,7 +195,7 @@ const selectDockItem = function (name) {
   .overlay {
     &.active {
       position: fixed;
-      top: $header-height-tablet;
+      top: 0;
       left: 0;
       width: 100%;
       height: 100%;

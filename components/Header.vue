@@ -27,7 +27,7 @@ const { closeAllWindows } = usePostStore();
 .main-header {
   display: flex;
   height: $header-height;
-  background-color: rgba(98, 98, 98, 0.3);
+  background-color: #333;
   padding-left: 2.5rem;
   padding-right: 1.5rem;
   color: white;

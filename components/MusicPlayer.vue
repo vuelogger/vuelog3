@@ -27,8 +27,8 @@
         src="@/assets/images/next.svg"
         alt="next"
       />
-      <div class="volume">
-        <div class="btn">
+      <div class="volume" v-if="ready">
+        <div class="btn" @click.stop="showSlider = !showSlider">
           <img src="@/assets/images/volume-mute.svg" v-show="volume == 0" />
           <img
             src="@/assets/images/volume-min.svg"
@@ -43,7 +43,7 @@
             v-show="66 <= volume && volume <= 100"
           />
         </div>
-        <input v-model="volume" class="slider" type="range" />
+        <Slider v-model="volume" v-show="showSlider" @click.self.stop />
       </div>
     </div>
 
@@ -64,6 +64,7 @@ let player = null;
 const volume = ref(20);
 const playing = ref(false);
 const ready = ref(false);
+const showSlider = ref(false);
 
 function onPlayerStateChange(event) {
   const playerState =
@@ -102,11 +103,12 @@ function next() {
 }
 
 watch(volume, () => {
-  player.setVolume(volume.value);
+  player.setVolume(parseInt(volume.value));
 });
 
-const onPlayerReady = function () {
+const onPlayerReady = function (event) {
   ready.value = true;
+  event.target.setPlaybackQuality(event.target.getAvailablePlaybackRates()[0]);
 };
 
 onMounted(() => {
@@ -126,8 +128,8 @@ onMounted(() => {
         modestbranding: 1,
         frameborder: "no",
         listType: "playlist",
-        // list: "PLWTycz4el4t7ZCxkGYyekoP1iBxmOM4zZ",
-        list: "PLJWTWXJ7iqXctxVu1Fd3ZkF-WWD8kOzMb",
+        list: "PLWTycz4el4t7ZCxkGYyekoP1iBxmOM4zZ",
+        // list: "PLJWTWXJ7iqXctxVu1Fd3ZkF-WWD8kOzMb",
       },
       events: {
         onReady: onPlayerReady,
@@ -135,6 +137,9 @@ onMounted(() => {
       },
     });
   };
+  window.addEventListener("click", () => {
+    showSlider.value = false;
+  });
 });
 </script>
 
@@ -172,11 +177,6 @@ onMounted(() => {
         img {
           height: 100%;
         }
-      }
-      .slider {
-        position: absolute;
-        top: 100%;
-        z-index: 100;
       }
     }
   }

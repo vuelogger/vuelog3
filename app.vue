@@ -1,5 +1,5 @@
 <template>
-  <img src="/images/bg.png" class="main-bg" />
+  <img src="/images/bg.jpg" class="main-bg" />
   <Header />
   <Dock />
   <WindowList />

@@ -61,11 +61,13 @@ const onMouseMove = (e) => {
 
   // Left Click
   if (startPt) {
-    if (mode.startsWith("resize")) {
-      resize(endPt, mode);
-    } else if (mode === "move") {
-      move(startPt, endPt);
-      startPt = endPt;
+    if (mode) {
+      if (mode.startsWith("resize")) {
+        resize(endPt, mode);
+      } else if (mode === "move") {
+        move(startPt, endPt);
+        startPt = endPt;
+      }
     }
   } else {
     cursor.value = getCursorOf(endPt);

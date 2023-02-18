@@ -68,7 +68,8 @@ const returnToTop = function () {
   .header {
     color: white;
     height: $window-header-height;
-    background-color: #222;
+    background-color: #161616ad;
+    backdrop-filter: blur(3px);
     display: flex;
     align-items: center;
     padding: 0 1.5rem;
@@ -85,7 +86,6 @@ const returnToTop = function () {
 
   .body {
     overflow-y: auto;
-    background-color: white;
     height: calc(100% - #{$window-header-height});
     display: flex;
 
@@ -107,6 +107,8 @@ const returnToTop = function () {
     .header {
       height: auto;
       padding: 0;
+      background-color: #222;
+      border-top: 2px solid #333;
 
       .btns {
         display: none;

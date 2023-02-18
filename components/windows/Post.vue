@@ -26,5 +26,6 @@ const isPost = computed(() => {
 <style lang="scss">
 .post {
   width: 100%;
+  background-color: white;
 }
 </style>

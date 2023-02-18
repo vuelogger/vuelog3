@@ -29,7 +29,6 @@ const { category } = defineProps(["category"]);
   width: 230px;
   height: calc(100% - #{$window-header-height});
   background-color: white;
-  border-right: 1px solid #eee;
   padding: 2rem 1rem;
   box-sizing: border-box;
   z-index: 3;
@@ -48,13 +47,13 @@ const { category } = defineProps(["category"]);
 
 .slide-left-enter-active,
 .slide-left-leave-active {
-  transition: all 0.7s;
+  transition: all 0.5s ease-in-out;
 }
 
 @media (max-width: $breakpoint-tablet) {
   .sidebar {
-    top: $window-header-height-tablet;
-    height: calc(100% - #{$window-header-height-tablet});
+    top: calc(#{$window-header-height-tablet} + 2px);
+    height: calc(100% - #{$window-header-height-tablet} - 2px);
   }
 }
 </style>
