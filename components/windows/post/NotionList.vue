@@ -83,7 +83,7 @@ const goTo = (item) => `/post/${item.category.toLowerCase()}/${item.id}`;
 @import "@/assets/scss/base/mixins.scss";
 .list-wrapper {
   height: fit-content;
-  padding: 7rem 2rem;
+  padding: 7rem;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -216,6 +216,13 @@ const goTo = (item) => `/post/${item.category.toLowerCase()}/${item.id}`;
         }
       }
     }
+  }
+}
+
+@media (max-width: 768px) {
+  .list-wrapper {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 </style>
