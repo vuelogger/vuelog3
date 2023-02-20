@@ -6,7 +6,6 @@
     title="Mac Dock"
     :src="`${embedURL}?default-tab=js%2Cresult&editable=true`"
     frameborder="no"
-    loading="lazy"
     allowtransparency="true"
     allowfullscreen="true"
   >

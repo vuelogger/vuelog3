@@ -7,7 +7,7 @@
           {{ dateToStr(d.created, "YYYY. MM. DD") }}
         </div>
         <h3>{{ d.title }}</h3>
-        <img v-if="d.image" :src="d.image" loading="lazy" />
+        <img v-if="d.image" :src="d.image" />
         <p>{{ d.content }}</p>
       </li>
     </ul>

@@ -14,18 +14,8 @@
         class="item"
       >
         <div class="head">
-          <img
-            class="cover"
-            loading="lazy"
-            :src="item.cover"
-            v-if="item.cover"
-          />
-          <img
-            class="cover no-image"
-            loading="lazy"
-            src="/images/logo.png"
-            v-else
-          />
+          <img class="cover" :src="item.cover" v-if="item.cover" />
+          <img class="cover no-image" src="/images/logo.png" v-else />
         </div>
         <div class="body">
           <div class="category" :class="item.category.toLowerCase()">
