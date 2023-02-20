@@ -34,7 +34,7 @@ export default defineEventHandler(async (e) => {
     const res = await notion.databases.query({
       database_id: process.env.NOTION_POST_TABLE_ID,
       filter: filtering(category),
-      page_size: 9,
+      // page_size: 19,
       sorts: [
         {
           timestamp: "created_time",

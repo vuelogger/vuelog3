@@ -9,7 +9,7 @@
 
     <div class="right">
       <MusicPlayer />
-      <HeaderDateTime class="time" format="lll" />
+      <HeaderDateTime class="time" />
       <div class="dock-btn">
         <HamburgerBtn />
       </div>

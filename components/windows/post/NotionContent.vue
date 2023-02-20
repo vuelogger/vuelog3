@@ -1,20 +1,37 @@
 <template>
-  <article>
-    <div class="header" v-if="page">
-      <img class="cover" :src="page.cover" />
-      <div class="text">
-        <div class="category" :class="page.category.toLowerCase()">
-          {{ page.category }}
-        </div>
-        <h1 class="title">{{ page.title }}</h1>
+  <article v-if="page">
+    <div class="cover" :class="page.cover ? null : 'no-image'">
+      <img :src="page.cover" v-if="page.cover" />
+    </div>
+    <div class="info">
+      <NuxtLink class="category" :to="`/post/${page.category}`">
+        <img :src="`/images/apps/post/${page.category}.svg`" />
+      </NuxtLink>
 
-        <div class="created">
-          <img src="@/assets/images/windows/post/article/calendar.svg" />
-          <span>{{ format(page.created) }}</span>
+      <h1 class="title">{{ page.title }}</h1>
+      <div class="table">
+        <div class="label">
+          <img src="@/assets/images/windows/post/article/category.svg" />
+          <span>Category</span>
         </div>
-        <ul class="tags">
-          <li v-for="tag of page.tags">{{ tag }}</li>
-        </ul>
+        <div class="value">{{ page.category }}</div>
+        <div class="label">
+          <img src="@/assets/images/windows/post/article/tags.svg" />
+          <span>Tags</span>
+        </div>
+        <div class="value">
+          <div class="tag" v-for="tag of page.tags" :key="tag">{{ tag }}</div>
+        </div>
+        <div class="label">
+          <img src="@/assets/images/windows/post/article/calendar.svg" />
+          <span>Created</span>
+        </div>
+        <div class="value">{{ dateToStr(page.created, "YYYY. MM. DD") }}</div>
+        <div class="label">
+          <img src="@/assets/images/windows/post/article/calendar.svg" />
+          <span>Updated</span>
+        </div>
+        <div class="value">{{ dateToStr(page.updated, "YYYY. MM. DD") }}</div>
       </div>
     </div>
     <div class="body">
@@ -24,10 +41,8 @@
 </template>
 
 <script setup>
+import { dateToStr } from "@/src/util";
 import Block from "@/components/windows/post/Block.vue";
-import dayjs from "dayjs";
-
-const format = (date) => dayjs(date).format("YYYY. MM. DD");
 
 const route = useRoute();
 const blocks = ref([]);
@@ -50,6 +65,7 @@ useFetch("/api/blocks", {
 
 <style lang="scss">
 @import "@/assets/scss/base/variable.scss";
+@import "@/assets/scss/base/mixins.scss";
 
 $text-padding: 2rem;
 
@@ -57,79 +73,76 @@ article {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
   user-select: text;
+  background-color: white;
+  height: fit-content;
 
-  .header {
-    position: relative;
+  .cover {
     width: 100%;
-    flex: 0 0 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 300px;
 
-    .cover {
-      position: absolute;
+    &.no-image {
+      height: 100px;
+    }
+
+    img {
       width: 100%;
       height: 100%;
-      top: 0;
-      left: 0;
       object-fit: cover;
-      filter: brightness(0.6);
     }
-    .text {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      width: $breakpoint-tablet;
-      max-width: 100%;
-      padding: 0 $text-padding;
-      box-sizing: border-box;
-      color: white;
-      .category {
-        font-size: 1.8rem;
-        width: fit-content;
-        padding: 0.5rem 1rem;
-        border-radius: 8px;
-        font-weight: bold;
-      }
+  }
 
-      .title {
-        font-size: 4rem;
-        line-height: 1.4;
-        margin-top: 2rem;
-        font-family: "SBAggroB", "GmarketSans", Arial, Helvetica, sans-serif;
-        text-shadow: 4px 4px 4px black;
-      }
+  .info {
+    width: $breakpoint-tablet;
+    max-width: 100%;
+    position: relative;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid lightgray;
 
-      .created {
+    .category {
+      transform: translateY(-50%);
+      position: absolute;
+      width: 5rem;
+      height: 5rem;
+      padding: 1rem;
+      border-radius: 1rem;
+      background-color: ghostwhite;
+      box-shadow: 2px 2px 2px gray;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .title {
+      margin-top: 8rem;
+      font-size: 3rem;
+      color: #222;
+      line-height: 1.4;
+      @include headerFont;
+    }
+
+    .table {
+      display: grid;
+      grid-template-columns: 1fr 4fr;
+      margin-top: 3rem;
+      align-items: center;
+      row-gap: 2rem;
+      font-size: 1.3rem;
+
+      .label {
         display: flex;
         align-items: center;
-        font-size: 1.4rem;
-        text-shadow: 2px 2px 2px gray;
-        margin-left: 1rem;
-        color: #eee;
-        margin-top: 1rem;
+        opacity: 0.45;
         img {
-          height: 2rem;
-          margin-right: 1rem;
+          width: 1.5rem;
+          height: 1.5rem;
+          margin-right: 1.5rem;
         }
       }
 
-      .tags {
-        margin-top: 2rem;
+      .value {
         display: flex;
-        column-gap: 1rem;
-        li {
-          color: #679fff;
-          text-shadow: 1px 1px 1px black, -1px -1px 1px black;
-          font-size: 1.3rem;
-
-          &::before {
-            content: "#";
-            margin-right: 0.2rem;
-          }
-        }
+        align-items: center;
       }
     }
   }
@@ -138,6 +151,7 @@ article {
     width: $breakpoint-tablet;
     position: relative;
     padding: 4rem $text-padding;
+    background-color: white;
     max-width: 100%;
     box-sizing: border-box;
     font-size: 1.6rem;

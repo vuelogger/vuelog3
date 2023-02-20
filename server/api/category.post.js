@@ -10,7 +10,7 @@ export default defineEventHandler(async (e) => {
       link: v.name.toLowerCase(),
       name: v.name,
     }));
-    result.unshift({ link: "", name: "All" });
+    result.unshift({ link: "all", name: "All" });
     return result;
   } catch (error) {
     console.error("Category 불러오기 실패", error);

@@ -1,5 +1,11 @@
 <template>
   <div class="list-wrapper">
+    <div class="header">
+      <div class="title">
+        <img :src="`/images/apps/post/${categoryName}.svg`" />
+        <span>{{ categoryName }}</span>
+      </div>
+    </div>
     <nav class="list">
       <NuxtLink
         :to="goTo(item)"
@@ -7,8 +13,19 @@
         :key="item.number"
         class="item"
       >
-        <div class="head" v-if="item.cover">
-          <img class="cover" :src="item.cover" alt="item.title" />
+        <div class="head">
+          <img
+            class="cover"
+            loading="lazy"
+            :src="item.cover"
+            v-if="item.cover"
+          />
+          <img
+            class="cover no-image"
+            loading="lazy"
+            src="/images/logo.png"
+            v-else
+          />
         </div>
         <div class="body">
           <div class="category" :class="item.category.toLowerCase()">
@@ -23,7 +40,7 @@
               </li>
             </ul>
 
-            <p class="created">{{ format(item.created) }}</p>
+            <p class="created">{{ dateToStr(item.created, "YYYY. MM. DD") }}</p>
           </div>
         </div>
       </NuxtLink>
@@ -32,25 +49,25 @@
 </template>
 
 <script setup>
-import dayjs from "dayjs";
+import { dateToStr } from "@/src/util";
 const { category } = defineProps(["category"]);
 
 const route = useRoute();
 const list = ref([]);
+const categoryName = ref("All");
 
 const request = function () {
   list.value = [];
-  let categoryName = "All";
   for (const c of category) {
     if (c.link === route.params.category) {
-      categoryName = c.name;
+      categoryName.value = c.name;
       break;
     }
   }
 
   useFetch("/api/table", {
     method: "post",
-    body: { category: categoryName },
+    body: { category: categoryName.value },
   }).then(({ data }) => {
     list.value = data.value.list;
   });
@@ -59,26 +76,48 @@ const request = function () {
 watch(route, request, { immediate: true });
 
 const goTo = (item) => `/post/${item.category.toLowerCase()}/${item.id}`;
-const format = (date) => dayjs(date).format("YYYY.MM.DD");
 </script>
 
 <style lang="scss" scoped>
 @import "@/assets/scss/base/variable.scss";
 @import "@/assets/scss/base/mixins.scss";
 .list-wrapper {
-  padding: 2rem;
-  .list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  height: fit-content;
+  padding: 7rem 2rem;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .header {
     width: 1024px;
     max-width: 100%;
+    padding-bottom: 1rem;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid lightgray;
+    .title {
+      height: 5rem;
+      font-size: 4rem;
+      display: flex;
+      align-items: center;
+
+      img {
+        height: 100%;
+        margin-right: 1.5rem;
+      }
+    }
+  }
+
+  .list {
+    width: 1024px;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 3rem 2rem;
-    margin: 0 auto;
     .item {
       border-radius: 1rem;
       overflow: hidden;
       box-shadow: 2px 2px 2px lightgray;
-      border: 1px solid lightgray;
       transition: all 0.3s;
       &:hover {
         transform: translate(-5px, -10px);
@@ -89,22 +128,23 @@ const format = (date) => dayjs(date).format("YYYY.MM.DD");
             transform: scale(1.2);
           }
         }
-        .body {
-          .title {
-            text-decoration: underline;
-          }
-        }
       }
       .head {
         width: 100%;
         height: 50%;
         overflow: hidden;
         aspect-ratio: 1 / 0.7;
-        img {
+        border-bottom: 1px solid lightgray;
+        .cover {
           width: 100%;
           height: 100%;
           object-fit: cover;
           transition: transform 0.3s;
+
+          &.no-image {
+            transform: scale(0.5);
+            object-fit: contain;
+          }
         }
       }
       .body {
@@ -125,6 +165,17 @@ const format = (date) => dayjs(date).format("YYYY.MM.DD");
           padding: 0.6rem 1rem;
           box-shadow: 0px 0px 0px 4px white;
           font-weight: bold;
+          background-color: gray;
+          color: white;
+          &.html {
+            background-color: #ff8787;
+          }
+          &.css {
+            background-color: #989eff;
+          }
+          &.javascript {
+            background-color: #c6c635;
+          }
         }
 
         .title {

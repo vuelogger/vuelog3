@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li v-for="c of category" :key="c.link">
-      <NuxtLink :to="`/post/${c.link}`" @click="clickMenu(c.name)">
+      <NuxtLink :to="`/post/${c.link}`" @click="closeSidebar">
         <div class="icon">
           <img :src="`/images/apps/post/${c.name}.svg`" />
         </div>
@@ -16,17 +16,10 @@
 </template>
 
 <script setup>
-import { usePostStore } from "~~/stores/post";
-
-const emit = defineEmits(["changeList"]);
+import { usePostStore } from "@/stores/post";
 
 const { closeSidebar } = usePostStore();
 const { category } = defineProps(["category"]);
-
-const clickMenu = (name) => {
-  emit("changeList", name);
-  closeSidebar();
-};
 </script>
 
 <style lang="scss" scoped>

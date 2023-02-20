@@ -3,33 +3,14 @@
 </template>
 
 <script setup>
-import dayjs from "dayjs";
-import localizedFormat from "dayjs/plugin/localizedFormat";
+import { dateToStr } from "@/src/util";
 
-dayjs.extend(localizedFormat);
-
-const { format, time, updatePeriod } = defineProps({
-  format: {
-    type: String,
-    required: true,
-  },
-  time: {
-    type: String, // 값이 없을 경우 현재 시간 표시
-  },
-  updatePeriod: {
-    type: Number,
-    default: 1000 * 60,
-  },
-});
-
-const datetime = ref(dayjs(time));
-const dateStr = computed(() => datetime.value.format(format));
+const datetime = ref(new Date());
+const dateStr = computed(() => dateToStr(datetime.value, "lll"));
 
 onMounted(() => {
-  if (!time) {
-    setInterval(() => {
-      datetime.value = dayjs(time);
-    }, updatePeriod);
-  }
+  setInterval(() => {
+    datetime.value = new Date();
+  }, 1000 * 60);
 });
 </script>
