@@ -90,6 +90,7 @@ const goTo = (item) => `/post/${item.category.toLowerCase()}/${item.id}`;
       font-size: 4rem;
       display: flex;
       align-items: center;
+      font-family: "Pretendard", sans-serif;
 
       img {
         height: 100%;

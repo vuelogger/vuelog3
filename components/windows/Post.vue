@@ -6,7 +6,7 @@ import SideBar from "./post/SideBar.vue";
 const route = useRoute();
 const category = ref([]);
 
-useFetch("/api/category", { method: "post" }).then(({ data }) => {
+useFetch("/api/category").then(({ data }) => {
   category.value = data.value;
 });
 

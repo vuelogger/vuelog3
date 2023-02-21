@@ -1,8 +1,8 @@
 <template>
   <div class="blog-diary">
     <h1>My Blog Diary</h1>
-    <ul v-if="diary.length > 0">
-      <li v-for="d of diary" :key="d.title">
+    <ul>
+      <li v-for="d of diary" :key="d.title" ref="list">
         <div class="created">
           {{ dateToStr(d.created, "YYYY. MM. DD") }}
         </div>
@@ -16,9 +16,43 @@
 
 <script setup>
 import { dateToStr } from "@/src/util";
+let startCursor = undefined;
+const list = ref(null);
 const diary = ref([]);
-useFetch("/api/diary").then(({ data }) => {
-  diary.value = data.value;
+const { data } = await useFetch("/api/diary", {
+  method: "post",
+  body: { startCursor },
+});
+diary.value = data.value.list;
+startCursor = data.value.startCursor;
+
+const observeLastItem = (io, items) => {
+  const lastItem = items[items.length - 1];
+  io.observe(lastItem);
+};
+
+onMounted(() => {
+  const io = new IntersectionObserver(
+    async (entries, io) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          io.unobserve(entry.target);
+
+          const { data } = await useFetch("/api/diary", {
+            method: "post",
+            body: { startCursor },
+          });
+          if (data.value.list) {
+            diary.value.push(...data.value.list);
+            startCursor = data.value.startCursor;
+            observeLastItem(io, list.value);
+          }
+        }
+      }
+    },
+    { threshold: 0.7 }
+  );
+  observeLastItem(io, list.value);
 });
 </script>
 
@@ -28,6 +62,7 @@ useFetch("/api/diary").then(({ data }) => {
   background-color: #222;
   height: fit-content;
   color: white;
+  min-height: 100%;
   width: 100%;
   padding: 5rem 3rem;
   box-sizing: border-box;
