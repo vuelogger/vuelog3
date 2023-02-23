@@ -1,9 +1,9 @@
 <template>
-  <article v-if="page">
-    <div class="cover" :class="page.cover ? null : 'no-image'">
+  <div v-if="page" class="content">
+    <div class="content__cover" :class="page.cover ? null : 'no-image'">
       <img :src="page.cover" v-if="page.cover" />
     </div>
-    <div class="info">
+    <div class="content__info">
       <NuxtLink class="category" :to="`/post/${page.category}`">
         <img :src="`/images/apps/post/${page.category}.svg`" />
       </NuxtLink>
@@ -33,16 +33,17 @@
         </div>
         <div class="value">{{ dateToStr(page.updated, "YYYY. MM. DD") }}</div>
       </div>
+      <hr />
     </div>
-    <div class="body">
-      <Block v-for="b of blocks" :key="b.id" :block="b" />
+    <div class="content__body">
+      <Article :blocks="blocks" />
     </div>
-  </article>
+  </div>
 </template>
 
 <script setup>
+import Article from "./Article.vue";
 import { dateToStr } from "@/src/util";
-import Block from "@/components/windows/post/Block.vue";
 
 const route = useRoute();
 const blocks = ref([]);
@@ -67,9 +68,7 @@ useFetch("/api/blocks", {
 @import "@/assets/scss/base/variable.scss";
 @import "@/assets/scss/base/mixins.scss";
 
-$text-padding: 2rem;
-
-article {
+.content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -77,7 +76,7 @@ article {
   background-color: white;
   height: fit-content;
 
-  .cover {
+  &__cover {
     width: 100%;
     height: 300px;
 
@@ -92,12 +91,17 @@ article {
     }
   }
 
-  .info {
+  &__info,
+  &__body {
+    padding: 0 2rem;
+    box-sizing: border-box;
+  }
+
+  &__info {
     width: $breakpoint-tablet;
     max-width: 100%;
     position: relative;
-    padding-bottom: 4rem;
-    border-bottom: 1px solid lightgray;
+    font-family: "Pretendard", sans-serif;
 
     .category {
       transform: translateY(-50%);
@@ -126,6 +130,7 @@ article {
       grid-template-columns: 1fr 4fr;
       margin-top: 3rem;
       align-items: center;
+      column-gap: 2rem;
       row-gap: 2rem;
       font-size: 1.3rem;
 
@@ -145,93 +150,20 @@ article {
         align-items: center;
       }
     }
+
+    hr {
+      border: 0;
+      border-bottom: 1px solid lightgray;
+      margin-top: 3rem;
+    }
   }
 
-  .body {
+  &__body {
     width: $breakpoint-tablet;
     position: relative;
-    padding: 4rem $text-padding;
     background-color: white;
     max-width: 100%;
     box-sizing: border-box;
-    font-size: 1.6rem;
-    line-height: 1.8;
-    line-break: anywhere;
-
-    hr {
-      height: 3rem;
-      border: 0;
-      background-image: url(/images/divider.png);
-      background-position: 50%;
-      background-size: contain;
-      background-repeat: no-repeat;
-      margin: 4rem 0;
-    }
-
-    .image {
-      display: flex;
-      max-width: 100%;
-      margin: 2rem auto;
-      border: 1px solid gray;
-      border-radius: 8px;
-    }
-
-    .inline-code {
-      color: #476582;
-      padding: 0.25rem 0.5rem;
-      margin: 0;
-      font-size: 0.85em;
-      background-color: rgba(27, 31, 35, 0.05);
-      border-radius: 3px;
-    }
-
-    .codeblock {
-      margin: 3rem 0;
-      font-family: sans-serif;
-      border-radius: 1rem;
-      overflow: hidden;
-
-      &__head {
-        display: flex;
-        align-items: center;
-        background-color: #1e1e1e;
-        color: white;
-        padding: 1rem 1.5rem 0 1.5rem;
-        margin-bottom: -0.5rem;
-        .lang {
-          color: #aaa;
-          border-radius: 1rem;
-          font-weight: bold;
-          text-transform: uppercase;
-
-          &.html {
-            color: #d84f4f;
-          }
-          &.javascript {
-            color: #dada63;
-          }
-          &.css {
-            color: #5757d9;
-          }
-        }
-
-        .code-caption {
-          color: gray;
-          font-size: 0.9em;
-          margin-left: auto;
-        }
-      }
-
-      pre {
-        display: flex;
-        flex-direction: column;
-      }
-    }
-
-    ol,
-    ul {
-      list-style: initial;
-    }
   }
 }
 

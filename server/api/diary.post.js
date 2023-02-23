@@ -16,7 +16,6 @@ export default defineEventHandler(async (e) => {
       ],
     });
 
-    console.log(res.has_more);
     return {
       hasMore: res.has_more,
       startCursor: res.next_cursor,

@@ -34,15 +34,18 @@ export default defineEventHandler(async (e) => {
     const res = await notion.databases.query({
       database_id: process.env.NOTION_POST_TABLE_ID,
       filter: filtering(category),
-      // page_size: 19,
+      page_size: 6,
       sorts: [
         {
           timestamp: "created_time",
           direction: "descending",
         },
       ],
+      start_cursor: startCursor,
     });
+
     return {
+      startCursor: res.next_cursor,
       list: res.results.map((v) => ({
         id: v.id,
         created: v.created_time,

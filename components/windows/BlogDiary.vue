@@ -2,7 +2,7 @@
   <div class="blog-diary">
     <h1>My Blog Diary</h1>
     <ul>
-      <li v-for="d of diary" :key="d.title" ref="list">
+      <li v-for="d of list" :key="d.title" ref="refs">
         <div class="created">
           {{ dateToStr(d.created, "YYYY. MM. DD") }}
         </div>
@@ -16,44 +16,10 @@
 
 <script setup>
 import { dateToStr } from "@/src/util";
-let startCursor = undefined;
-const list = ref(null);
-const diary = ref([]);
-const { data } = await useFetch("/api/diary", {
-  method: "post",
-  body: { startCursor },
-});
-diary.value = data.value.list;
-startCursor = data.value.startCursor;
+import { infinityScroll } from "@/composable/infinity_scroll";
 
-const observeLastItem = (io, items) => {
-  const lastItem = items[items.length - 1];
-  io.observe(lastItem);
-};
-
-onMounted(() => {
-  const io = new IntersectionObserver(
-    async (entries, io) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          io.unobserve(entry.target);
-
-          const { data } = await useFetch("/api/diary", {
-            method: "post",
-            body: { startCursor },
-          });
-          if (data.value.list) {
-            diary.value.push(...data.value.list);
-            startCursor = data.value.startCursor;
-            observeLastItem(io, list.value);
-          }
-        }
-      }
-    },
-    { threshold: 0.7 }
-  );
-  observeLastItem(io, list.value);
-});
+const startCursor = ref(undefined);
+const { list, refs } = await infinityScroll("/api/diary", startCursor);
 </script>
 
 <style lang="scss" scoped>

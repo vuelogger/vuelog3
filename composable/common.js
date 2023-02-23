@@ -1,4 +1,3 @@
-import variable from "@/assets/scss/base/variable.scss";
 import { onMounted, onUnmounted } from "vue";
 
 export const getPt = function (event) {

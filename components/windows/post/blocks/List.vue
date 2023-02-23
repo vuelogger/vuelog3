@@ -21,7 +21,7 @@ const data = computed(() => block[block.type]);
 const children = ref([]);
 
 if (block.has_children) {
-  useFetch("/api/page", {
+  useFetch("/api/blocks", {
     key: block.id,
     method: "post",
     body: { blockId: block.id },

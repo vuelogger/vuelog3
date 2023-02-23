@@ -12,6 +12,7 @@
         v-for="item of list"
         :key="item.number"
         class="item"
+        ref="refs"
       >
         <div class="head">
           <img class="cover" :src="item.cover" v-if="item.cover" />
@@ -40,13 +41,15 @@
 
 <script setup>
 import { dateToStr } from "@/src/util";
+import { infinityScroll } from "@/composable/infinity_scroll";
+
 const { category } = defineProps(["category"]);
 
 const route = useRoute();
-const list = ref([]);
 const categoryName = ref("All");
+const goTo = (item) => `/post/${item.category.toLowerCase()}/${item.id}`;
 
-const request = function () {
+const request = async function () {
   list.value = [];
   for (const c of category) {
     if (c.link === route.params.category) {
@@ -55,17 +58,28 @@ const request = function () {
     }
   }
 
-  useFetch("/api/table", {
+  const { data } = await useFetch("/api/table", {
     method: "post",
     body: { category: categoryName.value },
-  }).then(({ data }) => {
-    list.value = data.value.list;
   });
+
+  list.value = data.value.list;
+  startCursor.value = data.value.startCursor;
 };
 
-watch(route, request, { immediate: true });
+for (const c of category) {
+  if (c.link === route.params.category) {
+    categoryName.value = c.name;
+    break;
+  }
+}
 
-const goTo = (item) => `/post/${item.category.toLowerCase()}/${item.id}`;
+const startCursor = ref(undefined);
+const { list, refs } = await infinityScroll("/api/table", startCursor, {
+  category: categoryName.value,
+});
+
+watch(route, request);
 </script>
 
 <style lang="scss" scoped>

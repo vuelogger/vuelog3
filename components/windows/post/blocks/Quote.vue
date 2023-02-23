@@ -1,5 +1,6 @@
 <template>
   <blockquote>
+    <img src="@/assets/images/quote.svg" />
     <pre>
       <Text :text="data.rich_text" />
     </pre>
@@ -14,6 +15,12 @@ const data = computed(() => block[block.type]);
 
 <style lang="scss" scoped>
 blockquote {
+  display: flex;
+  img {
+    width: 3rem;
+    height: 3rem;
+    margin-right: 2rem;
+  }
   pre {
     white-space: pre-line;
   }
