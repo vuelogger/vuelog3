@@ -1,6 +1,6 @@
 import { onMounted } from "vue";
 
-export async function infinityScroll(apiURL, startCursor, body) {
+export async function infinityScroll(apiURL, startCursor, body = {}) {
   const list = ref([]);
   const refs = ref(null);
 
@@ -14,11 +14,15 @@ export async function infinityScroll(apiURL, startCursor, body) {
     io.observe(lastItem);
   };
 
-  const request = async () =>
-    await useFetch(apiURL, {
+  const request = async function () {
+    if (startCursor.value) {
+      body.startCursor = startCursor.value;
+    }
+    return await useFetch(apiURL, {
       method: "post",
-      body: { startCursor: startCursor.value, ...body },
+      body,
     });
+  };
 
   onMounted(() => {
     const io = new IntersectionObserver(

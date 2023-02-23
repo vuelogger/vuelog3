@@ -72,7 +72,9 @@ article {
 
   .bookmark {
     display: flex;
-    align-items: flex-start;
+    margin: 3rem 0;
+    border-radius: 3rem;
+    background-color: lightgray;
 
     .left {
       flex: 2;
