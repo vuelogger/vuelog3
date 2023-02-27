@@ -11,7 +11,7 @@ useFetch("/api/category").then(({ data }) => {
 });
 
 const isPost = computed(() => {
-  return route.params.id != null;
+  return route.params.id && route.params.id.includes("-");
 });
 </script>
 
@@ -19,7 +19,7 @@ const isPost = computed(() => {
   <div class="post">
     <SideBar :category="category" />
     <Content v-if="isPost" />
-    <List v-else-if="!isPost && category.length > 0" :category="category" />
+    <List v-else-if="!isPost" :category="category" />
   </div>
 </template>
 

@@ -31,3 +31,22 @@ if (block.has_children) {
   });
 }
 </script>
+
+<style lang="scss" scoped>
+ul {
+  list-style-type: disc;
+  padding-left: 3rem;
+}
+ol {
+  list-style-type: decimal;
+  padding-left: 3rem;
+}
+
+ul,
+ol {
+  li {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+}
+</style>

@@ -8,7 +8,7 @@
     </div>
     <nav class="list">
       <NuxtLink
-        :to="goTo(item)"
+        :to="`/post/${item.id}`"
         v-for="item of list"
         :key="item.number"
         class="item"
@@ -47,7 +47,6 @@ const { category } = defineProps(["category"]);
 
 const route = useRoute();
 const categoryName = ref("All");
-const goTo = (item) => `/post/${item.category.toLowerCase()}/${item.id}`;
 
 const request = async function () {
   list.value = [];

@@ -10,6 +10,7 @@ const { blocks } = defineProps(["blocks"]);
 </script>
 
 <style lang="scss">
+@import "@/assets/scss/base/mixins.scss";
 article {
   padding: 4rem 0;
   font-size: 1.6rem;
@@ -28,7 +29,8 @@ article {
   }
 
   strong {
-    color: #ff6767;
+    color: black;
+    font-weight: bold;
   }
 
   em {
@@ -47,6 +49,14 @@ article {
     text-decoration: none;
   }
 
+  .link {
+    color: #507ed1;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   audio {
     display: flex;
     margin: 4rem auto;
@@ -62,7 +72,7 @@ article {
   }
 
   .inline-code {
-    color: #476582;
+    color: #d76b6f;
     padding: 0.25rem 0.5rem;
     margin: 0;
     font-size: 0.9em;
@@ -70,80 +80,13 @@ article {
     border-radius: 3px;
   }
 
-  .bookmark {
-    display: flex;
-    margin: 3rem 0;
-    border-radius: 3rem;
-    background-color: lightgray;
-
-    .left {
-      flex: 2;
-    }
-
-    .right {
-      flex: 1;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-  }
-
-  .codeblock {
-    margin: 3rem 0;
-    font-family: sans-serif;
-    border-radius: 1rem;
-    overflow: hidden;
-
-    &__head {
-      display: flex;
-      align-items: center;
-      background-color: #1e1e1e;
-      color: white;
-      padding: 1rem 1.5rem 0 1.5rem;
-      margin-bottom: -0.5rem;
-      .lang {
-        color: #aaa;
-        border-radius: 1rem;
-        font-weight: bold;
-        text-transform: uppercase;
-
-        &.html {
-          color: #d84f4f;
-        }
-        &.javascript {
-          color: #dada63;
-        }
-        &.css {
-          color: #5757d9;
-        }
-      }
-
-      .code-caption {
-        color: gray;
-        font-size: 0.9em;
-        margin-left: auto;
-      }
-    }
-
-    pre {
-      display: flex;
-      flex-direction: column;
-    }
-  }
-
-  ol,
-  ul {
-    list-style: initial;
-    padding-left: 3rem;
-  }
-
   h2 {
     font-size: 2em;
     font-weight: bold;
     font-family: "GmarketSans", sans-serif;
     margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 4px dashed lightgray;
     margin-bottom: 1rem;
   }
 
@@ -151,8 +94,10 @@ article {
     font-size: 1.5em;
     font-weight: bold;
     font-family: "GmarketSans", sans-serif;
-    margin-top: 3rem;
-    margin-bottom: 1rem;
+    margin-top: 7rem;
+    margin-bottom: 2rem;
+    padding-left: 2rem;
+    border-left: 1rem solid rgb(216, 216, 246);
   }
 
   iframe {

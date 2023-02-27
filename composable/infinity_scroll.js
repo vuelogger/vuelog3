@@ -15,7 +15,7 @@ export async function infinityScroll(apiURL, startCursor, body = {}) {
   };
 
   const request = async function () {
-    if (startCursor.value) {
+    if (startCursor.value !== undefined) {
       body.startCursor = startCursor.value;
     }
     return await useFetch(apiURL, {
@@ -37,6 +37,7 @@ export async function infinityScroll(apiURL, startCursor, body = {}) {
             if (data.value.list) {
               list.value.push(...data.value.list);
               startCursor.value = data.value.startCursor;
+              console.log(startCursor.value);
 
               observeLastItem(io, refs.value);
             }
