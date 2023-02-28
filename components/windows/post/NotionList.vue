@@ -9,7 +9,7 @@
     <nav class="list">
       <NuxtLink
         :to="`/post/${item.id}`"
-        v-for="item of list"
+        v-for="(item, idx) in list"
         :key="item.number"
         class="item"
         ref="refs"
@@ -26,12 +26,14 @@
           <div class="desc">{{ item.description }}</div>
           <div class="bottom">
             <ul class="tags">
-              <li v-for="t of item.tags" :key="t">
-                {{ t }}
+              <li v-for="t of item.tags" :key="t" :class="t.color">
+                {{ t.name }}
               </li>
             </ul>
 
-            <p class="created">{{ dateToStr(item.created, "YYYY. MM. DD") }}</p>
+            <p class="created">
+              {{ dateToStr(item.created, "YYYY. MM. DD") }}
+            </p>
           </div>
         </div>
       </NuxtLink>
@@ -50,8 +52,9 @@ const categoryName = ref("All");
 
 const request = async function () {
   list.value = [];
+  startCursor.value = undefined;
   for (const c of category) {
-    if (c.link === route.params.category) {
+    if (c.link === route.params.id) {
       categoryName.value = c.name;
       break;
     }
@@ -67,7 +70,7 @@ const request = async function () {
 };
 
 for (const c of category) {
-  if (c.link === route.params.category) {
+  if (c.link === route.params.id) {
     categoryName.value = c.name;
     break;
   }
@@ -103,7 +106,6 @@ watch(route, request);
       font-size: 4rem;
       display: flex;
       align-items: center;
-      font-family: "Pretendard", sans-serif;
 
       img {
         height: 100%;
@@ -118,11 +120,21 @@ watch(route, request);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 3rem 2rem;
+
     .item {
       border-radius: 1rem;
       overflow: hidden;
       box-shadow: 2px 2px 2px lightgray;
       transition: all 0.3s;
+      animation: fade-slide 1s;
+      animation-fill-mode: backwards;
+
+      @for $i from 1 to 9 {
+        &:nth-child(8n - #{8 - $i}) {
+          animation-delay: calc(0.2s * #{$i});
+        }
+      }
+
       &:hover {
         transform: translate(-5px, -10px);
         box-shadow: 2px 2px 5px 2px gray;
@@ -161,7 +173,7 @@ watch(route, request);
         flex-direction: column;
 
         .category {
-          font-size: 1.3rem;
+          font-size: 1.4rem;
           border-radius: 0.7rem;
           position: absolute;
           top: 0;
@@ -200,7 +212,7 @@ watch(route, request);
           .tags {
             display: flex;
             align-items: center;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
 
             li {
               color: #638aff;
@@ -214,7 +226,7 @@ watch(route, request);
 
           .created {
             margin-left: auto;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: gray;
           }
         }

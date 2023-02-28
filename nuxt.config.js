@@ -24,6 +24,13 @@ export default defineNuxtConfig({
           content: "CyvFDg064KG5R0wkwhlZdsVdG5zElVLGvRiGMJIuV8Q",
         },
       ],
+      script: [
+        {
+          src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8123307370591079",
+          async: true,
+          crossorigin: "anonymous",
+        },
+      ],
     },
   },
 });

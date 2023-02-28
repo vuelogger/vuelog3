@@ -28,7 +28,6 @@ onMounted(() => {
 <style lang="scss" scoped>
 .codeblock {
   margin: 3rem 0;
-  font-family: sans-serif;
   border-radius: 0.5rem;
   overflow: hidden;
 

@@ -37,7 +37,6 @@ export async function infinityScroll(apiURL, startCursor, body = {}) {
             if (data.value.list) {
               list.value.push(...data.value.list);
               startCursor.value = data.value.startCursor;
-              console.log(startCursor.value);
 
               observeLastItem(io, refs.value);
             }

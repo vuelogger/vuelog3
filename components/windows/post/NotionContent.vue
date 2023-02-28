@@ -4,7 +4,7 @@
       <img :src="page.cover" v-if="page.cover" />
     </div>
     <div class="content__info">
-      <NuxtLink class="category" :to="`/post/${page.category}`">
+      <NuxtLink class="category" :to="`/post/${page.category.toLowerCase()}`">
         <img :src="`/images/apps/post/${page.category}.svg`" />
       </NuxtLink>
 
@@ -14,13 +14,20 @@
           <img src="@/assets/images/windows/post/article/category.svg" />
           <span>Category</span>
         </div>
-        <div class="value">{{ page.category }}</div>
+        <div class="value cate notion-select">{{ page.category }}</div>
         <div class="label">
           <img src="@/assets/images/windows/post/article/tags.svg" />
           <span>Tags</span>
         </div>
-        <div class="value">
-          <div class="tag" v-for="tag of page.tags" :key="tag">{{ tag }}</div>
+        <div class="value tags">
+          <div
+            class="tag notion-select"
+            v-for="tag of page.tags"
+            :key="tag"
+            :class="tag.color"
+          >
+            {{ tag.name }}
+          </div>
         </div>
         <div class="label">
           <img src="@/assets/images/windows/post/article/calendar.svg" />
@@ -101,7 +108,6 @@ useFetch("/api/blocks", {
     width: $breakpoint-tablet;
     max-width: 100%;
     position: relative;
-    font-family: "Pretendard", sans-serif;
 
     .category {
       transform: translateY(-50%);
@@ -122,7 +128,6 @@ useFetch("/api/blocks", {
       font-size: 3rem;
       color: #222;
       line-height: 1.4;
-      @include headerFont;
     }
 
     .table {
@@ -132,7 +137,7 @@ useFetch("/api/blocks", {
       align-items: center;
       column-gap: 2rem;
       row-gap: 2rem;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
 
       .label {
         display: flex;
@@ -148,6 +153,19 @@ useFetch("/api/blocks", {
       .value {
         display: flex;
         align-items: center;
+        width: fit-content;
+
+        &.cate {
+          font-weight: bold;
+        }
+
+        &.tags {
+          flex-wrap: wrap;
+          .tag {
+            margin-right: 0.3rem;
+            margin-top: 0.3rem;
+          }
+        }
       }
     }
 

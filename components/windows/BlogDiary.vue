@@ -35,7 +35,6 @@ const { list, refs } = await infinityScroll("/api/diary", startCursor);
   h1 {
     font-size: 4rem;
     line-height: 1.4;
-    @include headerFont;
   }
 
   ul {

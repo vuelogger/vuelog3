@@ -43,3 +43,35 @@ img {
 :focus-visible {
   outline: none;
 }
+
+.notion-select {
+  padding: 0.2em 0.5em;
+  border-radius: 0.2em;
+  color: #aaa;
+  background-color: #373734;
+  filter: brightness(150%);
+  &.gray {
+    background-color: #5b595a;
+  }
+  &.brown {
+    background-color: #5f3b2e;
+  }
+  &.orange {
+    background-color: #874e19;
+  }
+  &.green {
+    background-color: #275a3a;
+  }
+  &.blue {
+    background-color: #244064;
+  }
+  &.purple {
+    background-color: #4b3063;
+  }
+  &.pink {
+    background-color: #67304b;
+  }
+  &.red {
+    background-color: #6d3731;
+  }
+}

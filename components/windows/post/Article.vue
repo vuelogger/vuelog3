@@ -16,7 +16,6 @@ article {
   font-size: 1.6rem;
   line-height: 1.8;
   line-break: anywhere;
-  font-family: "Pretendard", sans-serif;
 
   hr {
     height: 3rem;
@@ -44,7 +43,6 @@ article {
   }
 
   u {
-    padding-bottom: 0.3rem;
     border-bottom: 1px solid;
     text-decoration: none;
   }
@@ -83,7 +81,6 @@ article {
   h2 {
     font-size: 2em;
     font-weight: bold;
-    font-family: "GmarketSans", sans-serif;
     margin-top: 3rem;
     padding-top: 3rem;
     border-top: 4px dashed lightgray;
@@ -93,7 +90,6 @@ article {
   h3 {
     font-size: 1.5em;
     font-weight: bold;
-    font-family: "GmarketSans", sans-serif;
     margin-top: 7rem;
     margin-bottom: 2rem;
     padding-left: 2rem;
