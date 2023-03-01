@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li v-for="c of category" :key="c.link">
-      <NuxtLink :to="`/post/${c.link}`" @click="closeSidebar">
+      <NuxtLink :to="`/post/${c.link}`" @click="store.closeSidebar">
         <div class="icon">
           <img :src="`/images/apps/post/${c.name}.svg`" />
         </div>
@@ -17,9 +17,10 @@
 
 <script setup>
 import { usePostStore } from "@/stores/post";
+import { storeToRefs } from "pinia";
 
-const { closeSidebar } = usePostStore();
-const { category } = defineProps(["category"]);
+const store = usePostStore();
+const { category } = storeToRefs(store);
 </script>
 
 <style lang="scss" scoped>

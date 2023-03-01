@@ -16,10 +16,52 @@
 
 <script setup>
 import { dateToStr } from "@/src/util";
-import { infinityScroll } from "@/composable/infinity_scroll";
 
-const startCursor = ref(undefined);
-const { list, refs } = await infinityScroll("/api/diary", startCursor);
+let startCursor = undefined;
+const list = ref([]);
+const refs = ref(null);
+
+const request = async function () {
+  const { data } = await useFetch("/api/diary", {
+    method: "post",
+    body: { startCursor },
+  });
+
+  if (data.value?.list?.length > 0) {
+    list.value.push(...data.value.list);
+  }
+
+  startCursor = data.value.startCursor;
+};
+
+await request();
+
+onMounted(() => {
+  const io = new IntersectionObserver(
+    async (entries, io) => {
+      // observe 하고 있는 entry들
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          io.unobserve(entry.target);
+
+          // startCursor가 null이면 더이상 가져오지 않는다.
+          if (startCursor !== null) {
+            await request();
+
+            if (refs.value.length > 0) {
+              io.observe(refs.value[refs.value.length - 1]);
+            }
+          }
+        }
+      }
+    },
+    { threshold: 0.7 }
+  );
+
+  if (refs.value.length > 0) {
+    io.observe(refs.value[refs.value.length - 1]);
+  }
+});
 </script>
 
 <style lang="scss" scoped>

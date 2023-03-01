@@ -1,6 +1,6 @@
 <template>
   <div class="list-wrapper">
-    <div class="header">
+    <div class="header" v-if="categoryName">
       <div class="title">
         <img :src="`/images/apps/post/${categoryName}.svg`" />
         <span>{{ categoryName }}</span>
@@ -9,7 +9,7 @@
     <nav class="list">
       <NuxtLink
         :to="`/post/${item.id}`"
-        v-for="(item, idx) in list"
+        v-for="item of list"
         :key="item.number"
         class="item"
         ref="refs"
@@ -37,51 +37,91 @@
           </div>
         </div>
       </NuxtLink>
+
+      <div class="item skeleton" v-for="n of 6" v-show="skelShow"></div>
     </nav>
   </div>
 </template>
 
 <script setup>
 import { dateToStr } from "@/src/util";
-import { infinityScroll } from "@/composable/infinity_scroll";
+import { usePostStore } from "@/stores/post";
+import { storeToRefs } from "pinia";
 
-const { category } = defineProps(["category"]);
+const { category } = storeToRefs(usePostStore());
 
 const route = useRoute();
-const categoryName = ref("All");
+const categoryName = ref("");
+
+const refs = ref(null);
+const list = ref([]);
+const skelShow = ref(false);
+let startCursor = undefined;
 
 const request = async function () {
-  list.value = [];
-  startCursor.value = undefined;
-  for (const c of category) {
+  skelShow.value = true;
+  const { data } = await useFetch("/api/table", {
+    method: "post",
+    body: { startCursor, category: categoryName.value },
+  });
+
+  if (data.value?.list?.length > 0) {
+    list.value.push(...data.value.list);
+  }
+
+  startCursor = data.value.startCursor;
+  skelShow.value = false;
+};
+
+const setCategoryName = () => {
+  for (const c of category.value) {
     if (c.link === route.params.id) {
       categoryName.value = c.name;
       break;
     }
   }
-
-  const { data } = await useFetch("/api/table", {
-    method: "post",
-    body: { category: categoryName.value },
-  });
-
-  list.value = data.value.list;
-  startCursor.value = data.value.startCursor;
 };
 
-for (const c of category) {
-  if (c.link === route.params.id) {
-    categoryName.value = c.name;
-    break;
+const initIO = () => {
+  const io = new IntersectionObserver(
+    async (entries, io) => {
+      // observe 하고 있는 entry들
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          io.unobserve(entry.target);
+
+          // startCursor가 null이면 더이상 가져오지 않는다.
+          if (startCursor !== null) {
+            await request();
+
+            if (refs.value.length > 0) {
+              io.observe(refs.value[refs.value.length - 1].$el);
+            }
+          }
+        }
+      }
+    },
+    { threshold: 0.7 }
+  );
+
+  if (refs.value.length > 0) {
+    io.observe(refs.value[refs.value.length - 1].$el);
   }
-}
+};
 
-const startCursor = ref(undefined);
-const { list, refs } = await infinityScroll("/api/table", startCursor, {
-  category: categoryName.value,
-});
-
-watch(route, request);
+watch(
+  route,
+  async () => {
+    list.value = [];
+    startCursor = undefined;
+    setCategoryName();
+    await request();
+    if (refs.value) {
+      initIO();
+    }
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="scss" scoped>
@@ -126,12 +166,29 @@ watch(route, request);
       overflow: hidden;
       box-shadow: 2px 2px 2px lightgray;
       transition: all 0.3s;
-      animation: fade-slide 1s;
+      aspect-ratio: 1 / 1.15;
+      animation: fade-slide 1s linear;
       animation-fill-mode: backwards;
 
-      @for $i from 1 to 9 {
-        &:nth-child(8n - #{8 - $i}) {
+      @for $i from 1 to 7 {
+        &:nth-child(6n - #{6 - $i}) {
           animation-delay: calc(0.2s * #{$i});
+        }
+      }
+
+      &.skeleton {
+        position: relative;
+        animation: none;
+        background-color: #ededed;
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          box-shadow: 0 0 40px 21px white;
+          animation: skeleton 1.5s infinite;
         }
       }
 
@@ -239,6 +296,14 @@ watch(route, request);
   .list-wrapper {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+}
+@keyframes skeleton {
+  from {
+    left: -50%;
+  }
+  to {
+    left: 150%;
   }
 }
 </style>

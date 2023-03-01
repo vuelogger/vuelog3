@@ -4,7 +4,7 @@
       <!-- 검색 -->
       <Search />
       <!-- 메뉴 -->
-      <Menu :category="category" />
+      <Menu />
       <!-- 태그 목록 -->
       <!-- 목차 -->
     </aside>
@@ -17,7 +17,6 @@ import { usePostStore } from "@/stores/post";
 import Search from "./sidebar/Search.vue";
 import Menu from "./sidebar/Menu.vue";
 const { sidebarActive } = storeToRefs(usePostStore());
-const { category } = defineProps(["category"]);
 </script>
 
 <style lang="scss" scoped>
