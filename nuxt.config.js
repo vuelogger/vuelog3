@@ -28,6 +28,11 @@ export default defineNuxtConfig({
           content: "4d043e47da86db9a54e655b0c98b04051110c397",
         },
         {
+          hid: "og:title",
+          property: "og:title",
+          content: "Vuelog's Blog",
+        },
+        {
           hid: "og:image",
           property: "og:image",
           content: "/logo.png",

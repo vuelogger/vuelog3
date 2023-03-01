@@ -33,12 +33,16 @@
           <img src="@/assets/images/windows/post/article/calendar.svg" />
           <span>Created</span>
         </div>
-        <div class="value">{{ dateToStr(page.created, "YYYY. MM. DD") }}</div>
+        <div class="value date">
+          {{ dateToStr(page.created, "YYYY-MM-DD") }}
+        </div>
         <div class="label">
           <img src="@/assets/images/windows/post/article/calendar.svg" />
           <span>Updated</span>
         </div>
-        <div class="value">{{ dateToStr(page.updated, "YYYY. MM. DD") }}</div>
+        <div class="value date">
+          {{ dateToStr(page.updated, "YYYY-MM-DD") }}
+        </div>
       </div>
       <hr />
     </div>
@@ -71,7 +75,7 @@ const { data } = await useFetch("/api/page", {
 page.value = data.value;
 
 useHead({
-  titleTemplate: "%s - useHead example",
+  titleTemplate: "%s - " + page.value.title,
   meta: [
     {
       hid: "og:image",
@@ -82,6 +86,11 @@ useHead({
       hid: "twitter:image",
       name: "twitter:image",
       content: page.value.cover,
+    },
+    {
+      hid: "og:title",
+      property: "og:title",
+      content: page.value.title,
     },
     {
       hid: "og:url",
@@ -161,7 +170,8 @@ useHead({
     }
     .title {
       margin-top: 8rem;
-      font-size: 3rem;
+      font-size: 4rem;
+      font-weight: bold;
       color: #222;
       line-height: 1.4;
     }
@@ -197,10 +207,11 @@ useHead({
 
         &.tags {
           flex-wrap: wrap;
-          .tag {
-            margin-right: 0.3rem;
-            margin-top: 0.3rem;
-          }
+          gap: 0.2rem 0.5rem;
+        }
+
+        &.date {
+          color: #555;
         }
       }
     }
