@@ -56,18 +56,54 @@ const route = useRoute();
 const blocks = ref([]);
 const page = ref(null);
 
-useFetch("/api/page", {
-  method: "post",
-  body: { blockId: route.params.id },
-}).then(({ data }) => {
-  page.value = data.value;
-});
-
 useFetch("/api/blocks", {
   method: "post",
   body: { blockId: route.params.id },
 }).then(({ data }) => {
   blocks.value = data.value;
+});
+
+const { data } = await useFetch("/api/page", {
+  method: "post",
+  body: { blockId: route.params.id },
+});
+
+page.value = data.value;
+
+useHead({
+  titleTemplate: "%s - useHead example",
+  meta: [
+    {
+      hid: "og:image",
+      property: "og:image",
+      content: page.value.cover,
+    },
+    {
+      hid: "twitter:image",
+      name: "twitter:image",
+      content: page.value.cover,
+    },
+    {
+      hid: "og:url",
+      property: "og:url",
+      content: "https://vue-log.com/post/" + route.params.id,
+    },
+    {
+      hid: "description",
+      name: "description",
+      content: page.value.description,
+    },
+    {
+      hid: "og:description",
+      property: "og:description",
+      content: page.value.description,
+    },
+    {
+      hid: "twitter:description",
+      name: "twitter:description",
+      content: page.value.description,
+    },
+  ],
 });
 </script>
 
