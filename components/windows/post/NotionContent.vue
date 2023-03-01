@@ -47,7 +47,7 @@
       <hr />
     </div>
     <div class="content__body">
-      <Article :blocks="blocks" />
+      <Article />
     </div>
   </div>
 </template>
@@ -57,62 +57,53 @@ import Article from "./Article.vue";
 import { dateToStr } from "@/src/util";
 
 const route = useRoute();
-const blocks = ref([]);
 const page = ref(null);
 
-useFetch("/api/blocks", {
+useFetch("/api/page", {
   method: "post",
   body: { blockId: route.params.id },
 }).then(({ data }) => {
-  blocks.value = data.value;
-});
-
-const { data } = await useFetch("/api/page", {
-  method: "post",
-  body: { blockId: route.params.id },
-});
-
-page.value = data.value;
-
-useHead({
-  titleTemplate: "%s - " + page.value.title,
-  meta: [
-    {
-      hid: "og:image",
-      property: "og:image",
-      content: page.value.cover,
-    },
-    {
-      hid: "twitter:image",
-      name: "twitter:image",
-      content: page.value.cover,
-    },
-    {
-      hid: "og:title",
-      property: "og:title",
-      content: page.value.title,
-    },
-    {
-      hid: "og:url",
-      property: "og:url",
-      content: "https://vue-log.com/post/" + route.params.id,
-    },
-    {
-      hid: "description",
-      name: "description",
-      content: page.value.description,
-    },
-    {
-      hid: "og:description",
-      property: "og:description",
-      content: page.value.description,
-    },
-    {
-      hid: "twitter:description",
-      name: "twitter:description",
-      content: page.value.description,
-    },
-  ],
+  page.value = data.value;
+  useHead({
+    titleTemplate: "%s - " + page.value.title,
+    meta: [
+      {
+        hid: "og:image",
+        property: "og:image",
+        content: page.value.cover,
+      },
+      {
+        hid: "twitter:image",
+        name: "twitter:image",
+        content: page.value.cover,
+      },
+      {
+        hid: "og:title",
+        property: "og:title",
+        content: page.value.title,
+      },
+      {
+        hid: "og:url",
+        property: "og:url",
+        content: "https://vue-log.com/post/" + route.params.id,
+      },
+      {
+        hid: "description",
+        name: "description",
+        content: page.value.description,
+      },
+      {
+        hid: "og:description",
+        property: "og:description",
+        content: page.value.description,
+      },
+      {
+        hid: "twitter:description",
+        name: "twitter:description",
+        content: page.value.description,
+      },
+    ],
+  });
 });
 </script>
 

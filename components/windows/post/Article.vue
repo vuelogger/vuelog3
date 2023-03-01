@@ -6,7 +6,15 @@
 
 <script setup>
 import Block from "@/components/windows/post/Block.vue";
-const { blocks } = defineProps(["blocks"]);
+const blocks = ref([]);
+const route = useRoute();
+
+useFetch("/api/blocks", {
+  method: "post",
+  body: { blockId: route.params.id },
+}).then(({ data }) => {
+  blocks.value = data.value;
+});
 </script>
 
 <style lang="scss">
