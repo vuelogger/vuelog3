@@ -7,11 +7,16 @@ export default defineNuxtConfig({
     // ...
     "@pinia/nuxt",
     "@funken-studio/sitemap-nuxt-3",
+    "@nuxtjs/robots",
   ],
   sitemap: {
     hostname: "https://vue-log.com",
     cacheTime: 1,
     routes: dynamicRoutes,
+  },
+  robots: {
+    UserAgent: "*",
+    Allow: "/",
   },
   app: {
     head: {
