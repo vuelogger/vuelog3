@@ -28,13 +28,5 @@ export default defineEventHandler(async ({ req, res }) => {
     break;
   }
 
-  const r = await notion.databases.retrieve({
-    database_id: process.env.NOTION_POST_TABLE_ID,
-  });
-
-  for (const { name } of r?.properties?.category?.select?.options) {
-    routes.push("/post/" + name.toLowerCase());
-  }
-
   return routes;
 });
