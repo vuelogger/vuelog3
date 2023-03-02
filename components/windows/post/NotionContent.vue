@@ -56,7 +56,6 @@
 import Article from "./Article.vue";
 import { dateToStr } from "@/src/util";
 import { usePostStore } from "@/stores/post";
-import { useSeoMeta } from "unhead";
 const { setCategory } = usePostStore();
 
 const route = useRoute();
@@ -72,14 +71,7 @@ const { data } = await useFetch("/api/page", {
 });
 
 page.value = data.value;
-useSeoMeta({
-  title: "My Amazing Site",
-  ogTitle: "My Amazing Site",
-  description: "This is my amazing site, let me tell you all about it.",
-  ogDescription: "This is my amazing site, let me tell you all about it.",
-  ogImage: "https://example.com/image.png",
-  twitterCard: "summary_large_image",
-});
+
 // titleTemplate: "Vuelog - " + data.value?.title,
 // meta: [
 //   {
