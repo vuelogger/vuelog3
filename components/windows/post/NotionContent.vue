@@ -1,5 +1,5 @@
 <template>
-  <div v-if="page" class="content">
+  <div class="content" v-if="page">
     <div class="content__cover" :class="page.cover ? null : 'no-image'">
       <img :src="page.cover" v-if="page.cover" />
     </div>
@@ -56,61 +56,15 @@
 import Article from "./Article.vue";
 import { dateToStr } from "@/src/util";
 import { usePostStore } from "@/stores/post";
-const { setCategory } = usePostStore();
+import { storeToRefs } from "pinia";
 
-const route = useRoute();
-const page = ref(null);
+const postStore = usePostStore();
+const { page } = storeToRefs(postStore);
+console.log("page", page.value);
 
 useFetch("/api/category").then(({ data }) => {
-  setCategory(data.value);
+  postStore.setCategory(data.value);
 });
-
-const { data } = await useFetch("/api/page", {
-  method: "post",
-  body: { blockId: route.params.id },
-});
-
-page.value = data.value;
-
-// titleTemplate: "Vuelog - " + data.value?.title,
-// meta: [
-//   {
-//     hid: "og:image",
-//     property: "og:image",
-//     content: data.value?.cover,
-//   },
-//   {
-//     hid: "twitter:image",
-//     name: "twitter:image",
-//     content: data.value?.cover,
-//   },
-//   {
-//     hid: "og:title",
-//     property: "og:title",
-//     content: data.value?.title,
-//   },
-//   {
-//     hid: "og:url",
-//     property: "og:url",
-//     content: "https://vue-log.com/post/" + route.params.id,
-//   },
-//   {
-//     hid: "description",
-//     name: "description",
-//     content: data.value?.description,
-//   },
-//   {
-//     hid: "og:description",
-//     property: "og:description",
-//     content: data.value?.description,
-//   },
-//   {
-//     hid: "twitter:description",
-//     name: "twitter:description",
-//     content: data.value?.description,
-//   },
-// ],
-// });
 </script>
 
 <style lang="scss">

@@ -3,6 +3,7 @@ export const usePostStore = defineStore("post", {
   state: () => ({
     sidebarActive: false,
     category: [],
+    page: null,
   }),
   actions: {
     openSidebar() {
@@ -16,6 +17,9 @@ export const usePostStore = defineStore("post", {
     },
     setCategory(category) {
       this.category = category;
+    },
+    setPage(page) {
+      this.page = page;
     },
   },
 });
