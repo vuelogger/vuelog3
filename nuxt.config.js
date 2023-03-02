@@ -22,7 +22,7 @@ export default defineNuxtConfig({
     head: {
       charset: "utf-8",
       viewport: "width=device-width, initial-scale=1, viewport-fit=cover",
-      title: "Vuelog's Blog",
+      title: "Vuelog",
       meta: [
         {
           name: "google-site-verification",
@@ -32,45 +32,11 @@ export default defineNuxtConfig({
           name: "naver-site-verification",
           content: "4d043e47da86db9a54e655b0c98b04051110c397",
         },
-        {
-          hid: "og:title",
-          property: "og:title",
-          content: "Vuelog's Blog",
-        },
-        {
-          hid: "og:image",
-          property: "og:image",
-          content: "/logo.png",
-        },
+
         {
           hid: "og:locale",
           property: "og:locale",
           content: "ko_KR",
-        },
-        {
-          hid: "twitter:image",
-          name: "twitter:image",
-          content: "/logo.png",
-        },
-        {
-          hid: "og:url",
-          property: "og:url",
-          content: "https://vue-log.com",
-        },
-        {
-          hid: "description",
-          name: "description",
-          content: "Welcome to my VueLog!!",
-        },
-        {
-          hid: "og:description",
-          property: "og:description",
-          content: "Welcome to my VueLog!!",
-        },
-        {
-          hid: "twitter:description",
-          name: "twitter:description",
-          content: "Welcome to my VueLog!!",
         },
         {
           hid: "twitter:card",
