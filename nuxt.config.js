@@ -2,6 +2,12 @@ import dynamicRoutes from "./src/sitemapRoute";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  nitro: {
+    compressPublicAssets: true,
+    prerender: {
+      crawlLinks: true,
+    },
+  },
   css: ["~/assets/scss/index.scss"],
   modules: [
     // ...
