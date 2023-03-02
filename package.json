@@ -19,6 +19,7 @@
     "highlight.js": "^11.7.0",
     "metadata-scraper": "^0.2.61",
     "pinia": "^2.0.28",
-    "twitter-api-v2": "^1.14.1"
+    "twitter-api-v2": "^1.14.1",
+    "vue-gtag-next": "^1.14.0"
   }
 }
