@@ -60,7 +60,6 @@ import { storeToRefs } from "pinia";
 
 const postStore = usePostStore();
 const { page } = storeToRefs(postStore);
-console.log("page", page.value);
 
 useFetch("/api/category").then(({ data }) => {
   postStore.setCategory(data.value);
