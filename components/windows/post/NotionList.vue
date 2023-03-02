@@ -47,8 +47,8 @@
 import { dateToStr } from "@/src/util";
 import { usePostStore } from "@/stores/post";
 import { storeToRefs } from "pinia";
-
-const { category } = storeToRefs(usePostStore());
+const postStore = usePostStore();
+const { category } = storeToRefs(postStore);
 
 const route = useRoute();
 const categoryName = ref("");
@@ -57,6 +57,9 @@ const refs = ref(null);
 const list = ref([]);
 const skelShow = ref(false);
 let startCursor = undefined;
+
+const { data } = await useFetch("/api/category");
+postStore.setCategory(data.value);
 
 const request = async function () {
   skelShow.value = true;

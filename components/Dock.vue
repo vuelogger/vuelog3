@@ -108,7 +108,7 @@ const selectDockItem = function (name) {
       loadedWindows.filter((w) => w.name === "Post").length > 0;
     if (!isPostOpened) {
       const router = useRouter();
-      router.push({ path: "/post" });
+      router.push({ path: "/post/all" });
     }
   }
   if (window.innerWidth < 768) {

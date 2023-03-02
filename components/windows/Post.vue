@@ -2,20 +2,8 @@
 import Content from "./post/NotionContent.vue";
 import List from "./post/NotionList.vue";
 import SideBar from "./post/SideBar.vue";
-import { usePostStore } from "@/stores/post";
-
-const { setCategory } = usePostStore();
 const route = useRoute();
 
-const { data } = await useFetch("/api/category");
-
-watch(
-  route,
-  () => {
-    setCategory(data.value);
-  },
-  { immediate: true }
-);
 const isPost = computed(() => {
   return route.params.id && route.params.id.includes("-");
 });

@@ -55,9 +55,15 @@
 <script setup>
 import Article from "./Article.vue";
 import { dateToStr } from "@/src/util";
+import { usePostStore } from "@/stores/post";
+const { setCategory } = usePostStore();
 
 const route = useRoute();
 const page = ref(null);
+
+useFetch("/api/category").then(({ data }) => {
+  setCategory(data.value);
+});
 
 const { data } = await useFetch("/api/page", {
   method: "post",
