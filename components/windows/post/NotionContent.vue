@@ -56,6 +56,7 @@
 import Article from "./Article.vue";
 import { dateToStr } from "@/src/util";
 import { usePostStore } from "@/stores/post";
+import { useSeoMeta } from "unhead";
 const { setCategory } = usePostStore();
 
 const route = useRoute();
@@ -71,47 +72,53 @@ const { data } = await useFetch("/api/page", {
 });
 
 page.value = data.value;
-
-useHead({
-  titleTemplate: "Vuelog - " + data.value?.title,
-  meta: [
-    {
-      hid: "og:image",
-      property: "og:image",
-      content: data.value?.cover,
-    },
-    {
-      hid: "twitter:image",
-      name: "twitter:image",
-      content: data.value?.cover,
-    },
-    {
-      hid: "og:title",
-      property: "og:title",
-      content: data.value?.title,
-    },
-    {
-      hid: "og:url",
-      property: "og:url",
-      content: "https://vue-log.com/post/" + route.params.id,
-    },
-    {
-      hid: "description",
-      name: "description",
-      content: data.value?.description,
-    },
-    {
-      hid: "og:description",
-      property: "og:description",
-      content: data.value?.description,
-    },
-    {
-      hid: "twitter:description",
-      name: "twitter:description",
-      content: data.value?.description,
-    },
-  ],
+useSeoMeta({
+  title: "My Amazing Site",
+  ogTitle: "My Amazing Site",
+  description: "This is my amazing site, let me tell you all about it.",
+  ogDescription: "This is my amazing site, let me tell you all about it.",
+  ogImage: "https://example.com/image.png",
+  twitterCard: "summary_large_image",
 });
+// titleTemplate: "Vuelog - " + data.value?.title,
+// meta: [
+//   {
+//     hid: "og:image",
+//     property: "og:image",
+//     content: data.value?.cover,
+//   },
+//   {
+//     hid: "twitter:image",
+//     name: "twitter:image",
+//     content: data.value?.cover,
+//   },
+//   {
+//     hid: "og:title",
+//     property: "og:title",
+//     content: data.value?.title,
+//   },
+//   {
+//     hid: "og:url",
+//     property: "og:url",
+//     content: "https://vue-log.com/post/" + route.params.id,
+//   },
+//   {
+//     hid: "description",
+//     name: "description",
+//     content: data.value?.description,
+//   },
+//   {
+//     hid: "og:description",
+//     property: "og:description",
+//     content: data.value?.description,
+//   },
+//   {
+//     hid: "twitter:description",
+//     name: "twitter:description",
+//     content: data.value?.description,
+//   },
+// ],
+// });
 </script>
 
 <style lang="scss">
