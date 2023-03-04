@@ -9,7 +9,7 @@ const route = useRoute();
 const { setPage } = usePostStore();
 
 const request = async function () {
-  if (route.params.id) {
+  if (route.params.id && route.params.id.includes("-")) {
     setPage(null);
     const { data } = await useFetch("/api/page", {
       method: "post",
@@ -17,35 +17,14 @@ const request = async function () {
     });
     setPage(data.value);
 
-    if (data.value?.cover) {
-      fetch(data.value?.cover)
-        .then((response) => response.blob())
-        .then((blob) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(blob);
-          reader.onloadend = () => {
-            const imageBase64 = reader.result.split(",")[1];
-            const image = `data:image/jpeg;base64,${imageBase64}`;
-
-            useSeoMeta({
-              title: data.value?.title,
-              ogTitle: data.value?.title,
-              description: data.value?.description,
-              ogDescription: data.value?.description,
-              ogImage: image,
-              twitterCard: "summary_large_image",
-            });
-          };
-        });
-    } else {
-      useSeoMeta({
-        title: data.value?.title,
-        ogTitle: data.value?.title,
-        description: data.value?.description,
-        ogDescription: data.value?.description,
-        twitterCard: "summary_large_image",
-      });
-    }
+    useSeoMeta({
+      title: data.value?.title,
+      ogTitle: data.value?.title,
+      description: data.value?.description,
+      ogDescription: data.value?.description,
+      // ogImage: data.value?.cover,
+      twitterCard: "summary_large_image",
+    });
   }
 };
 
