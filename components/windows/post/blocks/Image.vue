@@ -1,5 +1,5 @@
 <template>
-  <img class="image" :src="data?.file?.url" :alt="alt" loading="lazy" />
+  <img class="image" :src="data?.file?.url" :alt="alt" />
   <div class="img-caption">{{ alt }}</div>
 </template>
 
