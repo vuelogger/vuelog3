@@ -23,12 +23,15 @@
 </template>
 
 <script setup>
-import { getPt } from "@/composable/common";
 import { useWindowStore } from "@/stores/window";
 
 const store = useWindowStore();
 
 const cursor = ref("auto");
+
+const getPt = function (event) {
+  return { x: event.clientX, y: event.clientY };
+};
 
 let mode = null;
 let startPt = null;
