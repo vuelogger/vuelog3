@@ -18,8 +18,8 @@
 </template>
 
 <script setup>
-import { usePostStore } from "@/stores/post";
-const { closeAllWindows } = usePostStore();
+import { useWindowStore } from "@/stores/window";
+const { closeAllWindows } = useWindowStore();
 </script>
 
 <style lang="scss">
