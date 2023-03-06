@@ -137,10 +137,10 @@ watch(
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 1024px;
 
   .header {
-    width: 1024px;
-    max-width: 100%;
+    width: 100%;
     padding-bottom: 1rem;
     margin-bottom: 3rem;
     border-bottom: 1px solid lightgray;
@@ -158,8 +158,6 @@ watch(
   }
 
   .list {
-    width: 1024px;
-    max-width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 3rem 2rem;
