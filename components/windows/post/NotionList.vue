@@ -138,6 +138,7 @@ watch(
   flex-direction: column;
   align-items: center;
   max-width: 1024px;
+  margin: 0 auto;
 
   .header {
     width: 100%;
@@ -160,14 +161,15 @@ watch(
   .list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: 400px;
     gap: 3rem 2rem;
+    width: 100%;
 
     .item {
       border-radius: 1rem;
       overflow: hidden;
       box-shadow: 2px 2px 2px lightgray;
       transition: all 0.3s;
-      aspect-ratio: 1 / 1.15;
       animation: fade-slide 0.7s;
       animation-fill-mode: backwards;
 
