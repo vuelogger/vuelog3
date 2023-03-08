@@ -14,7 +14,9 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@funken-studio/sitemap-nuxt-3",
     "@nuxtjs/robots",
+    "@nuxtjs/google-adsense",
   ],
+
   sitemap: {
     hostname: "https://vue-log.com",
     cacheTime: 1,
@@ -23,6 +25,15 @@ export default defineNuxtConfig({
   robots: {
     UserAgent: "*",
     Allow: "/",
+  },
+  "google-adsense": {
+    onPageLoad: true,
+    pageLevelAds: false,
+  },
+  publicRuntimeConfig: {
+    "google-adsense": {
+      id: process.env.GOOGLE_ADSENSE_ID,
+    },
   },
   app: {
     head: {
@@ -47,13 +58,6 @@ export default defineNuxtConfig({
           hid: "twitter:card",
           name: "twitter:card",
           content: "summary_large_image",
-        },
-      ],
-      script: [
-        {
-          src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8123307370591079",
-          async: true,
-          crossorigin: "anonymous",
         },
       ],
     },

@@ -108,7 +108,6 @@ watch(volume, () => {
 
 const onPlayerReady = function (event) {
   ready.value = true;
-  event.target.setPlaybackQuality(event.target.getAvailablePlaybackRates()[0]);
 };
 
 onMounted(() => {
@@ -119,23 +118,26 @@ onMounted(() => {
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
   window.onYouTubeIframeAPIReady = function () {
-    player = new YT.Player("player", {
-      playerVars: {
-        autoplay: 0,
-        controls: 0,
-        rel: 0,
-        playsinline: 1,
-        modestbranding: 1,
-        frameborder: "no",
-        listType: "playlist",
-        list: "PLWTycz4el4t7ZCxkGYyekoP1iBxmOM4zZ",
-        // list: "PLJWTWXJ7iqXctxVu1Fd3ZkF-WWD8kOzMb",
-      },
-      events: {
-        onReady: onPlayerReady,
-        onStateChange: onPlayerStateChange,
-      },
-    });
+    try {
+      player = new YT.Player("player", {
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          rel: 0,
+          playsinline: 1,
+          modestbranding: 1,
+          frameborder: "no",
+          listType: "playlist",
+          list: "PLWTycz4el4t7ZCxkGYyekoP1iBxmOM4zZ",
+        },
+        events: {
+          onReady: onPlayerReady,
+          onStateChange: onPlayerStateChange,
+        },
+      });
+    } catch (e) {
+      console.error("Music Player Error", e);
+    }
   };
   window.addEventListener("click", () => {
     showSlider.value = false;
