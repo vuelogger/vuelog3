@@ -6,6 +6,7 @@
     @mouseup="onMouseUp"
     @mousemove="onMouseMove($event)"
   >
+    <CoupangPartners />
     <Window
       v-for="(w, i) of store.loadedWindows"
       :key="w.name"

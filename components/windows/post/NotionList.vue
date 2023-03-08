@@ -295,7 +295,7 @@ watch(
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-tablet) {
   .list-wrapper {
     padding-left: 2rem;
     padding-right: 2rem;
