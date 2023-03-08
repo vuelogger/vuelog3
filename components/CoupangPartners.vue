@@ -1,5 +1,6 @@
 <template>
   <div class="coupang-partners">
+    <!-- X 이미지 추가 -->
     <iframe
       src="https://ads-partners.coupang.com/widgets.html?id=644983&template=carousel&trackingCode=AF0397919&subId=&width=350&height=60"
       width="350"
@@ -8,6 +9,10 @@
       scrolling="no"
       referrerpolicy="unsafe-url"
     ></iframe>
+    <p>
+      이 광고는 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를
+      제공받습니다.
+    </p>
   </div>
 </template>
 
@@ -23,6 +28,11 @@
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(4px);
   border-radius: 1rem;
+
+  p {
+    color: white;
+    margin-top: 0.5rem;
+  }
 }
 
 @media (max-width: $breakpoint-tablet) {
