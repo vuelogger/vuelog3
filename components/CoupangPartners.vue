@@ -25,6 +25,7 @@
   top: 0;
   right: 0;
   padding: 1rem 2rem;
+  box-sizing: border-box;
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(4px);
   border-radius: 1rem;
@@ -37,7 +38,15 @@
 
 @media (max-width: $breakpoint-tablet) {
   .coupang-partners {
-    top: $header-height-tablet;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 </style>
