@@ -48,11 +48,28 @@
     </div>
     <div class="content__body">
       <Article />
+      <Giscus
+        id="comments"
+        repo="bwealthy72/vuelog-comment"
+        repoId="R_kgDOIe3B3Q"
+        category="Announcements"
+        categoryId="DIC_kwDOIe3B3c4CUzmS"
+        mapping="title"
+        strict="0"
+        term="Welcome to my Vuelog"
+        reactionsEnabled="1"
+        emitMetadata="0"
+        inputPosition="top"
+        theme="light"
+        lang="ko"
+        loading="lazy"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
+import Giscus from "@giscus/vue";
 import Article from "./Article.vue";
 import { dateToStr } from "@/src/util";
 import { usePostStore } from "@/stores/post";

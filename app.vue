@@ -3,7 +3,6 @@
   <Header />
   <Dock />
   <WindowList />
-  <!-- <CoupangPartners /> -->
   <NuxtPage />
 </template>
 
