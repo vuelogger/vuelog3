@@ -2,6 +2,16 @@ import dynamicRoutes from "./src/sitemapRoute";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    // client-side
+    public: {
+      github: {
+        baseUrl: "https://github.com/",
+        clientId: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+      },
+    },
+  },
   nitro: {
     compressPublicAssets: true,
     prerender: {

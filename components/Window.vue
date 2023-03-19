@@ -68,7 +68,7 @@ const returnToTop = function () {
   .header {
     color: white;
     height: $window-header-height;
-    background-color: #161616ad;
+    background-color: #222;
     backdrop-filter: blur(3px);
     display: flex;
     align-items: center;

@@ -24,7 +24,6 @@ const request = async function () {
       image = image.replaceAll("%2F", "/");
     }
 
-    // useHead로 써보자 값은 제대로 들어가는 모양인데 왜 west-2로 들어갈까
     useSeoMeta({
       title: data.value?.title,
       ogTitle: data.value?.title,

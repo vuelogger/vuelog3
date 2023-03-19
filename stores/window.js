@@ -13,12 +13,12 @@ const windowOpts = {
     minW: 300,
     minH: 500,
   },
-  // GuestBook: {
-  //   w: 300,
-  //   h: 200,
-  //   minW: 200,
-  //   minH: 100,
-  // },
+  GuestBook: {
+    w: 400,
+    h: 600,
+    minW: 300,
+    minH: 500,
+  },
   BlogDiary: {
     w: 500,
     h: 800,

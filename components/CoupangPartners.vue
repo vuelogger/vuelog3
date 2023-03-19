@@ -28,6 +28,7 @@
   background-color: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(4px);
   border-radius: 1rem;
+  user-select: none;
 
   p {
     color: white;
