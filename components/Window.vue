@@ -96,6 +96,8 @@ const returnToTop = function () {
 
 @media (max-width: $breakpoint-tablet) {
   .window {
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 0 !important;
     left: 0 !important;
@@ -117,7 +119,7 @@ const returnToTop = function () {
     }
 
     .body {
-      height: calc(100% - #{$window-header-height-tablet});
+      flex: 1;
       overflow-x: hidden;
     }
   }
