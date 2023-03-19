@@ -63,7 +63,8 @@ export default defineNuxtConfig({
       script: [
         {
           async: true,
-          src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2649674681017228",
+          src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8123307370591079",
+          anonyouse: true,
         },
       ],
     },
