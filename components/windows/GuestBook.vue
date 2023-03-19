@@ -37,13 +37,7 @@
     </main>
 
     <footer>
-      <textarea
-        name="content"
-        id="content"
-        v-model="content"
-        @keydown.enter.exact.prevent="submit"
-        @keydown.enter.shift.exact=""
-      ></textarea>
+      <textarea name="content" id="content" v-model="content"></textarea>
       <div class="bottom">
         <button class="logout" @click="logout" v-if="signed">
           <img src="@/assets/images/logout.svg" />
