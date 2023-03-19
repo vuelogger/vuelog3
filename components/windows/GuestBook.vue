@@ -60,7 +60,7 @@
         </button>
         <a v-else class="btn login" :href="authURL">
           <img src="@/assets/images/github.svg" />
-          <span> GitHub으로 로그인 </span>
+          <span>GitHub으로 로그인</span>
         </a>
       </div>
     </footer>
