@@ -330,7 +330,7 @@ watch(refs, () => {
       font-size: 1.6rem;
       border: none;
       resize: none;
-      margin: 1rem 2rem 0 2rem;
+      padding: 1rem 2rem 0 2rem;
       box-sizing: border-box;
       @include scrollTheme(8px, 4px, #444, #666);
     }
