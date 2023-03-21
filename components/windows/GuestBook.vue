@@ -8,7 +8,7 @@
         <p class="admin">VueLogger</p>
         <span class="counter">
           <img src="@/assets/images/profile.svg" />
-          <span>2</span>
+          <span>{{ counter }}</span>
         </span>
       </div>
     </header>
@@ -73,7 +73,8 @@ const token = ref("");
 const list = ref([]);
 const refs = ref(null);
 const currUser = ref(null);
-const authURL = `https://github.com/login/oauth/authorize?client_id=${config.public.github.clientId}`;
+let authURL = "https://github.com/login/oauth/authorize";
+authURL += `?client_id=${config.public.github.clientId}`;
 
 let currPage = 1;
 
@@ -82,6 +83,17 @@ const isEmpty = computed(() => {
 });
 const signed = computed(() => {
   return token.value != null;
+});
+const counter = computed(() => {
+  let result = 1;
+  const people = new Set([]);
+  for (const item of list.value) {
+    people.add(item.user.login);
+  }
+  if (people.size > 0) {
+    result = people.size;
+  }
+  return result;
 });
 
 const logout = function () {
@@ -226,7 +238,7 @@ watch(refs, () => {
     overflow-y: auto;
     display: flex;
     flex-direction: column-reverse;
-    padding: 2rem 1rem;
+    padding: 2rem;
     @include scrollTheme(10px);
 
     section {
@@ -254,6 +266,7 @@ watch(refs, () => {
           background-color: #3a3a3a;
           border-radius: 0.7rem;
           line-height: 1.4;
+          line-break: anywhere;
 
           &::before {
             content: "";
