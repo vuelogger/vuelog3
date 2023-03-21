@@ -66,6 +66,31 @@
       />
     </div>
   </div>
+
+  <div class="skeleton" v-else>
+    <div class="cover"></div>
+    <div class="container">
+      <div class="title"></div>
+      <div class="table">
+        <div class="label"></div>
+        <div class="value"></div>
+        <div class="label"></div>
+        <div class="value"></div>
+        <div class="label"></div>
+        <div class="value"></div>
+        <div class="label"></div>
+        <div class="value"></div>
+      </div>
+      <div class="content">
+        <div class="text"></div>
+        <div class="text"></div>
+        <div class="text"></div>
+        <div class="image"></div>
+        <div class="text"></div>
+        <div class="text"></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -78,7 +103,7 @@ import { storeToRefs } from "pinia";
 const postStore = usePostStore();
 const { page } = storeToRefs(postStore);
 
-useFetch("/api/category").then(({ data }) => {
+useFetch("/api/post/category").then(({ data }) => {
   postStore.setCategory(data.value);
 });
 </script>
@@ -97,7 +122,7 @@ useFetch("/api/category").then(({ data }) => {
 
   &__cover {
     width: 100%;
-    height: 300px;
+    height: 30rem;
 
     &.no-image {
       height: 100px;
@@ -196,6 +221,68 @@ useFetch("/api/category").then(({ data }) => {
     background-color: white;
     max-width: 100%;
     box-sizing: border-box;
+  }
+}
+
+.skeleton {
+  .cover {
+    width: 100%;
+    height: 30rem;
+    @include skeleton;
+  }
+
+  .container {
+    width: 768px;
+    margin: 0 auto;
+    .title {
+      margin-top: 8rem;
+      height: 4rem;
+      width: 70%;
+      @include skeleton;
+    }
+
+    .table {
+      display: grid;
+      grid-template-columns: 15rem 30rem;
+      grid-auto-rows: 2rem;
+      gap: 1rem;
+      margin-top: 3rem;
+      .label {
+        @include skeleton;
+      }
+      .value {
+        @include skeleton;
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      margin-top: 2rem;
+      .text {
+        width: 100%;
+        height: 1.5rem;
+        margin-top: 1rem;
+        margin-right: auto;
+        @include skeleton;
+        &:nth-of-type(2n) {
+          width: 50%;
+        }
+        &:nth-of-type(3n) {
+          width: 80%;
+        }
+        &:nth-of-type(7n) {
+          width: 70%;
+        }
+      }
+
+      .image {
+        width: 50%;
+        height: 20rem;
+        margin: 3rem auto;
+        @include skeleton;
+      }
+    }
   }
 }
 

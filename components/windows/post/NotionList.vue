@@ -58,12 +58,12 @@ const list = ref([]);
 const skelShow = ref(false);
 let startCursor = undefined;
 
-const { data } = await useFetch("/api/category");
+const { data } = await useFetch("/api/post/category");
 postStore.setCategory(data.value);
 
 const request = async function () {
   skelShow.value = true;
-  const { data } = await useFetch("/api/table", {
+  const { data } = await useFetch("/api/post/table", {
     method: "post",
     body: { startCursor, category: categoryName.value },
   });
@@ -180,19 +180,8 @@ watch(
       }
 
       &.skeleton {
-        position: relative;
         animation: none;
-        background-color: #ededed;
-
-        &::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          height: 100%;
-          box-shadow: 0 0 40px 21px white;
-          animation: skeleton 1.5s infinite;
-        }
+        @include skeleton;
       }
 
       &:hover {
@@ -299,14 +288,6 @@ watch(
   .list-wrapper {
     padding-left: 2rem;
     padding-right: 2rem;
-  }
-}
-@keyframes skeleton {
-  from {
-    left: -50%;
-  }
-  to {
-    left: 150%;
   }
 }
 </style>

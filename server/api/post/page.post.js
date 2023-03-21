@@ -1,4 +1,4 @@
-import { notion, getProp } from "./utils/notion";
+import { notion, getProp } from "../utils/notion";
 
 export default defineEventHandler(async (e) => {
   try {

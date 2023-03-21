@@ -30,3 +30,20 @@
     background-color: $bar;
   }
 }
+
+@mixin skeleton {
+  position: relative;
+  background-color: #ededed;
+  overflow: hidden;
+  border-radius: 0.5rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    box-shadow: 0 0 40px 21px white;
+    animation: skeleton 2s infinite;
+  }
+}

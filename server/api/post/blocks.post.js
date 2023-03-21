@@ -1,4 +1,4 @@
-import { notion } from "./utils/notion";
+import { notion } from "../utils/notion";
 import { collectPaginatedAPI } from "@notionhq/client";
 
 const setStartList = function (blocks) {
@@ -30,7 +30,6 @@ export default defineEventHandler(async (e) => {
 
     return blocks;
   } catch (error) {
-    console.error("Block 불러오기 실패", error);
     return [];
   }
 });

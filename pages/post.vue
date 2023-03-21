@@ -11,7 +11,7 @@ const { setPage } = usePostStore();
 const request = async function () {
   if (route.params.id && route.params.id.includes("-")) {
     setPage(null);
-    const { data } = await useFetch("/api/page", {
+    const { data } = await useFetch("/api/post/page", {
       method: "post",
       body: { blockId: route.params.id },
     });

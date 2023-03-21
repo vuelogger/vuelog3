@@ -1,31 +1,85 @@
 <template>
-  <a class="bookmark" :href="bookmark.url" v-if="bookmark?.url">
+  <a class="bookmark" :href="url" v-if="bookmark">
     <div class="left">
-      <h4>{{ bookmark.title }}</h4>
-      <p>{{ bookmark.description }}</p>
+      <h4>{{ title }}</h4>
+      <p>{{ desc }}</p>
       <div class="url">
-        <img :src="bookmark.icon" v-if="bookmark.icon" />
-        <span>{{ bookmark.url }}</span>
+        <img :src="icon" v-if="icon" />
+        <span>{{ url }}</span>
       </div>
     </div>
-    <div class="right" v-if="bookmark.image">
-      <img :src="bookmark.image" />
+    <div class="right" v-if="image">
+      <img :src="image" />
     </div>
   </a>
 </template>
 
 <script setup>
 const { block } = defineProps(["block"]);
+
+console.log("BLOCK", block);
+
 const bookmark = ref(null);
 
-useFetch("/api/bookmark", {
+const title = computed(() => {
+  return bookmark.value?.ogTitle;
+});
+
+const url = computed(() => {
+  return bookmark.value?.ogUrl || bookmark.value?.requestUrl;
+});
+
+const desc = computed(() => {
+  return bookmark.value?.ogDescription;
+});
+
+const image = computed(() => {
+  let result = "";
+  let maxWidth = 0;
+  if (bookmark.value?.ogImage) {
+    if (bookmark.value.length) {
+      for (const img of bookmark.value?.ogImage) {
+        if (img.width === null) {
+          result = img.url;
+        } else if (img.width > maxWidth) {
+          maxWidth = img.width;
+          result = img.url;
+        }
+      }
+    } else {
+      result = bookmark.value?.ogImage?.url;
+    }
+  }
+  return result;
+});
+
+const icon = computed(() => {
+  let result = "";
+  const f = bookmark.value?.favicon;
+  if (f) {
+    if (f.startsWith("http")) {
+      result = f;
+    } else if (f.startsWith("/")) {
+      const u = new URL(url.value);
+      result = u.origin + f;
+    }
+  }
+  return result;
+});
+
+const { data } = await useFetch("/api/post/bookmark", {
+  key: block.id,
   method: "post",
+  headers: {
+    "Content-Type": "application/json",
+  },
   body: {
     url: block[block.type]?.url,
   },
-}).then(({ data }) => {
-  bookmark.value = data.value;
 });
+console.log(data.value);
+
+bookmark.value = data.value;
 </script>
 
 <style lang="scss">
@@ -41,7 +95,7 @@ $transition-time: 0.4s;
   &:hover {
     .left {
       h4 {
-        color: rgb(255, 140, 140);
+        color: #4f74ff;
         font-weight: bold;
       }
       .url {
@@ -98,7 +152,7 @@ $transition-time: 0.4s;
           bottom: -1px;
           width: 0;
           height: 3px;
-          background-color: rgb(255, 176, 176);
+          background-color: #4f74ff;
           transition: all $transition-time;
         }
       }

@@ -9,11 +9,19 @@ import Block from "@/components/windows/post/Block.vue";
 const blocks = ref([]);
 const route = useRoute();
 
-useFetch("/api/blocks", {
+useFetch("/api/post/blocks", {
   method: "post",
   body: { blockId: route.params.id },
 }).then(({ data }) => {
   blocks.value = data.value;
+  if (blocks.value.length == 0) {
+    alert("내용이 없거나 문제가 발생했습니다. 새로고침 해주세요!");
+  }
+});
+onMounted(() => {
+  const body = document.querySelector(".window-list main.body");
+
+  body.scrollTo(0, 0);
 });
 </script>
 
@@ -101,7 +109,7 @@ article {
     margin-top: 7rem;
     margin-bottom: 2rem;
     padding-left: 2rem;
-    border-left: 1rem solid rgb(216, 216, 246);
+    border-left: 1rem solid #858bff;
   }
 
   iframe {

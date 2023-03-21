@@ -9,3 +9,12 @@
     opacity: 1;
   }
 }
+
+@keyframes skeleton {
+  from {
+    left: -50%;
+  }
+  to {
+    left: 150%;
+  }
+}

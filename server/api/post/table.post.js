@@ -1,4 +1,4 @@
-import { notion, getProp } from "./utils/notion";
+import { notion, getProp } from "../utils/notion";
 
 const filtering = function (category) {
   if (category != "All") {
