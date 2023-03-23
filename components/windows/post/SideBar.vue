@@ -20,6 +20,7 @@ const { sidebarActive } = storeToRefs(usePostStore());
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/base/transitions.scss";
 @import "@/assets/scss/base/variable.scss";
 .sidebar {
   position: absolute;
@@ -32,21 +33,6 @@ const { sidebarActive } = storeToRefs(usePostStore());
   box-sizing: border-box;
   z-index: 3;
   overflow-y: auto;
-}
-
-.slide-left-enter-from,
-.slide-left-leave-to {
-  transform: translateX(-100%);
-}
-
-.slide-left-enter-to,
-.slide-left-leave-from {
-  transform: translateX(0);
-}
-
-.slide-left-enter-active,
-.slide-left-leave-active {
-  transition: all 0.5s ease-in-out;
 }
 
 @media (max-width: $breakpoint-tablet) {

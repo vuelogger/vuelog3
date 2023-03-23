@@ -13,12 +13,7 @@ const windowOpts = {
     minW: 300,
     minH: 500,
   },
-  Book: {
-    w: 800,
-    h: 800,
-    minW: 300,
-    minH: 400,
-  },
+
   GuestBook: {
     w: 400,
     h: 600,
@@ -30,6 +25,12 @@ const windowOpts = {
     h: 800,
     minW: 300,
     minH: 500,
+  },
+  Book: {
+    w: 800,
+    h: 800,
+    minW: 300,
+    minH: 400,
   },
 };
 export const windowNames = Object.keys(windowOpts);

@@ -9,14 +9,14 @@ const getProp = function (prop) {
   switch (t) {
     case "select":
       return prop[t].name;
-
-    case "rich_text":
-    case "title":
-      return prop[t][0].plain_text;
-    case "created_time":
-    case "last_edited_time":
     case "number":
     case "checkbox":
+      return prop[t];
+    case "rich_text":
+    case "title":
+      return prop[t][0]?.plain_text;
+    case "created_time":
+    case "last_edited_time":
       return prop[t].map((v) => v.name);
     case "multi_select":
       return prop[t].map((v) => ({

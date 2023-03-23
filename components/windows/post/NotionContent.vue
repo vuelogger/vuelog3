@@ -47,7 +47,7 @@
       <hr />
     </div>
     <div class="content__body">
-      <Article />
+      <Article :blocks="blocks" />
       <Giscus
         id="comments"
         repo="bwealthy72/vuelog-comment"
@@ -105,6 +105,18 @@ const { page } = storeToRefs(postStore);
 
 useFetch("/api/post/category").then(({ data }) => {
   postStore.setCategory(data.value);
+});
+
+const route = useRoute();
+const blocks = ref([]);
+useFetch("/api/post/blocks", {
+  method: "post",
+  body: { blockId: route.params.id },
+}).then(({ data }) => {
+  blocks.value = data.value;
+  if (blocks.value.length == 0) {
+    alert("내용이 없거나 문제가 발생했습니다. 새로고침 해주세요!");
+  }
 });
 </script>
 

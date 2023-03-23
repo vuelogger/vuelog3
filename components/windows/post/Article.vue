@@ -6,18 +6,8 @@
 
 <script setup>
 import Block from "@/components/windows/post/Block.vue";
-const blocks = ref([]);
-const route = useRoute();
+const { blocks } = defineProps(["blocks"]);
 
-useFetch("/api/post/blocks", {
-  method: "post",
-  body: { blockId: route.params.id },
-}).then(({ data }) => {
-  blocks.value = data.value;
-  if (blocks.value.length == 0) {
-    alert("내용이 없거나 문제가 발생했습니다. 새로고침 해주세요!");
-  }
-});
 onMounted(() => {
   const body = document.querySelector(".window-list main.body");
 
@@ -99,7 +89,6 @@ article {
     font-weight: bold;
     margin-top: 3rem;
     padding-top: 3rem;
-    border-top: 4px dashed lightgray;
     margin-bottom: 1rem;
   }
 

@@ -28,5 +28,15 @@ export default defineEventHandler(async ({ req, res }) => {
     break;
   }
 
+  const { results } = await notion.databases.query({
+    database_id: process.env.NOTION_BOOK_TABLE_ID,
+  });
+  for (const r of results) {
+    routes.push({
+      url: "/book/vue-notion/" + getProp(r.properties?.number),
+      lastmod: r.last_edited_time,
+    });
+  }
+
   return routes;
 });
