@@ -48,7 +48,7 @@ const router = useRouter();
 const route = useRoute();
 
 if (!route.params.number) {
-  router.push({ path: "/book/vue-notion/1" });
+  router.push({ path: "/book/vue-notion/0" });
 }
 
 const list = ref([]);
@@ -124,10 +124,11 @@ watch(
       text-align: left;
       font-size: 1.4rem;
       padding: 1.4rem 2rem;
+      line-height: 1.2;
       cursor: pointer;
 
       &:first-of-type {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         position: relative;
         margin-bottom: 2rem;
 
@@ -168,7 +169,7 @@ watch(
     max-width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
-    margin-top: 5rem;
+    margin-top: 3rem;
 
     h1 {
       font-size: 4rem;
@@ -176,6 +177,7 @@ watch(
       padding-bottom: 3rem;
       margin-bottom: 2rem;
       border-bottom: 1px solid gray;
+      line-height: 1.4;
     }
 
     &.skeleton {
