@@ -22,6 +22,7 @@ article {
   font-size: 1.6rem;
   line-height: 1.8;
   line-break: anywhere;
+  user-select: text;
 
   hr {
     height: 3rem;
@@ -68,7 +69,7 @@ article {
 
   .image {
     display: block;
-    margin: 0 auto;
+    margin: 2rem auto;
     width: 80%;
     border-radius: 3rem;
     border: 1px solid lightgray;
@@ -85,7 +86,7 @@ article {
   }
 
   h2 {
-    font-size: 2em;
+    font-size: 1.9em;
     font-weight: bold;
     margin-top: 3rem;
     padding-top: 3rem;
@@ -93,12 +94,23 @@ article {
   }
 
   h3 {
-    font-size: 1.5em;
+    font-size: 1.4em;
     font-weight: bold;
     margin-top: 7rem;
     margin-bottom: 2rem;
-    padding-left: 2rem;
-    border-left: 1rem solid #858bff;
+    padding-left: 2.5rem;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 10px;
+      height: 80%;
+      background-color: #858bff;
+    }
   }
 
   iframe {
