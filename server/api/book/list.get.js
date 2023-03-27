@@ -1,5 +1,4 @@
 import { notion, getProp } from "../utils/notion";
-import { collectPaginatedAPI } from "@notionhq/client";
 
 export default defineEventHandler(async (e) => {
   try {

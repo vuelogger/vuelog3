@@ -1,4 +1,3 @@
-import { notion } from "./utils/notion";
 import Twitter from "./utils/twitter";
 
 export default defineEventHandler(async (e) => {
