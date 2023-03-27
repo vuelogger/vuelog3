@@ -7,6 +7,7 @@ import { useWindowStore } from "@/stores/window";
 
 onMounted(() => {
   const { openWindow } = useWindowStore();
+
   openWindow("GuestBook");
 });
 </script>
