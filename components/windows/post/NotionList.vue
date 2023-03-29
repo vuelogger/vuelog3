@@ -8,7 +8,7 @@
     </div>
     <nav class="list">
       <NuxtLink
-        :to="`/post/${item.id}`"
+        :to="`/post/${item.number}`"
         v-for="item of list"
         :key="item.number"
         class="item"

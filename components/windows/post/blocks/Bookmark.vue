@@ -17,8 +17,6 @@
 <script setup>
 const { block } = defineProps(["block"]);
 
-console.log("BLOCK", block);
-
 const bookmark = ref(null);
 
 const title = computed(() => {

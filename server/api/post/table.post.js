@@ -48,6 +48,7 @@ export default defineEventHandler(async (e) => {
       startCursor: res.next_cursor,
       list: res.results.map((v) => ({
         id: v.id,
+        number: getProp(v.properties.number),
         created: v.created_time,
         updated: v.last_edited_time,
         cover: v.cover?.file?.url,

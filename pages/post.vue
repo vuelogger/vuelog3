@@ -9,11 +9,12 @@ const route = useRoute();
 const { setPage } = usePostStore();
 
 const request = async function () {
-  if (route.params.id && route.params.id.includes("-")) {
+  const number = parseInt(route.params.id);
+  if (Number.isInteger(number)) {
     setPage(null);
     const { data } = await useFetch("/api/post/page", {
       method: "post",
-      body: { blockId: route.params.id },
+      body: { number },
     });
 
     setPage(data.value);

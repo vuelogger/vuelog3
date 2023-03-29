@@ -5,7 +5,7 @@ import SideBar from "./post/SideBar.vue";
 const route = useRoute();
 
 const isPost = computed(() => {
-  return route.params.id && route.params.id.includes("-");
+  return Number.isInteger(parseInt(route.params.id));
 });
 </script>
 
