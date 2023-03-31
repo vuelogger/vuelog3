@@ -18,7 +18,7 @@ const request = async function () {
     });
     setPage(data.value);
 
-    const page = data.value.page;
+    const page = data.value;
     let image = page?.cover;
     if (image) {
       // 바꾸지 않으면 일부 값이 사라짐

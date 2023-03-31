@@ -15,49 +15,32 @@ const setStartList = function (blocks) {
 };
 
 export default defineEventHandler(async (e) => {
-  try {
-    const { number } = await readBody(e);
+  const { number } = await readBody(e);
 
-    const res = await notion.databases.query({
-      database_id: process.env.NOTION_POST_TABLE_ID,
-      filter: {
-        and: [
-          {
-            property: "number",
-            number: {
-              greater_than_or_equal_to: number - 1,
-            },
+  const res = await notion.databases.query({
+    database_id: process.env.NOTION_POST_TABLE_ID,
+    filter: {
+      and: [
+        {
+          property: "number",
+          number: {
+            equals: number,
           },
-          {
-            property: "number",
-            number: {
-              less_than_or_equal_to: number + 1,
-            },
+        },
+        {
+          property: "published",
+          checkbox: {
+            equals: true,
           },
-          {
-            property: "published",
-            checkbox: {
-              equals: true,
-            },
-          },
-        ],
-      },
-    });
+        },
+      ],
+    },
+  });
 
-    let prev = null;
-    let curr = null;
-    let next = null;
-    for (const r of res.results) {
-      const n = r.properties.number.number;
-      if (n < number) {
-        prev = r;
-      } else if (n > number) {
-        next = r;
-      } else {
-        curr = r;
-      }
-    }
-
+  if (res.results.length > 0) {
+    const curr = res.results[0];
+    const prev = null,
+      next = null;
     const blocks = await collectPaginatedAPI(notion.blocks.children.list, {
       block_id: curr.id,
     });
@@ -92,8 +75,7 @@ export default defineEventHandler(async (e) => {
           }
         : null,
     };
-  } catch (error) {
-    console.error("Page 불러오기 실패", error);
-    return [];
+  } else {
+    return null;
   }
 });

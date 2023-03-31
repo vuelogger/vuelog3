@@ -13,6 +13,7 @@
         :key="item.number"
         class="item"
         ref="refs"
+        @click="clickPage"
       >
         <div class="head">
           <img class="cover" :src="item.cover" v-if="item.cover" />
@@ -83,6 +84,11 @@ const setCategoryName = () => {
       break;
     }
   }
+};
+const clickPage = () => {
+  const body = document.querySelector(".window-list main.body");
+
+  body.scrollTo(0, 0);
 };
 
 const initIO = () => {

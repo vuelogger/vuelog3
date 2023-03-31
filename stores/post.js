@@ -22,8 +22,8 @@ export const usePostStore = defineStore("post", {
     },
     setPage(data) {
       this.page = data?.page;
-      this.prev = data?.prev;
-      this.next = data?.next;
+      // this.prev = data?.prev;
+      // this.next = data?.next;
     },
   },
 });
