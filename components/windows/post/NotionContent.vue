@@ -74,7 +74,6 @@
         </NuxtLink>
         <div v-else class="next"></div>
       </div>
-      <div id="giscus"></div>
     </div>
   </div>
 
@@ -102,7 +101,7 @@
       </div>
     </div>
   </div>
-  <div class="comment">
+  <!-- <div class="comment">
     <Giscus
       id="comments"
       repo="bwealthy72/vuelog-comment"
@@ -118,7 +117,7 @@
       theme="light"
       lang="ko"
     />
-  </div>
+  </div> -->
 </template>
 
 <script setup>
