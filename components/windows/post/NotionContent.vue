@@ -130,9 +130,9 @@ import { storeToRefs } from "pinia";
 const postStore = usePostStore();
 const { page, prev, next } = storeToRefs(postStore);
 
-// useFetch("/api/post/category").then(({ data }) => {
-//   postStore.setCategory(data.value);
-// });
+useFetch("/api/post/category").then(({ data }) => {
+  postStore.setCategory(data.value);
+});
 </script>
 
 <style lang="scss">
