@@ -11,10 +11,8 @@
 
 <script setup>
 const { block } = defineProps(["block"]);
-console.log(block);
 const videoId = computed(() => {
   const url = block[block.type]?.external?.url;
-  console.log(url);
   if (url) {
     const u = new URL(url);
     let value = u.searchParams.get("v");
@@ -22,7 +20,6 @@ const videoId = computed(() => {
       return value;
     } else {
       const str = url.split("/");
-      console.log(str);
       return str[str.length - 1];
     }
   }
