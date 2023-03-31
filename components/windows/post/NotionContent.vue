@@ -49,7 +49,7 @@
     <div class="content__body">
       <Article :blocks="page.blocks" />
 
-      <h3 class="prev-next-title">다른 글 보기</h3>
+      <!-- <h3 class="prev-next-title">다른 글 보기</h3> -->
       <div class="prev-next">
         <NuxtLink :to="'/post/' + prev.number" class="prev" v-if="prev">
           <img src="@/assets/images/left-arrow.svg" class="arrow" />
