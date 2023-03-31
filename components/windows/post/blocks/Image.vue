@@ -20,7 +20,6 @@ const img = ref(null);
 
 onMounted(() => {
   img.value.onload = () => {
-    console.log("onload");
     loading.value = false;
   };
 });

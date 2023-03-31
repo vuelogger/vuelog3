@@ -14,41 +14,6 @@ const setStartList = function (blocks) {
   }
 };
 
-const getPostContent = async function (blockId) {
-  const blocks = collectPaginatedAPI(notion.blocks.children.list, {
-    block_id: blockId,
-  });
-  return blocks;
-};
-
-const filtering = function (category) {
-  if (category != "All") {
-    return {
-      and: [
-        {
-          property: "category",
-          select: {
-            equals: category,
-          },
-        },
-        {
-          property: "published",
-          checkbox: {
-            equals: true,
-          },
-        },
-      ],
-    };
-  } else {
-    return {
-      property: "published",
-      checkbox: {
-        equals: true,
-      },
-    };
-  }
-};
-
 export default defineEventHandler(async (e) => {
   try {
     const { number } = await readBody(e);
@@ -60,7 +25,13 @@ export default defineEventHandler(async (e) => {
           {
             property: "number",
             number: {
-              equals: number,
+              greater_than_or_equal_to: number - 1,
+            },
+          },
+          {
+            property: "number",
+            number: {
+              less_than_or_equal_to: number + 1,
             },
           },
           {
@@ -71,30 +42,56 @@ export default defineEventHandler(async (e) => {
           },
         ],
       },
-      page_size: 1,
     });
 
-    if (res.results.length > 0) {
-      const blockId = res.results[0].id;
-      const page = await notion.pages.retrieve({ page_id: blockId });
-
-      const blocks = await getPostContent(blockId);
-      setStartList(blocks);
-
-      return {
-        id: page?.id,
-        blocks: blocks,
-        cover: page?.cover?.file?.url,
-        created: page?.created_time,
-        updated: page?.last_edited_time,
-        category: getProp(page?.properties?.category),
-        title: getProp(page?.properties?.title),
-        description: getProp(page?.properties?.description),
-        tags: getProp(page?.properties?.tags),
-      };
-    } else {
-      return null;
+    let prev = null;
+    let curr = null;
+    let next = null;
+    for (const r of res.results) {
+      const n = r.properties.number.number;
+      if (n < number) {
+        prev = r;
+      } else if (n > number) {
+        next = r;
+      } else {
+        curr = r;
+      }
     }
+
+    const blocks = await collectPaginatedAPI(notion.blocks.children.list, {
+      block_id: curr.id,
+    });
+    setStartList(blocks);
+
+    return {
+      page: {
+        id: curr?.id,
+        blocks: blocks,
+        cover: curr?.cover?.file?.url,
+        created: curr?.created_time,
+        updated: curr?.last_edited_time,
+        category: getProp(curr?.properties?.category),
+        title: getProp(curr?.properties?.title),
+        description: getProp(curr?.properties?.description),
+        tags: getProp(curr?.properties?.tags),
+      },
+      prev: prev
+        ? {
+            title: getProp(prev?.properties?.title),
+            cover: prev?.cover?.file?.url,
+            category: getProp(prev?.properties?.category),
+            number: getProp(prev?.properties?.number),
+          }
+        : null,
+      next: next
+        ? {
+            title: getProp(next?.properties?.title),
+            cover: next?.cover?.file?.url,
+            category: getProp(next?.properties?.category),
+            number: getProp(next?.properties?.number),
+          }
+        : null,
+    };
   } catch (error) {
     console.error("Page 불러오기 실패", error);
     return [];

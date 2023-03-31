@@ -48,22 +48,33 @@
     </div>
     <div class="content__body">
       <Article :blocks="page.blocks" />
-      <Giscus
-        id="comments"
-        repo="bwealthy72/vuelog-comment"
-        repoId="R_kgDOIe3B3Q"
-        category="Announcements"
-        categoryId="DIC_kwDOIe3B3c4CUzmS"
-        mapping="title"
-        strict="0"
-        term="Welcome to my Vuelog"
-        reactionsEnabled="1"
-        emitMetadata="0"
-        inputPosition="top"
-        theme="light"
-        lang="ko"
-        loading="lazy"
-      />
+
+      <h3 class="prev-next-title">다른 글 보기</h3>
+      <div class="prev-next">
+        <NuxtLink :to="'/post/' + prev.number" class="prev" v-if="prev">
+          <img src="@/assets/images/left-arrow.svg" class="arrow" />
+          <div>
+            <img class="cover" :src="prev.cover" v-if="prev.cover" />
+            <p class="category">{{ prev.category }}</p>
+            <p class="title">
+              <span>{{ prev.title }}</span>
+            </p>
+          </div>
+        </NuxtLink>
+        <div v-else class="prev"></div>
+        <NuxtLink :to="'/post/' + next.number" class="next" v-if="next">
+          <div>
+            <img class="cover" :src="next.cover" v-if="next.cover" />
+            <p class="category">{{ next.category }}</p>
+            <p class="title">
+              <span>{{ next.title }}</span>
+            </p>
+          </div>
+          <img src="@/assets/images/right-arrow.svg" class="arrow" />
+        </NuxtLink>
+        <div v-else class="next"></div>
+      </div>
+      <div id="giscus"></div>
     </div>
   </div>
 
@@ -91,6 +102,23 @@
       </div>
     </div>
   </div>
+  <div class="comment">
+    <Giscus
+      id="comments"
+      repo="bwealthy72/vuelog-comment"
+      repoId="R_kgDOIe3B3Q"
+      category="Announcements"
+      categoryId="DIC_kwDOIe3B3c4CUzmS"
+      mapping="title"
+      strict="1"
+      term="Welcome to my Vuelog"
+      reactionsEnabled="0"
+      emitMetadata="1"
+      inputPosition="top"
+      theme="light"
+      lang="ko"
+    />
+  </div>
 </template>
 
 <script setup>
@@ -101,7 +129,7 @@ import { usePostStore } from "@/stores/post";
 import { storeToRefs } from "pinia";
 
 const postStore = usePostStore();
-const { page } = storeToRefs(postStore);
+const { page, prev, next } = storeToRefs(postStore);
 
 useFetch("/api/post/category").then(({ data }) => {
   postStore.setCategory(data.value);
@@ -135,16 +163,12 @@ useFetch("/api/post/category").then(({ data }) => {
     }
   }
 
-  &__info,
-  &__body {
-    padding: 0 2rem;
-    box-sizing: border-box;
-  }
-
   &__info {
     width: $breakpoint-tablet;
     max-width: 100%;
     position: relative;
+    padding: 0 2rem;
+    box-sizing: border-box;
 
     .category {
       transform: translateY(-50%);
@@ -221,10 +245,83 @@ useFetch("/api/post/category").then(({ data }) => {
     background-color: white;
     max-width: 100%;
     box-sizing: border-box;
+    padding: 0 2rem 4rem 2rem;
+
+    .prev-next {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 2rem;
+
+      &-title {
+        font-size: 2rem;
+        margin-top: 5rem;
+        font-weight: bold;
+      }
+
+      .prev,
+      .next {
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+        width: 40%;
+        column-gap: 2rem;
+        transition: all 0.4s;
+
+        .arrow {
+          filter: invert(1);
+          width: 2rem;
+          align-self: center;
+          transition: all 0.4s;
+        }
+        .cover {
+          width: 100%;
+          max-height: 15rem;
+          object-fit: cover;
+          border-radius: 5%;
+        }
+        .title {
+          font-size: 1.5rem;
+          margin-top: 1rem;
+          line-height: 1.6;
+          line-break: anywhere;
+        }
+        .category {
+          margin-top: 1rem;
+          font-size: 1.2rem;
+          padding: 0.3em 0.6em;
+          background-color: #848484;
+          display: inline-block;
+          border-radius: 0.3em;
+          color: white;
+        }
+      }
+
+      .next {
+        text-align: right;
+
+        &:hover {
+          transform: translateX(-1rem);
+          .arrow {
+            transform: translateX(1rem);
+          }
+        }
+      }
+      .prev {
+        &:hover {
+          transform: translateX(1rem);
+          .arrow {
+            transform: translateX(-1rem);
+          }
+        }
+      }
+    }
   }
 }
 
 .skeleton {
+  padding: 3rem;
+  box-sizing: border-box;
   .cover {
     width: 100%;
     height: 30rem;
@@ -232,7 +329,7 @@ useFetch("/api/post/category").then(({ data }) => {
   }
 
   .container {
-    width: 768px;
+    width: 100%;
     margin: 0 auto;
     .title {
       margin-top: 8rem;
@@ -242,8 +339,9 @@ useFetch("/api/post/category").then(({ data }) => {
     }
 
     .table {
+      width: 100%;
       display: grid;
-      grid-template-columns: 15rem 30rem;
+      grid-template-columns: 1fr 2fr;
       grid-auto-rows: 2rem;
       gap: 1rem;
       margin-top: 3rem;
@@ -284,6 +382,13 @@ useFetch("/api/post/category").then(({ data }) => {
       }
     }
   }
+}
+
+.comment {
+  max-width: $breakpoint-tablet;
+  padding: 2rem;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 @media (max-width: $breakpoint-tablet) {

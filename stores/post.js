@@ -4,6 +4,8 @@ export const usePostStore = defineStore("post", {
     sidebarActive: false,
     category: [],
     page: null,
+    prev: null,
+    next: null,
   }),
   actions: {
     openSidebar() {
@@ -18,8 +20,10 @@ export const usePostStore = defineStore("post", {
     setCategory(category) {
       this.category = category;
     },
-    setPage(page) {
-      this.page = page;
+    setPage(data) {
+      this.page = data?.page;
+      this.prev = data?.prev;
+      this.next = data?.next;
     },
   },
 });

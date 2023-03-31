@@ -75,7 +75,6 @@ const { data } = await useFetch("/api/post/bookmark", {
     url: block[block.type]?.url,
   },
 });
-console.log(data.value);
 
 bookmark.value = data.value;
 </script>
@@ -121,6 +120,7 @@ $transition-time: 0.4s;
 
     h4 {
       font-size: 1.2em;
+      @include textClip(2);
     }
 
     p {

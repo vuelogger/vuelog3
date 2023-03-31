@@ -16,20 +16,20 @@ const request = async function () {
       method: "post",
       body: { number },
     });
-
     setPage(data.value);
 
-    let image = data.value?.cover;
+    const page = data.value.page;
+    let image = page?.cover;
     if (image) {
       // 바꾸지 않으면 일부 값이 사라짐
       image = image.replaceAll("%2F", "/");
     }
 
     useSeoMeta({
-      title: data.value?.title,
-      ogTitle: data.value?.title,
-      description: data.value?.description,
-      ogDescription: data.value?.description,
+      title: page?.title,
+      ogTitle: page?.title,
+      description: page?.description,
+      ogDescription: page?.description,
       ogImage: image,
       twitterCard: "summary_large_image",
     });
