@@ -116,9 +116,7 @@ const getUser = async function () {
     method: "post",
     body: { token: token.value },
   });
-  if (data.value === false) {
-    window.location.assign(authURL);
-  } else {
+  if (data.value !== false) {
     currUser.value = data.value;
   }
 };
