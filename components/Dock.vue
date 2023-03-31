@@ -101,16 +101,16 @@ const onMouseLeave = function () {
 };
 
 const selectDockItem = function (name) {
-  // // Post를 열면서도 열려 있지 않은 경우만 열기
-  // // 열려있는 경우는 route 변경 안하기 위함
-  // const router = useRouter();
-  // if (name == "Post") {
-  //   const isPostOpened =
-  //     loadedWindows.filter((w) => w.name === "Post").length > 0;
-  //   if (!isPostOpened) {
-  //     router.push({ path: "/post/all" });
-  //   }
-  // }
+  // Post를 열면서도 열려 있지 않은 경우만 열기
+  // 열려있는 경우는 route 변경 안하기 위함
+  const router = useRouter();
+  if (name == "Post") {
+    const isPostOpened =
+      loadedWindows.filter((w) => w.name === "Post").length > 0;
+    if (!isPostOpened) {
+      router.push({ path: "/post" });
+    }
+  }
 
   if (window.innerWidth < 768) {
     closeDock();

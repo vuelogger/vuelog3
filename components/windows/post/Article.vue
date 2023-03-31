@@ -18,6 +18,7 @@ onMounted(() => {
 <style lang="scss">
 @import "@/assets/scss/base/mixins.scss";
 article {
+  width: 100%;
   padding: 4rem 0;
   font-size: 1.6rem;
   line-height: 1.8;
