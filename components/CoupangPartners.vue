@@ -15,7 +15,6 @@
       <p>
         쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.
       </p>
-      <p>(마우스 커서를 가져다 대면 닫기버튼이 나타납니다.)</p>
     </div>
   </div>
 </template>
@@ -57,14 +56,7 @@ onMounted(() => {
   user-select: none;
   animation: slide 0.7s;
 
-  &:hover {
-    .close-btn {
-      opacity: 1;
-    }
-  }
-
   .close-btn {
-    opacity: 0;
     transition: opacity 0.3s;
     position: absolute;
     top: 0;
