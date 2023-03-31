@@ -40,8 +40,8 @@ onMounted(() => {
     margin-bottom: -0.5rem;
     .lang {
       color: #aaa;
+      font-size: 0.7em;
       border-radius: 1rem;
-      font-weight: bold;
       text-transform: uppercase;
 
       &.html {

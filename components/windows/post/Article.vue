@@ -70,7 +70,7 @@ article {
   .image {
     display: block;
     margin: 2rem auto;
-    width: 80%;
+    max-width: 80%;
     border-radius: 3rem;
     border: 1px solid lightgray;
     border-radius: 8px;
@@ -78,9 +78,10 @@ article {
 
   .inline-code {
     color: #d76b6f;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 0.7rem;
     margin: 0;
-    font-size: 0.9em;
+    font-size: 0.95em;
+    font-weight: bold;
     background-color: rgba(27, 31, 35, 0.05);
     border-radius: 3px;
   }
