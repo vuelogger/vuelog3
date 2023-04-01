@@ -10,8 +10,8 @@
     allowfullscreen="true"
   >
     See the Pen
-    <a href="https://codepen.io/bwealthy72/pen/VwdBYpV"> Mac Dock</a> by Blog
-    Wealthy (<a href="https://codepen.io/bwealthy72">@bwealthy72</a>) on
+    <a href="https://codepen.io/vuelogger/pen/VwdBYpV"> Mac Dock</a> by Blog
+    Wealthy (<a href="https://codepen.io/vuelogger">@vuelogger</a>) on
     <a href="https://codepen.io">CodePen</a>.
   </iframe>
 </template>

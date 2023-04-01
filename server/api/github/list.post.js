@@ -2,7 +2,7 @@ import { Octokit } from "octokit";
 
 export default defineEventHandler(async (e) => {
   const { token, page } = await readBody(e);
-  const owner = "bwealthy72";
+  const owner = "vuelogger";
   const repo = "vuelog-comment";
 
   const octokit = new Octokit({ auth: token });

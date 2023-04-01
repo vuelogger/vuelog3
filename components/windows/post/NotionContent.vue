@@ -108,7 +108,7 @@
   <div class="comment">
     <!-- <Giscus
       id="comments"
-      repo="bwealthy72/vuelog-comment"
+      repo="vuelogger/vuelog-comment"
       repoId="R_kgDOIe3B3Q"
       category="Announcements"
       categoryId="DIC_kwDOIe3B3c4CUzmS"
