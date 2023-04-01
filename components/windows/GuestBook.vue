@@ -112,12 +112,18 @@ const getList = async function (page) {
 };
 
 const getUser = async function () {
-  const { data } = await useFetch("/api/github/me", {
-    method: "post",
-    body: { token: token.value },
-  });
-  if (data.value !== false) {
-    currUser.value = data.value;
+  // token이 있는 경우만
+  if (token.value) {
+    const { data } = await useFetch("/api/github/me", {
+      method: "post",
+      body: { token: token.value },
+    });
+    // token이 유효하지 않으면 다시 token 받기
+    if (data.value === false) {
+      window.location.assign(authURL);
+    } else {
+      currUser.value = data.value;
+    }
   }
 };
 
