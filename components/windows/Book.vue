@@ -178,6 +178,7 @@ watch(
       margin-bottom: 2rem;
       border-bottom: 1px solid gray;
       line-height: 1.4;
+      width: 100%;
     }
 
     &.skeleton {
