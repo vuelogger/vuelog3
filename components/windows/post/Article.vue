@@ -28,7 +28,7 @@ article {
   hr {
     height: 3rem;
     border: 0;
-    background-image: url(/images/divider.png);
+    background-image: url(/images/divider.svg);
     background-position: 50%;
     background-size: contain;
     background-repeat: no-repeat;

@@ -14,7 +14,11 @@
           <img src="@/assets/images/windows/post/article/category.svg" />
           <span>Category</span>
         </div>
-        <div class="value cate notion-select">{{ page.category }}</div>
+        <NuxtLink
+          :to="`/post/${page.category.toLowerCase()}`"
+          class="value cate notion-select"
+          >{{ page.category }}</NuxtLink
+        >
         <div class="label">
           <img src="@/assets/images/windows/post/article/tags.svg" />
           <span>Tags</span>
@@ -177,6 +181,12 @@ const { page, prev, next } = storeToRefs(postStore);
       img {
         width: 100%;
         height: 100%;
+        transition: all 0.3s;
+      }
+      &:hover {
+        img {
+          transform: scale(1.2);
+        }
       }
     }
     .title {
@@ -214,6 +224,9 @@ const { page, prev, next } = storeToRefs(postStore);
 
         &.cate {
           font-weight: bold;
+          &:hover {
+            filter: invert(1);
+          }
         }
 
         &.tags {

@@ -2,13 +2,13 @@
   <header class="main-header">
     <div class="left">
       <NuxtLink to="/" class="logo" @click="closeAllWindows">
-        <img src="/images/logo.png" alt="logo" />
+        <img src="/images/logo.svg" alt="logo" />
       </NuxtLink>
       <span class="title">VueLog</span>
     </div>
 
     <div class="right">
-      <MusicPlayer />
+      <!-- <MusicPlayer /> -->
       <HeaderDateTime class="time" />
       <div class="dock-btn">
         <HamburgerBtn />

@@ -2,7 +2,7 @@
   <div class="guestbook">
     <header>
       <div class="profile">
-        <img src="/images/logo.png" />
+        <img src="/images/logo.svg" />
       </div>
       <div class="text">
         <p class="admin">VueLogger</p>

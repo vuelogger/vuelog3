@@ -17,7 +17,7 @@
       >
         <div class="head">
           <img class="cover" :src="item.cover" v-if="item.cover" />
-          <img class="cover no-image" src="/images/logo.png" v-else />
+          <img class="cover no-image" src="/images/logo.svg" v-else />
         </div>
         <div class="body">
           <div class="category" :class="item.category.toLowerCase()">

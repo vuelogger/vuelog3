@@ -20,12 +20,12 @@ useHead({
     {
       hid: "og:image",
       property: "og:image",
-      content: "/logo.png",
+      content: "/logo.svg",
     },
     {
       hid: "twitter:image",
       name: "twitter:image",
-      content: "/logo.png",
+      content: "/logo.svg",
     },
     {
       hid: "og:url",
