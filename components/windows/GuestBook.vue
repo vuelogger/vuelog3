@@ -341,7 +341,7 @@ watch(refs, () => {
       flex: 1;
       background-color: transparent;
       color: white;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       border: none;
       resize: none;
       padding: 1rem 2rem 0 2rem;
