@@ -24,8 +24,8 @@
         <img :src="item.user.avatar_url" alt="user image" />
 
         <div class="text">
-          <p class="name" v-if="item.author_association == 'OWNER'">
-            Vuelogger (블로그 주인)
+          <p class="name owner" v-if="item.author_association == 'OWNER'">
+            Vuelogger
           </p>
           <p class="name" v-else>{{ item.user.login }}</p>
           <p class="body">{{ item.body }}</p>
@@ -261,6 +261,9 @@ watch(refs, () => {
         flex-direction: column;
         .name {
           color: #aaa;
+          &.owner {
+            color: #deea77;
+          }
         }
         .body {
           position: relative;
