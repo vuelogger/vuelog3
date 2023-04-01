@@ -102,7 +102,7 @@
     </div>
   </div>
   <div class="comment">
-    <Giscus
+    <!-- <Giscus
       id="comments"
       repo="bwealthy72/vuelog-comment"
       repoId="R_kgDOIe3B3Q"
@@ -116,7 +116,7 @@
       inputPosition="top"
       theme="light"
       lang="ko"
-    />
+    /> -->
   </div>
 </template>
 
@@ -129,10 +129,6 @@ import { storeToRefs } from "pinia";
 
 const postStore = usePostStore();
 const { page, prev, next } = storeToRefs(postStore);
-
-useFetch("/api/post/category").then(({ data }) => {
-  postStore.setCategory(data.value);
-});
 </script>
 
 <style lang="scss">

@@ -1,11 +1,11 @@
 <template>
   <ul>
-    <li v-for="c of category" :key="c.link">
-      <NuxtLink :to="`/post/${c.link}`" @click="store.closeSidebar">
+    <li v-for="(name, link) in category" :key="link">
+      <NuxtLink :to="`/post/${link}`" @click="closeSidebar">
         <div class="icon">
-          <img :src="`/images/apps/post/${c.name}.svg`" />
+          <img :src="`/images/apps/post/${name}.svg`" />
         </div>
-        <span class="text">{{ c.name }}</span>
+        <span class="text">{{ name }}</span>
         <img
           class="arrow"
           src="@/assets/images/windows/post/sidebar/right-arrow.svg"
@@ -17,10 +17,7 @@
 
 <script setup>
 import { usePostStore } from "@/stores/post";
-import { storeToRefs } from "pinia";
-
-const store = usePostStore();
-const { category } = storeToRefs(store);
+const { category, closeSidebar } = usePostStore();
 </script>
 
 <style lang="scss" scoped>

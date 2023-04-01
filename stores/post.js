@@ -2,7 +2,13 @@ import { defineStore } from "pinia";
 export const usePostStore = defineStore("post", {
   state: () => ({
     sidebarActive: false,
-    category: [],
+    category: {
+      "": "All",
+      javascript: "Javascript",
+      vue: "Vue",
+      sidejob: "Sidejob",
+      etc: "ETC",
+    },
     page: null,
     prev: null,
     next: null,
@@ -16,9 +22,6 @@ export const usePostStore = defineStore("post", {
     },
     toggleSidebar() {
       this.sidebarActive = !this.sidebarActive;
-    },
-    setCategory(category) {
-      this.category = category;
     },
     setPage(data) {
       this.page = data?.page;
