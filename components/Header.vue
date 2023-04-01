@@ -8,7 +8,7 @@
     </div>
 
     <div class="right">
-      <!-- <MusicPlayer /> -->
+      <MusicPlayer />
       <HeaderDateTime class="time" />
       <div class="dock-btn">
         <HamburgerBtn />
