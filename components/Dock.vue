@@ -13,7 +13,7 @@
     >
       <img
         :style="{ width: widths[i] + 'px' }"
-        :src="`/images/apps/${name}.png`"
+        :src="`/images/apps/${name}.webp`"
         ref="appRef"
       />
       <p>{{ name }}</p>
@@ -169,7 +169,7 @@ const selectDockItem = function (name) {
 @media (max-width: $breakpoint-tablet) {
   .dock {
     transform: translate(-100%, -50%);
-    transition: all 0.5s;
+    transition: all 0.2s;
     opacity: 0;
     &.active {
       opacity: 1;
@@ -178,8 +178,8 @@ const selectDockItem = function (name) {
       .app-item {
         p {
           opacity: 1;
-          transition: opacity 0.3s;
-          transition-delay: 0.3s;
+          transition: opacity 0.2s;
+          transition-delay: 0.2s;
         }
       }
     }

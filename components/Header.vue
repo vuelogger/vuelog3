@@ -79,6 +79,8 @@ const { closeAllWindows } = useWindowStore();
       .dock-btn {
         height: 40%;
         margin-left: 1rem;
+        position: relative;
+        z-index: 2000;
       }
     }
   }

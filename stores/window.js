@@ -13,7 +13,6 @@ const windowOpts = {
     minW: 300,
     minH: 500,
   },
-
   GuestBook: {
     w: 400,
     h: 600,
