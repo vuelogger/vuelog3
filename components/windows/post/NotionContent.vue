@@ -90,7 +90,7 @@
     </div>
   </div>
   <div class="comment">
-    <!-- <Giscus
+    <Giscus
       id="comments"
       repo="vuelogger/vuelog-comment"
       repoId="R_kgDOIe3B3Q"
@@ -104,7 +104,7 @@
       inputPosition="top"
       theme="light"
       lang="ko"
-    /> -->
+    />
   </div>
 </template>
 
