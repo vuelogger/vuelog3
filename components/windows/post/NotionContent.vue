@@ -1,7 +1,7 @@
 <template>
   <div class="content" v-if="page">
     <div class="content__cover" :class="page.cover ? null : 'no-image'">
-      <img :src="page.cover" v-if="page.cover" />
+      <img :src="page.cover" v-if="page.cover" alt="cover" />
     </div>
     <div class="content__info">
       <NuxtLink class="category" :to="`/post/${page.category.toLowerCase()}`">
@@ -11,16 +11,20 @@
       <h1 class="title">{{ page.title }}</h1>
       <div class="table">
         <div class="label">
-          <img src="@/assets/images/windows/post/article/category.svg" />
+          <img
+            src="@/assets/images/windows/post/article/category.svg"
+            alt="category"
+          />
           <span>Category</span>
         </div>
         <NuxtLink
           :to="`/post/${page.category.toLowerCase()}`"
           class="value cate notion-select"
+          aria-label="Back to Category"
           >{{ page.category }}</NuxtLink
         >
         <div class="label">
-          <img src="@/assets/images/windows/post/article/tags.svg" />
+          <img src="@/assets/images/windows/post/article/tags.svg" alt="tags" />
           <span>Tags</span>
         </div>
         <div class="value tags">
@@ -34,14 +38,20 @@
           </div>
         </div>
         <div class="label">
-          <img src="@/assets/images/windows/post/article/calendar.svg" />
+          <img
+            src="@/assets/images/windows/post/article/calendar.svg"
+            alt="calendar"
+          />
           <span>Created</span>
         </div>
         <div class="value date">
           {{ dateToStr(page.created, "YYYY-MM-DD") }}
         </div>
         <div class="label">
-          <img src="@/assets/images/windows/post/article/calendar.svg" />
+          <img
+            src="@/assets/images/windows/post/article/calendar.svg"
+            alt="calendar"
+          />
           <span>Updated</span>
         </div>
         <div class="value date">

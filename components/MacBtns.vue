@@ -1,19 +1,46 @@
 <template>
   <div class="mac-btns">
     <button @click="$emit('close')">
-      <img class="normal" src="@/assets/images/windows/mac-close-btn.png" />
+      <img
+        class="normal"
+        src="@/assets/images/windows/mac-close-btn.png"
+        alt="close"
+        aria-label="Close"
+      />
       <img
         class="hover"
         src="@/assets/images/windows/mac-close-btn_active.png"
+        alt="close"
+        aria-label="Close"
       />
     </button>
     <button @click="$emit('minimize')">
-      <img class="normal" src="@/assets/images/windows/mac-min-btn.png" />
-      <img class="hover" src="@/assets/images/windows/mac-min-btn_active.png" />
+      <img
+        class="normal"
+        src="@/assets/images/windows/mac-min-btn.png"
+        alt="minimize"
+        aria-label="Minimize"
+      />
+      <img
+        class="hover"
+        src="@/assets/images/windows/mac-min-btn_active.png"
+        alt="minimize"
+        aria-label="Minimize"
+      />
     </button>
     <button @click="$emit('maximize')">
-      <img class="normal" src="@/assets/images/windows/mac-max-btn.png" />
-      <img class="hover" src="@/assets/images/windows/mac-max-btn_active.png" />
+      <img
+        class="normal"
+        src="@/assets/images/windows/mac-max-btn.png"
+        alt="maximize"
+        aria-label="Maximize"
+      />
+      <img
+        class="hover"
+        src="@/assets/images/windows/mac-max-btn_active.png"
+        alt="maximize"
+        aria-label="Maximize"
+      />
     </button>
   </div>
 </template>

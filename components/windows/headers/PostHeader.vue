@@ -11,7 +11,10 @@
     </button>
     <button class="return-top" @click="$emit('returnToTop')">
       <span>Return to top</span>
-      <img src="@/assets/images/windows/post/sidebar/return-to-top.svg" />
+      <img
+        src="@/assets/images/windows/post/sidebar/return-to-top.svg"
+        alt="return-top"
+      />
     </button>
   </div>
 </template>
