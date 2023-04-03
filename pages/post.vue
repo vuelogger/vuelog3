@@ -39,8 +39,8 @@ const request = async function () {
 
 watch(
   route,
-  async () => {
-    await request();
+  () => {
+    request();
   },
   { immediate: true }
 );
