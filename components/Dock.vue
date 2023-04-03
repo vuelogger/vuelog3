@@ -15,6 +15,7 @@
         :style="{ width: widths[i] + 'px' }"
         :src="`/images/apps/${name}.webp`"
         ref="appRef"
+        :alt="name"
       />
       <p>{{ name }}</p>
     </button>

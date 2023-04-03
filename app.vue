@@ -1,5 +1,5 @@
 <template>
-  <img src="/images/bg.webp" class="main-bg" />
+  <img src="/images/bg.webp" class="main-bg" alt="background" />
   <Header />
   <Dock />
   <WindowList />
