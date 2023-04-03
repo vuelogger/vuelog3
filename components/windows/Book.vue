@@ -146,6 +146,9 @@ watch(
       &.depth-2 {
         padding-left: 3.5rem;
       }
+      &.depth-3 {
+        padding-left: 7rem;
+      }
 
       &.active {
         color: white;
