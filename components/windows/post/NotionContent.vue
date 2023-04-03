@@ -52,32 +52,6 @@
     </div>
     <div class="content__body">
       <Article :blocks="page.blocks" />
-
-      <!-- <h3 class="prev-next-title">다른 글 보기</h3> -->
-      <div class="prev-next">
-        <NuxtLink :to="'/post/' + prev.number" class="prev" v-if="prev">
-          <img src="@/assets/images/left-arrow.svg" class="arrow" />
-          <div>
-            <img class="cover" :src="prev.cover" v-if="prev.cover" />
-            <p class="category">{{ prev.category }}</p>
-            <p class="title">
-              <span>{{ prev.title }}</span>
-            </p>
-          </div>
-        </NuxtLink>
-        <div v-else class="prev"></div>
-        <NuxtLink :to="'/post/' + next.number" class="next" v-if="next">
-          <div>
-            <img class="cover" :src="next.cover" v-if="next.cover" />
-            <p class="category">{{ next.category }}</p>
-            <p class="title">
-              <span>{{ next.title }}</span>
-            </p>
-          </div>
-          <img src="@/assets/images/right-arrow.svg" class="arrow" />
-        </NuxtLink>
-        <div v-else class="next"></div>
-      </div>
     </div>
   </div>
 
@@ -132,7 +106,7 @@ import { usePostStore } from "@/stores/post";
 import { storeToRefs } from "pinia";
 
 const postStore = usePostStore();
-const { page, prev, next } = storeToRefs(postStore);
+const { page } = storeToRefs(postStore);
 </script>
 
 <style lang="scss">

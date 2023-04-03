@@ -8,6 +8,7 @@ const route = useRoute();
 
 const { setPage } = usePostStore();
 
+// 여기서 request 하는 이유는 SEO가 여기서 되기 때문이다.
 const request = async function () {
   const number = parseInt(route.params.id);
   if (Number.isInteger(number)) {
