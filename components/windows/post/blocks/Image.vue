@@ -5,6 +5,7 @@
     :src="data?.file?.url"
     :alt="alt"
     loading="lazy"
+    decoding="async"
   />
   <div class="img-caption">{{ alt }}</div>
   <Loading v-show="loading" />
