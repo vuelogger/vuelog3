@@ -28,7 +28,7 @@
           <button
             @click="getPage(prevPage.id, prevPage.number)"
             class="prev"
-            v-if="prevPage"
+            v-if="prevPage && prevPage.published"
           >
             <img src="@/assets/images/left-arrow.svg" alt="left-arrow" />
             <span>{{ prevPage.title }}</span>
@@ -36,7 +36,7 @@
           <button
             @click="getPage(nextPage.id, nextPage.number)"
             class="next"
-            v-if="nextPage"
+            v-if="nextPage && nextPage.published"
           >
             <span>{{ nextPage.title }}</span>
             <img src="@/assets/images/right-arrow.svg" alt="right-arrow" />
