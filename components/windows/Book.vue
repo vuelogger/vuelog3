@@ -25,8 +25,22 @@
         </header>
         <Article :blocks="blocks" />
         <div class="prev-next">
-          <div class="prev" v-if="prevPage">{{ prevPage }}</div>
-          <div class="next" v-if="nextPage">{{ nextPage }}</div>
+          <button
+            @click="getPage(prevPage.id, prevPage.number)"
+            class="prev"
+            v-if="prevPage"
+          >
+            <img src="@/assets/images/left-arrow.svg" alt="left-arrow" />
+            <span>{{ prevPage.title }}</span>
+          </button>
+          <button
+            @click="getPage(nextPage.id, nextPage.number)"
+            class="next"
+            v-if="nextPage"
+          >
+            <span>{{ nextPage.title }}</span>
+            <img src="@/assets/images/right-arrow.svg" alt="right-arrow" />
+          </button>
         </div>
       </template>
       <div class="content skeleton" v-else>
@@ -208,12 +222,13 @@ onUnmounted(() => {
 
   .content {
     padding: 3rem;
+    padding-top: 6rem;
     width: 768px;
     min-width: 300px;
     max-width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
-    margin-top: 3rem;
+    overflow-y: auto;
 
     header {
       padding-bottom: 2rem;
@@ -265,6 +280,31 @@ onUnmounted(() => {
         margin-top: 4rem;
         margin-bottom: 2rem;
         @include skeleton;
+      }
+    }
+    .prev-next {
+      display: flex;
+      font-size: 1.3rem;
+
+      .next {
+        margin-left: auto;
+        text-align: right;
+      }
+
+      .prev,
+      .next {
+        display: flex;
+        align-items: center;
+        line-height: 1.5;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.5;
+        }
+        img {
+          height: 1.3rem;
+          margin: 0 1rem;
+          filter: invert(0.7);
+        }
       }
     }
   }
