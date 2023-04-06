@@ -1,43 +1,58 @@
 <template>
-  <div class="book">
-    <Transition name="slide-left">
-      <aside v-if="list.length > 0" v-show="sidebarActive">
-        <button
-          class="item"
-          :class="buttonClass(item)"
-          :disabled="!item.published"
-          v-for="item of list"
-          :key="item.id"
-          @click="getPage(item.id, item.number)"
-        >
-          {{ item.title }}
-        </button>
-      </aside>
-    </Transition>
-    <div class="content" v-if="blocks">
-      <h1 v-if="title">{{ title }}</h1>
-      <Article :blocks="blocks" />
-    </div>
-    <div class="content skeleton" v-else>
-      <div class="title"></div>
-      <div class="text"></div>
-      <div class="text"></div>
-      <div class="text"></div>
-      <div class="text"></div>
-      <div class="heading"></div>
-      <div class="text"></div>
-      <div class="text"></div>
-      <div class="text"></div>
-      <div class="image"></div>
-      <div class="text"></div>
-      <div class="text"></div>
-      <div class="text"></div>
-      <div class="text"></div>
+  <div class="book" ref="container">
+    <aside :class="{ tablet: isTabletMode, active: sidebarActive }">
+      <button
+        class="item"
+        :class="buttonClass(item)"
+        :disabled="!item.published"
+        v-for="item of list"
+        :key="item.id"
+        @click="getPage(item.id, item.number)"
+      >
+        {{ item.title }}
+      </button>
+    </aside>
+    <div class="content">
+      <template v-if="blocks">
+        <header v-if="currPage">
+          <h1>{{ currPage.title }}</h1>
+          <div class="created">
+            Created: {{ dateToStr(currPage.created, "YYYY. MM. DD hh:mm A") }}
+          </div>
+          <div class="updated">
+            Updated: {{ dateToStr(currPage.updated, "YYYY. MM. DD hh:mm A") }}
+          </div>
+        </header>
+        <Article :blocks="blocks" />
+        <div class="prev-next">
+          <div class="prev" v-if="prevPage">{{ prevPage }}</div>
+          <div class="next" v-if="nextPage">{{ nextPage }}</div>
+        </div>
+      </template>
+      <div class="content skeleton" v-else>
+        <div class="title"></div>
+        <div class="text"></div>
+        <div class="text"></div>
+        <div class="text"></div>
+        <div class="text"></div>
+        <div class="heading"></div>
+        <div class="text"></div>
+        <div class="text"></div>
+        <div class="text"></div>
+        <div class="image"></div>
+        <div class="text"></div>
+        <div class="text"></div>
+        <div class="text"></div>
+        <div class="text"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { dateToStr } from "@/src/util";
+import throttle from "lodash/throttle";
+
 import { storeToRefs } from "pinia";
 import { useBookStore } from "@/stores/book";
 import Article from "@/components/windows/post/Article.vue";
@@ -47,15 +62,19 @@ const { sidebarActive } = storeToRefs(bookStore);
 const router = useRouter();
 const route = useRoute();
 
-if (!route.params.number) {
-  router.push({ path: "/book/vue-notion/0" });
-}
-
 const list = ref([]);
 const blocks = ref([]);
-const currNum = ref(route.params.number || 1);
-const title = computed(() => {
-  return list.value[currNum.value]?.title;
+const currNum = ref(route.params.number || 0);
+const isTabletMode = ref(true);
+
+const prevPage = computed(() => {
+  return list.value[parseInt(currNum.value) - 1];
+});
+const nextPage = computed(() => {
+  return list.value[parseInt(currNum.value) + 1];
+});
+const currPage = computed(() => {
+  return list.value[parseInt(currNum.value)];
 });
 
 const buttonClass = (item) => {
@@ -95,6 +114,23 @@ watch(
   },
   { immediate: true }
 );
+
+const observer = new MutationObserver(
+  throttle((mutationsList) => {
+    for (const { target } of mutationsList) {
+      isTabletMode.value = target.offsetWidth < 768;
+    }
+  }, 200)
+);
+
+onMounted(() => {
+  const win = document.querySelector(".window");
+  observer.observe(win, { attributes: true });
+});
+
+onUnmounted(() => {
+  observer.disconnect();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -104,27 +140,31 @@ watch(
 
 .book {
   width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+  display: flex;
 
   aside {
-    position: absolute;
-    top: $window-header-height;
-    left: 0;
-    width: 300px;
-    height: calc(100% - #{$window-header-height});
-    background-color: white;
+    flex: 0 0 35rem;
+    height: 100%;
     box-sizing: border-box;
-    z-index: 3;
     overflow-y: auto;
     padding: 2rem 0;
-    background-color: #fafafa;
-    border-right: 1px solid #eee;
+
+    &.tablet {
+      display: none;
+
+      &.active {
+        display: block;
+      }
+    }
 
     .item {
       width: 100%;
       text-align: left;
       font-size: 1.4rem;
       padding: 1.4rem 2rem;
-      line-height: 1.2;
+      line-height: 1.3;
       cursor: pointer;
 
       &:first-of-type {
@@ -169,21 +209,30 @@ watch(
   .content {
     padding: 3rem;
     width: 768px;
+    min-width: 300px;
     max-width: 100%;
     margin: 0 auto;
     box-sizing: border-box;
     margin-top: 3rem;
 
-    h1 {
-      font-size: 4rem;
-      font-weight: bold;
-      padding-bottom: 3rem;
+    header {
+      padding-bottom: 2rem;
       margin-bottom: 2rem;
-      border-bottom: 1px solid gray;
-      line-height: 1.4;
-      width: 100%;
+      border-bottom: 1px solid #dedede;
+      h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        line-height: 1.4;
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      .created,
+      .updated {
+        font-size: 1.1rem;
+        color: gray;
+        text-align: center;
+      }
     }
-
     &.skeleton {
       .title {
         height: 4rem;

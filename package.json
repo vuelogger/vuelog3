@@ -19,6 +19,7 @@
     "@pinia/nuxt": "^0.4.6",
     "dayjs": "^1.11.7",
     "highlight.js": "^11.7.0",
+    "lodash": "^4.17.21",
     "octokit": "^2.0.14",
     "open-graph-scraper": "^5.2.2",
     "pinia": "^2.0.28",

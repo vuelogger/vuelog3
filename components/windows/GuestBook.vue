@@ -30,7 +30,7 @@
           <p class="name" v-else>{{ item.user.login }}</p>
           <p class="body">{{ item.body }}</p>
           <p class="created">
-            {{ dayjs(item.created_at).format("YYYY. MM. DD hh:mm A") }}
+            {{ dateToStr(item.created_at, "YYYY. MM. DD hh:mm A") }}
           </p>
         </div>
       </section>
@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import dayjs from "dayjs";
+import { dateToStr } from "~/src/util";
 
 const config = useRuntimeConfig();
 const router = useRouter();

@@ -55,6 +55,7 @@ onMounted(() => {
   box-sizing: border-box;
   user-select: none;
   animation: slide 0.7s;
+  z-index: 0;
 
   .close-btn {
     transition: opacity 0.3s;

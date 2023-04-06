@@ -26,7 +26,7 @@ const windowOpts = {
     minH: 500,
   },
   Book: {
-    w: 800,
+    w: 767, // 모바일 모드가 되도록
     h: 800,
     minW: 300,
     minH: 400,

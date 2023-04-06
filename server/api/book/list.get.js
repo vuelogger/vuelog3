@@ -15,6 +15,8 @@ export default defineEventHandler(async (e) => {
 
     return table.map((v) => ({
       id: v.id,
+      created: v.created_time,
+      updated: v.last_edited_time,
       depth: "depth-" + getProp(v.properties?.depth),
       published: getProp(v.properties?.published),
       number: getProp(v.properties?.number),
