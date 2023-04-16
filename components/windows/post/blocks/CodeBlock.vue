@@ -21,7 +21,9 @@ const lang = computed(() => block?.code?.language);
 let html = ref(null);
 onMounted(() => {
   const code = block?.code?.rich_text?.[0]?.plain_text;
-  html.value = hljs.highlight(code, { language: block?.code?.language }).value;
+  html.value = hljs.highlight(code, {
+    language: block?.code?.language,
+  }).value;
 });
 </script>
 
@@ -66,7 +68,8 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     code {
-      white-space: pre;
+      font-family: monospace;
+      line-height: 1.4;
     }
   }
 }
