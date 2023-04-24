@@ -1,5 +1,5 @@
 <template>
-  <nuxt-img class="image" :src="data?.file?.url" :alt="alt" @load="loaded" />
+  <img class="image" :src="data?.file?.url" :alt="alt" @load="loaded" />
   <div class="img-caption">{{ alt }}</div>
   <Loading v-show="loading" />
 </template>
