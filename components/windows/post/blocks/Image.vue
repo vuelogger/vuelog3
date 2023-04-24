@@ -1,11 +1,5 @@
 <template>
-  <nuxt-img
-    format="webp"
-    class="image"
-    :src="data?.file?.url"
-    :alt="alt"
-    @load="loaded"
-  />
+  <nuxt-img class="image" :src="data?.file?.url" :alt="alt" @load="loaded" />
   <div class="img-caption">{{ alt }}</div>
   <Loading v-show="loading" />
 </template>
