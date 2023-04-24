@@ -222,9 +222,11 @@ onUnmounted(() => {
 
   .content {
     width: 100%;
+    height: 100%;
     overflow-y: auto;
     padding: 2rem;
     padding-top: 6rem;
+    box-sizing: border-box;
 
     .container {
       width: 800px;
