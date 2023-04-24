@@ -13,7 +13,7 @@
       </button>
     </aside>
     <div class="content">
-      <template v-if="blocks">
+      <div class="container" v-if="blocks">
         <header v-if="currPage">
           <h1>{{ currPage.title }}</h1>
           <div class="created">
@@ -42,7 +42,7 @@
             <img src="@/assets/images/right-arrow.svg" alt="right-arrow" />
           </button>
         </div>
-      </template>
+      </div>
       <div class="content skeleton" v-else>
         <div class="title"></div>
         <div class="text"></div>
@@ -132,7 +132,7 @@ watch(
 const observer = new MutationObserver(
   throttle((mutationsList) => {
     for (const { target } of mutationsList) {
-      isTabletMode.value = target.offsetWidth < 768;
+      isTabletMode.value = target.offsetWidth < 800;
     }
   }, 200)
 );
@@ -221,34 +221,42 @@ onUnmounted(() => {
   }
 
   .content {
-    padding: 3rem;
-    padding-top: 6rem;
-    width: 768px;
-    min-width: 300px;
-    max-width: 100%;
-    margin: 0 auto;
-    box-sizing: border-box;
+    width: 100%;
     overflow-y: auto;
+    padding: 2rem;
+    padding-top: 6rem;
 
-    header {
-      padding-bottom: 2rem;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #dedede;
-      h1 {
-        font-size: 3rem;
-        font-weight: bold;
-        line-height: 1.4;
-        text-align: center;
-        margin-bottom: 1rem;
-      }
-      .created,
-      .updated {
-        font-size: 1.1rem;
-        color: gray;
-        text-align: center;
+    .container {
+      width: 800px;
+      min-width: 300px;
+      max-width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+      header {
+        padding-bottom: 2rem;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid #dedede;
+        h1 {
+          font-size: 3rem;
+          font-weight: bold;
+          line-height: 1.4;
+          text-align: center;
+          margin-bottom: 1rem;
+        }
+        .created,
+        .updated {
+          font-size: 1.1rem;
+          color: gray;
+          text-align: center;
+        }
       }
     }
     &.skeleton {
+      width: 800px;
+      min-width: 300px;
+      max-width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
       .title {
         height: 4rem;
         margin-bottom: 7rem;
