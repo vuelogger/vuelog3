@@ -16,6 +16,8 @@
         :src="`/images/apps/${name}.webp`"
         ref="appRef"
         :alt="name"
+        width="60"
+        height="60"
       />
       <p>{{ name }}</p>
     </button>
