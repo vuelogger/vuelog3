@@ -24,7 +24,12 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "@funken-studio/sitemap-nuxt-3",
     "@nuxtjs/robots",
+    "@nuxt/image-edge",
   ],
+
+  image: {
+    domains: ["s3.us-west-2.amazonaws.com"],
+  },
 
   sitemap: {
     hostname: "https://vue-log.com",
