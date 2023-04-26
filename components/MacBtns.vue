@@ -3,13 +3,13 @@
     <button @click="$emit('close')">
       <img
         class="normal"
-        src="@/assets/images/windows/mac-close-btn.png"
+        src="@/assets/images/windows/mac-close-btn.webp"
         alt="close"
         aria-label="Close"
       />
       <img
         class="hover"
-        src="@/assets/images/windows/mac-close-btn_active.png"
+        src="@/assets/images/windows/mac-close-btn_active.webp"
         alt="close"
         aria-label="Close"
       />
@@ -17,13 +17,13 @@
     <button @click="$emit('minimize')">
       <img
         class="normal"
-        src="@/assets/images/windows/mac-min-btn.png"
+        src="@/assets/images/windows/mac-min-btn.webp"
         alt="minimize"
         aria-label="Minimize"
       />
       <img
         class="hover"
-        src="@/assets/images/windows/mac-min-btn_active.png"
+        src="@/assets/images/windows/mac-min-btn_active.webp"
         alt="minimize"
         aria-label="Minimize"
       />
@@ -31,13 +31,13 @@
     <button @click="$emit('maximize')">
       <img
         class="normal"
-        src="@/assets/images/windows/mac-max-btn.png"
+        src="@/assets/images/windows/mac-max-btn.webp"
         alt="maximize"
         aria-label="Maximize"
       />
       <img
         class="hover"
-        src="@/assets/images/windows/mac-max-btn_active.png"
+        src="@/assets/images/windows/mac-max-btn_active.webp"
         alt="maximize"
         aria-label="Maximize"
       />
