@@ -1,19 +1,19 @@
 <template>
-  <!-- <img
+  <img
     ref="img"
     class="image"
     :src="data?.file?.url"
     :alt="alt"
     loading="lazy"
     decoding="async"
-  /> -->
-  <nuxt-img
+  />
+  <!-- <nuxt-img
     class="image"
     :src="data?.file?.url"
     :alt="alt"
     ref="img"
     @load="loading = false"
-  />
+  /> -->
   <div class="img-caption">{{ alt }}</div>
   <Loading v-show="loading" />
 </template>
