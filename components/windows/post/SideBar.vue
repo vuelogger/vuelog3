@@ -2,7 +2,7 @@
   <Transition name="slide-left">
     <aside class="sidebar" v-show="sidebarActive">
       <!-- 검색 -->
-      <Search />
+      <!-- <Search /> -->
       <!-- 메뉴 -->
       <Menu />
       <!-- 태그 목록 -->
@@ -14,7 +14,7 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { usePostStore } from "@/stores/post";
-import Search from "./sidebar/Search.vue";
+// import Search from "./sidebar/Search.vue";
 import Menu from "./sidebar/Menu.vue";
 const { sidebarActive } = storeToRefs(usePostStore());
 </script>

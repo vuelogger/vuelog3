@@ -7,6 +7,7 @@ export const usePostStore = defineStore("post", {
       javascript: "Javascript",
       vue: "Vue",
       sidejob: "Sidejob",
+      mac: "Mac",
       etc: "ETC",
     },
     page: null,
