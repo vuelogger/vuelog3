@@ -3,6 +3,7 @@
   <Header />
   <Dock />
   <WindowList />
+  <MouseIcon />
   <NuxtPage />
 </template>
 
