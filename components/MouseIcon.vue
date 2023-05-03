@@ -41,7 +41,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 img {
   position: fixed;
-  z-index: 1000;
+  z-index: 10000000;
   margin-left: 5px;
   margin-top: 5px;
 }
