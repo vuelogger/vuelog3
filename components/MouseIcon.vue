@@ -42,5 +42,7 @@ onMounted(() => {
 img {
   position: fixed;
   z-index: 1000;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 </style>
