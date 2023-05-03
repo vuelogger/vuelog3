@@ -1,5 +1,9 @@
 <template>
-  <img src="/images/bg.webp" class="main-bg" alt="background" />
+  <!-- <img src="/images/background.webp" class="main-bg" alt="background" /> -->
+  <picture class="main-bg">
+    <source media="(min-width: 768px)" srcset="/images/desktop-bg.webp" />
+    <img src="/images/mobile-bg.webp" alt="Responsive image" />
+  </picture>
   <Header />
   <Dock />
   <WindowList />
@@ -18,7 +22,12 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
   z-index: -1;
+
+  * {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 </style>

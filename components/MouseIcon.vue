@@ -27,7 +27,6 @@ const update = function () {
 
 onMounted(() => {
   window.addEventListener("mousemove", (e) => {
-    console.log(icon.value);
     if (icon.value) {
       target.x = e.clientX;
       target.y = e.clientY;
