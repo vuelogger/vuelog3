@@ -4,6 +4,7 @@
     <source media="(min-width: 768px)" srcset="/images/desktop-bg.webp" />
     <img src="/images/mobile-bg.webp" alt="Responsive image" />
   </picture>
+  <FallingStars />
   <Header />
   <Dock />
   <WindowList />
