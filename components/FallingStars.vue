@@ -21,7 +21,7 @@ onMounted(() => {
         left: (Math.random() * 100).toFixed(2) + "%",
         width: (Math.random() * 200).toFixed(2) + 20 + "px",
       });
-    }, 100);
+    }, 800);
   } else {
     stars.value = [];
   }
