@@ -36,8 +36,8 @@ $shining-length: 30px;
 .night {
   position: fixed;
   top: $header-height;
-  left: 0;
-  width: 100%;
+  left: -20%;
+  width: 140%;
   height: 10%;
 }
 
