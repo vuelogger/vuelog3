@@ -1,5 +1,5 @@
 <template>
-  <div class="content" v-if="page">
+  <div class="content">
     <!-- <div class="content__cover" :class="page.cover ? null : 'no-image'">
       <img :src="page.cover" v-if="page.cover" alt="cover" />
     </div>
@@ -65,7 +65,7 @@
     </div>
   </div>
 
-  <div class="skeleton" v-else>
+  <!-- <div class="skeleton" v-else>
     <div class="cover"></div>
     <div class="container">
       <div class="title"></div>
@@ -88,8 +88,8 @@
         <div class="text"></div>
       </div>
     </div>
-  </div>
-  <div class="comment">
+  </div> -->
+  <!-- <div class="comment">
     <Giscus
       id="comments"
       repo="vuelogger/vuelog-comment"
@@ -105,7 +105,7 @@
       theme="light"
       lang="ko"
     />
-  </div>
+  </div> -->
 </template>
 
 <script setup>
