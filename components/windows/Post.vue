@@ -13,7 +13,7 @@ const isPost = computed(() => {
 <template>
   <div class="post" ref="post">
     <SideBar />
-    <Content2 v-if="isPost" />
+    <Content v-if="isPost" />
     <List v-else-if="!isPost" />
   </div>
 </template>
