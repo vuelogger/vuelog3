@@ -26,6 +26,7 @@
     "open-graph-scraper": "^5.2.2",
     "pinia": "^2.0.35",
     "twitter-api-v2": "^1.14.1",
-    "vue-gtag-next": "^1.14.0"
+    "vue-gtag-next": "^1.14.0",
+    "vue-notion": "^3.0.0-beta.1"
   }
 }

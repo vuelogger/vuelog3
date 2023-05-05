@@ -1,6 +1,6 @@
 <template>
   <div class="content" v-if="page">
-    <div class="content__cover" :class="page.cover ? null : 'no-image'">
+    <!-- <div class="content__cover" :class="page.cover ? null : 'no-image'">
       <img :src="page.cover" v-if="page.cover" alt="cover" />
     </div>
     <div class="content__info">
@@ -59,7 +59,7 @@
         </div>
       </div>
       <hr />
-    </div>
+    </div> -->
     <div class="content__body">
       <Article :blocks="page.blocks" />
     </div>
