@@ -12,6 +12,7 @@
       <img :src="image" />
     </div>
   </a>
+  <Loading v-else="!bookmark" />
 </template>
 
 <script setup>
@@ -65,7 +66,7 @@ const icon = computed(() => {
   return result;
 });
 
-const { data } = await useFetch("/api/post/bookmark", {
+useFetch("/api/post/bookmark", {
   key: block.id,
   method: "post",
   headers: {
@@ -74,9 +75,9 @@ const { data } = await useFetch("/api/post/bookmark", {
   body: {
     url: block[block.type]?.url,
   },
+}).then(({ data }) => {
+  bookmark.value = data.value;
 });
-
-bookmark.value = data.value;
 </script>
 
 <style lang="scss">
@@ -166,6 +167,10 @@ $transition-time: 0.4s;
       object-fit: cover;
       transition: all $transition-time;
     }
+  }
+  &-skeleton {
+    height: 20rem;
+    @include skeleton;
   }
 }
 </style>
