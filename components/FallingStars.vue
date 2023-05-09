@@ -8,7 +8,7 @@
 
 <script setup>
 const stars = ref([]);
-const STARS = 20;
+const STARS = 10;
 
 onMounted(() => {
   if (window.innerWidth > 768) {
