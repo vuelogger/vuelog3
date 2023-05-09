@@ -86,15 +86,15 @@ $transition-time: 0.4s;
   display: flex;
   margin: 3rem 0;
   border-radius: 1rem;
-  background-color: rgb(241, 241, 241);
+  border: 1px solid #ddd;
   overflow: hidden;
   min-height: 20rem;
+  transition: all 0.3s;
   &:hover {
+    transform: translate(-0.3rem, -1rem);
+    box-shadow: 2px 2px 2px gray;
+
     .left {
-      h4 {
-        color: #4f74ff;
-        font-weight: bold;
-      }
       .url {
         span {
           &::before {
@@ -114,7 +114,7 @@ $transition-time: 0.4s;
     display: flex;
     flex-direction: column;
     flex: 3;
-    padding: 2rem;
+    padding: 4rem;
     box-sizing: border-box;
     line-height: 1.3;
 
@@ -150,7 +150,7 @@ $transition-time: 0.4s;
           bottom: -1px;
           width: 0;
           height: 3px;
-          background-color: #4f74ff;
+          background-color: #95abff;
           transition: all $transition-time;
         }
       }
@@ -159,6 +159,7 @@ $transition-time: 0.4s;
   .right {
     flex: 2;
     overflow: hidden;
+    border-left: 1px solid #ddd;
     img {
       width: 100%;
       height: 100%;
