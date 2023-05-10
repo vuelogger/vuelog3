@@ -72,9 +72,9 @@ article {
     display: block;
     margin: 2rem auto;
     max-width: 80%;
-    border-radius: 3rem;
     border: 1px solid lightgray;
     border-radius: 8px;
+    max-height: 50rem;
   }
 
   .inline-code {
