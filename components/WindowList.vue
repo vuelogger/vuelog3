@@ -57,15 +57,14 @@ const onMouseUp = () => {
   cursor.value = "auto";
 };
 
-let timer = null;
 const onMouseMove = (e) => {
   if (window.innerWidth < 768) return;
-  const { getCursorOf, resize, move } = useWindowStore();
-  const endPt = getPt(e);
 
   // Left Click
   if (startPt) {
     if (mode) {
+      const { resize, move } = useWindowStore();
+      const endPt = getPt(e);
       if (mode.startsWith("resize")) {
         resize(endPt, mode);
       } else if (mode === "move") {
@@ -74,6 +73,8 @@ const onMouseMove = (e) => {
       }
     }
   } else {
+    const { getCursorOf } = useWindowStore();
+    const endPt = getPt(e);
     cursor.value = getCursorOf(endPt);
   }
 };

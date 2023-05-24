@@ -8,7 +8,7 @@
   <Header />
   <Dock />
   <WindowList />
-  <MouseIcon />
+  <!-- <MouseIcon /> -->
   <NuxtPage />
 </template>
 
