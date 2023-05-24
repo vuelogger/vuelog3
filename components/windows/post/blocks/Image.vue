@@ -4,7 +4,6 @@
     class="image"
     :src="data?.file?.url"
     :alt="alt"
-    loading="lazy"
     decoding="async"
   />
   <!-- <nuxt-img
