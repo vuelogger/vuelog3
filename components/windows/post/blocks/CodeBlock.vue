@@ -40,6 +40,8 @@ onMounted(() => {
     color: white;
     padding: 1rem 1.5rem 0 1.5rem;
     margin-bottom: -0.5rem;
+    line-height: 2;
+
     .lang {
       color: #aaa;
       font-size: 0.6em;
