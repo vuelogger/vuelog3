@@ -42,7 +42,7 @@ onMounted(() => {
     margin-bottom: -0.5rem;
     .lang {
       color: #aaa;
-      font-size: 0.7em;
+      font-size: 0.6em;
       border-radius: 1rem;
       text-transform: uppercase;
 
@@ -58,7 +58,7 @@ onMounted(() => {
     }
 
     .code-caption {
-      color: gray;
+      color: lightgray;
       font-size: 0.9em;
       margin-left: auto;
     }
@@ -69,6 +69,7 @@ onMounted(() => {
     flex-direction: column;
     code {
       font-family: monospace;
+      font-size: 1.4rem;
       line-height: 1.4;
     }
   }
