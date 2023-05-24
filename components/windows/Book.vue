@@ -14,8 +14,8 @@
     </aside>
     <div class="content">
       <div class="container" v-if="blocks">
-        <header v-if="currPage">
-          <h1>{{ currPage.title }}</h1>
+        <header class="header" v-if="currPage">
+          <h1 class="title">{{ currPage.title }}</h1>
           <div class="created">
             Created: {{ dateToStr(currPage.created, "YYYY. MM. DD hh:mm A") }}
           </div>
@@ -102,7 +102,10 @@ const buttonClass = (item) => {
 };
 
 const getPage = function (id, number) {
-  bookStore.closeSidebar();
+  // mobile에서 클릭하면 닫히기
+  if (window.innerWidth < 768) {
+    bookStore.closeSidebar();
+  }
   currNum.value = number;
   router.push("/book/vue-notion/" + number);
 
@@ -160,26 +163,34 @@ watch(
       cursor: pointer;
 
       &:first-of-type {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         position: relative;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
 
         &::before {
           content: "";
           position: absolute;
           bottom: -1rem;
-          left: 0;
-          width: 100%;
+          left: 2rem;
+          width: calc(100% - 2rem * 2);
           height: 2px;
           background-color: lightgray;
         }
       }
 
+      &.depth-1 {
+        margin-top: 2rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: rgb(68, 123, 142);
+      }
       &.depth-2 {
-        padding-left: 3.5rem;
+        padding-left: 4rem;
+        font-size: 1.3rem;
+        color: #555;
       }
       &.depth-3 {
-        padding-left: 7rem;
+        padding-left: 8rem;
       }
 
       &.active {
@@ -212,22 +223,23 @@ watch(
       max-width: 100%;
       margin: 0 auto;
       box-sizing: border-box;
-      header {
-        padding-bottom: 2rem;
-        margin-bottom: 2rem;
-        border-bottom: 1px solid #dedede;
-        h1 {
+      .header {
+        .title {
           font-size: 3rem;
           font-weight: bold;
           line-height: 1.4;
           text-align: center;
           margin-bottom: 1rem;
+          padding-bottom: 2rem;
+          border-bottom: 1px solid #ccc;
         }
+
         .created,
         .updated {
           font-size: 1.1rem;
           color: gray;
-          text-align: center;
+          text-align: right;
+          line-height: 1.2;
         }
       }
     }
@@ -272,17 +284,24 @@ watch(
     }
     .prev-next {
       display: flex;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
+      border-top: 1px solid #ccc;
+      padding-top: 1rem;
 
+      .prev {
+        text-align: left;
+      }
       .next {
         margin-left: auto;
         text-align: right;
+        justify-content: flex-end;
       }
 
       .prev,
       .next {
         display: flex;
         align-items: center;
+        width: 50%;
         line-height: 1.5;
         cursor: pointer;
         &:hover {

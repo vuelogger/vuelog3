@@ -110,8 +110,9 @@ article {
       left: 0;
       transform: translateY(-50%);
       width: 10px;
-      height: 80%;
-      background-color: #858bff;
+      height: 60%;
+      background-color: #d2d4ff;
+      border-radius: 3rem;
     }
   }
 
