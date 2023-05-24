@@ -1,6 +1,6 @@
 <template>
   <section class="window" ref="win">
-    <div class="header" @dblclick="onDBClick">
+    <div class="header" @dblclick.self="onDBClick">
       <MacBtns
         class="btns"
         @close="close(name)"

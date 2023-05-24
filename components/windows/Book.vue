@@ -1,6 +1,6 @@
 <template>
   <div class="book" ref="container">
-    <aside :class="{ tablet: isTabletMode, active: sidebarActive }">
+    <aside :class="{ active: sidebarActive }">
       <button
         class="item"
         :class="buttonClass(item)"
@@ -79,7 +79,6 @@ const route = useRoute();
 const list = ref([]);
 const blocks = ref([]);
 const currNum = ref(route.params.number || 0);
-const isTabletMode = ref(true);
 
 const prevPage = computed(() => {
   return list.value[parseInt(currNum.value) - 1];
@@ -128,23 +127,6 @@ watch(
   },
   { immediate: true }
 );
-
-const observer = new MutationObserver(
-  throttle((mutationsList) => {
-    for (const { target } of mutationsList) {
-      isTabletMode.value = target.offsetWidth < 800;
-    }
-  }, 200)
-);
-
-onMounted(() => {
-  const win = document.querySelector(".window");
-  observer.observe(win, { attributes: true });
-});
-
-onUnmounted(() => {
-  observer.disconnect();
-});
 </script>
 
 <style lang="scss" scoped>
@@ -164,13 +146,9 @@ onUnmounted(() => {
     box-sizing: border-box;
     overflow-y: auto;
     padding: 2rem 0;
-
-    &.tablet {
-      display: none;
-
-      &.active {
-        display: block;
-      }
+    display: none;
+    &.active {
+      display: block;
     }
 
     .item {
