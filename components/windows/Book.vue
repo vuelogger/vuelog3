@@ -1,6 +1,6 @@
 <template>
   <div class="book" ref="container">
-    <aside :class="{ active: sidebarActive }">
+    <aside class="sidebar" :class="{ active: sidebarActive }">
       <button
         class="item"
         :class="buttonClass(item)"
@@ -65,7 +65,6 @@
 
 <script setup>
 import { dateToStr } from "@/src/util";
-import throttle from "lodash/throttle";
 
 import { storeToRefs } from "pinia";
 import { useBookStore } from "@/stores/book";
@@ -143,7 +142,7 @@ watch(
   overflow-y: hidden;
   display: flex;
 
-  aside {
+  .sidebar {
     flex: 0 0 35rem;
     height: 100%;
     box-sizing: border-box;

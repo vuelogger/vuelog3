@@ -119,7 +119,11 @@ watch(
     list.value = [];
     startCursor = undefined;
     setCategoryName();
-    await request();
+
+    // Content인 경우는 실행하지 않는다.
+    if (!Number.isInteger(parseInt(route.params.id))) {
+      await request();
+    }
     if (refs.value) {
       initIO();
     }

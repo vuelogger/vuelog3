@@ -89,27 +89,9 @@
       </div>
     </div>
   </div>
-  <div class="comment">
-    <Giscus
-      id="comments"
-      repo="vuelogger/vuelog-comment"
-      repoId="R_kgDOIe3B3Q"
-      category="Announcements"
-      categoryId="DIC_kwDOIe3B3c4CUzmS"
-      mapping="title"
-      strict="1"
-      term="Welcome to my Vuelog"
-      reactionsEnabled="0"
-      emitMetadata="1"
-      inputPosition="top"
-      theme="light"
-      lang="ko"
-    />
-  </div>
 </template>
 
 <script setup>
-import Giscus from "@giscus/vue";
 import Article from "./Article.vue";
 import { dateToStr } from "@/src/util";
 import { usePostStore } from "@/stores/post";

@@ -13,6 +13,7 @@ const request = function () {
   const number = parseInt(route.params.id);
   if (Number.isInteger(number)) {
     setPage(null);
+
     useFetch("/api/post/page", {
       method: "post",
       body: { number },
