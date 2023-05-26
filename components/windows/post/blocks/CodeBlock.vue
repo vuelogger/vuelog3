@@ -61,7 +61,7 @@ onMounted(() => {
 
     .code-caption {
       color: lightgray;
-      font-size: 0.9em;
+      font-size: 0.8em;
       margin-left: auto;
     }
   }
