@@ -21,7 +21,9 @@
         }"
         ref="refs"
       >
-        <img :src="item.user.avatar_url" alt="user image" />
+        <a :href="`https://github.com/${item.user.login}`" target="_blank">
+          <img :src="item.user.avatar_url" alt="user image" />
+        </a>
 
         <div class="text">
           <p class="name owner" v-if="item.author_association == 'OWNER'">
