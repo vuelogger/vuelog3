@@ -4,7 +4,7 @@
       <img :src="user.banner" class="banner" />
       <img :src="user.profile.replace('normal', '400x400')" class="profile" />
       <h3>{{ user.name }}</h3>
-      <a class="id" href="https://twitter.com/Vuelogger" target="_blank"
+      <a class="id" href="https://twitter.com/BlogCreator6109" target="_blank"
         >#{{ user.id }}</a
       >
       <p class="desc" v-html="user.description"></p>
@@ -30,7 +30,7 @@
         data-theme="dark"
         data-chrome="transparent nofooter noborders noheader noscrollbar"
         data-safari="transparent nofooter noborders noheader noscrollbar"
-        href="https://twitter.com/Vuelogger?ref_src=twsrc%5Etfw"
+        href="https://twitter.com/BlogCreator6109?ref_src=twsrc%5Etfw"
       ></a>
     </div>
   </div>
