@@ -47,14 +47,6 @@ export default defineNuxtConfig({
       title: "Vuelog",
       meta: [
         {
-          name: "google-site-verification",
-          content: "CyvFDg064KG5R0wkwhlZdsVdG5zElVLGvRiGMJIuV8Q",
-        },
-        {
-          name: "naver-site-verification",
-          content: "4d043e47da86db9a54e655b0c98b04051110c397",
-        },
-        {
           hid: "og:locale",
           property: "og:locale",
           content: "ko_KR",
